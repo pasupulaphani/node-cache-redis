@@ -1,0 +1,35 @@
+{
+  "name": "simple-redis-cache",
+  "version": "1.0.0",
+  "description": "Simplistic cache module that can scale",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pasupulaphani/simple-redis-cache.git"
+  },
+  "keywords": [
+    "cache",
+    "redis",
+    "store",
+    "connection",
+    "pool",
+    "node-pool"
+  ],
+  "author": "pasupulaphani@gmail.com",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/pasupulaphani/simple-redis-cache/issues"
+  },
+  "homepage": "https://github.com/pasupulaphani/simple-redis-cache#readme",
+  "dependencies": {
+    "debug": "^2.3.0",
+    "simple-redis-store": "0.0.1"
+  },
+  "devDependencies": {
+    "mocha": "^3.1.2",
+    "should": "^11.1.1"
+  }
+}
