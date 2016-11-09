@@ -3,12 +3,9 @@
   "version": "1.0.0",
   "description": "Simplistic cache module that can scale",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pasupulaphani/simple-redis-cache.git"
+    "url": "git+https://github.com/pasupulaphani/simple-redis-cache.git",
+    "type": "git"
   },
   "keywords": [
     "cache",
@@ -24,11 +21,16 @@
     "url": "https://github.com/pasupulaphani/simple-redis-cache/issues"
   },
   "homepage": "https://github.com/pasupulaphani/simple-redis-cache#readme",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec",
+    "lint": "node_modules/.bin/eslint ./lib"
+  },
   "dependencies": {
     "debug": "^2.3.0",
     "simple-redis-store": "0.0.1"
   },
   "devDependencies": {
+    "eslint": "^3.9.1",
     "mocha": "^3.1.2",
     "should": "^11.1.1"
   }
