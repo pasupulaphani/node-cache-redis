@@ -1,9 +1,13 @@
 require("should");
-var RedisCache = require("../lib/redis_cache");
+const RedisCache = require("../lib/redis_cache");
 
 describe("cache", function () {
 
-  var cache = new RedisCache("testStore");
+  const redisOptions = Object.assign({
+    host: process.env.REDIS_HOST || "127.0.0.1"
+  });
+
+  const cache = new RedisCache("testStore", redisOptions);
 
   describe("set", function () {
     it("set", function (done) {
@@ -18,8 +22,8 @@ describe("cache", function () {
 
   describe("get", function () {
 
-    var key = "chuck-norris";
-    var value = "superman";
+    const key = "chuck-norris";
+    const value = "superman";
 
     before(function (done) {
       cache.set(key, value)
