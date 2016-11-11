@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/pasupulaphani/simple-redis-cache.svg?branch=master)](https://travis-ci.org/pasupulaphani/simple-redis-cache)
 [![Coverage Status](https://coveralls.io/repos/github/pasupulaphani/simple-redis-cache/badge.svg?branch=master)](https://coveralls.io/github/pasupulaphani/simple-redis-cache?branch=master)
 [![dependencies Status](https://david-dm.org/pasupulaphani/simple-redis-cache/status.svg)](https://david-dm.org/pasupulaphani/simple-redis-cache)
-[![Gratipay donate button](https://img.shields.io/badge/gratipay-donate-yellow.svg)](https://gratipay.com/simple-redis-cache/)
+[![Gratipay donate button](https://img.shields.io/badge/gratipay-donate-yellow.svg)](https://gratipay.com/simple-redis-store/)
 
 # simple-redis-cache
 Redis cache ready to scale with node-pool support
