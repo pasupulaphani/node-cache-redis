@@ -1,0 +1,15 @@
+version: '2'
+services:
+  sut:
+    environment:
+      NODE_ENV: development
+      DEBUG: lib.*
+      REDIS_HOST: redis
+    build:
+      context: ../
+      dockerfile: ./test/Dockerfile.test
+    command: 'npm test'
+    links:
+      - redis
+  redis:
+    image: redis:3.0-alpine
