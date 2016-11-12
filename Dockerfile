@@ -5,9 +5,4 @@ MAINTAINER 	Phani Pasupula <pasupulaphani@gmail.com>
 WORKDIR /lib
 ADD . .
 
-# Create test user
-#RUN adduser -h /home/tester -s /bin/sh -u 40561 -D tester tester
-#USER tester
-
 RUN npm install yarn && ./node_modules/.bin/yarn
-CMD ["npm", "test"]
