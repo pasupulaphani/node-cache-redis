@@ -17,8 +17,8 @@ This module requires nodejs v4 or above as it has dependencies on constious es6 
 
     npm install simple-redis-cache
 
-    var RedisStore = require("simple-redis-cache");
-    var cache = new RedisStore();
+    var RedisCache = require("simple-redis-cache");
+    var cache = new RedisCache();
 
     // set
     cache.set("key", "value");
