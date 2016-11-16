@@ -223,12 +223,13 @@ describe("redisStore", function () {
 
   describe("deleteAll", function () {
 
-    beforeEach(function () {
+    beforeEach(function (done) {
       const keyValues = {key1: "value1", key2: "value2"};
 
-      for (var key in keyValues) {
-        store.set(key, keyValues[key]);
-      }
+      Promise.all(Object.keys(keyValues)
+        .map(key => store.set(key, keyValues[key]))
+      ).then(() => done());
+
     });
 
     it("should delete all the keys", function (done) {
@@ -236,9 +237,8 @@ describe("redisStore", function () {
       store.deleteAll()
         .then(function (v) {
           v.should.be.ok();
-        });
-
-      store.keys()
+        })
+        .then(store.keys)
         .then(function (keys) {
           keys.should.be.empty();
           done();
@@ -250,9 +250,8 @@ describe("redisStore", function () {
       store.deleteAll("key[2]")
         .then(function (v) {
           v.should.be.ok();
-        });
-
-      store.keys()
+        })
+        .then(store.keys)
         .then(function (keys) {
           keys.should.be.not.empty();
           keys.should.not.containEql("key2");
