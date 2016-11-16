@@ -10,7 +10,7 @@ describe("cache", function () {
   const cache = new RedisCache("testStore", redisOptions);
 
   describe("set", function () {
-    it("set", function (done) {
+    it("should set value", function (done) {
 
       cache.set("key", "value")
         .then(function (test) {
