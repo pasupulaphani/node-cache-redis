@@ -3,19 +3,19 @@ const RedisCache = require("../lib/redis_cache");
 
 describe("redisCache", () => {
 
-  describe("connect", () => {
-
-    it("should throw error on failed initialization", () => {
-      const redisOptions = Object.assign({
-        host: "UNAVAILABLE_HOST"
-      });
-
-      // (() => new RedisCache("testCache", redisOptions)).should.throw();
-    });
-  });
-
-  describe("Store not available", () => {
-  });
+  // describe("connect", () => {
+  //
+  //   it("should throw error on failed initialization", () => {
+  //     const redisOptions = Object.assign({
+  //       host: "UNAVAILABLE_HOST"
+  //     });
+  //
+  //     (() => new RedisCache("testCache", redisOptions)).should.throw();
+  //   });
+  // });
+  //
+  // describe("Store not available", () => {
+  // });
 
 
   describe("API", () => {
