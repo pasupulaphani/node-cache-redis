@@ -1,4 +1,4 @@
-require("should");
+const should = require("should");
 const RedisCache = require("../lib/redis_cache");
 
 describe("cache", function () {
@@ -26,8 +26,10 @@ describe("cache", function () {
       cache.set(key, value)
         .then(function (test) {
           test.should.be.ok();
-        });
-      cache.get(key)
+        })
+        .then(function () {
+          return cache.get(key);
+        })
         .then(function (v) {
           v.should.be.equal(value);
           done();
@@ -36,7 +38,7 @@ describe("cache", function () {
 
     it("should set value with expiry if ttl is provided", function (done) {
 
-      cache.set("key", "value")
+      cache.set("key", "value", 1)
         .then(function (test) {
           test.should.be.ok();
           done();
@@ -56,9 +58,54 @@ describe("cache", function () {
         });
     });
 
-    it("get", function (done) {
+    it("should get the existing key", function (done) {
 
       cache.get(key)
+        .then(function (v) {
+          v.should.be.equal(value);
+          done();
+        });
+    });
+
+    it("should not get the non-existing key", function (done) {
+
+      cache.get("nonExistingKey")
+        .then(function (v) {
+          should(v).not.be.ok();
+          done();
+        });
+    });
+  });
+
+  describe("wrap", function () {
+
+    const key = "chuck-norris";
+    const value = "superman";
+
+    it("should set if key not exists", function (done) {
+
+      cache.wrap(key, value)
+        .then(function (v) {
+          v.should.be.equal(value);
+        })
+        .then(function () {
+          return cache.get(key);
+        })
+        .then(function (v) {
+          v.should.be.equal(value);
+          done();
+        });
+    });
+
+    it("should get if key exists", function (done) {
+
+      cache.set(key, value)
+        .then(function (v) {
+          v.should.be.ok();
+        })
+        .then(function () {
+          return cache.wrap(key);
+        })
         .then(function (v) {
           v.should.be.equal(value);
           done();
