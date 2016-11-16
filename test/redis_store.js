@@ -56,7 +56,7 @@ describe("redisStore", function () {
     it("should store with an expiry if ttl set", function (done) {
 
       const key = "shortLivedKey";
-      const value = "expireIn10ms";
+      const value = "expireIn1s";
       const ttlInSeconds = 1;
 
       store.set(key, value, ttlInSeconds)
