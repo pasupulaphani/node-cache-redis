@@ -52,16 +52,14 @@ describe("redisStore", function () {
           done();
         });
     });
-  });
 
-  describe("setex", function () {
-    it("should store with an expiry", function (done) {
+    it("should store with an expiry if ttl set", function (done) {
 
       const key = "shortLivedKey";
       const value = "expireIn10ms";
       const ttlInSeconds = 1;
 
-      store.setex(key, value, ttlInSeconds)
+      store.set(key, value, ttlInSeconds)
         .then(function (test) {
           test.should.be.ok();
         })
@@ -153,7 +151,7 @@ describe("redisStore", function () {
       const value = "make it expire";
       const ttlInSeconds = 10;
 
-      store.setex(key, value, ttlInSeconds)
+      store.set(key, value, ttlInSeconds)
         .then(function (test) {
           test.should.be.ok();
         })

@@ -93,9 +93,7 @@ describe("redisCache", function () {
         .then(function (v) {
           v.should.be.equal(value);
         })
-        .then(function () {
-          return cache.get(key);
-        })
+        .then(() => cache.get(key))
         .then(function (v) {
           v.should.be.equal(value);
           done();
@@ -108,9 +106,7 @@ describe("redisCache", function () {
         .then(function (v) {
           v.should.be.ok();
         })
-        .then(function () {
-          return cache.wrap(key);
-        })
+        .then(() => cache.wrap(key))
         .then(function (v) {
           v.should.be.equal(value);
           done();
