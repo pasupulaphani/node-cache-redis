@@ -253,5 +253,18 @@ describe("redisStore", function () {
           done();
         });
     });
+
+    it("should not delete when nothing matches", function (done) {
+
+      store.deleteAll()
+        .then(function (v) {
+          v.should.be.ok();
+        })
+        .then(() => store.deleteAll("nonExistingKey"))
+        .then(function (v) {
+          v.should.be.ok();
+          done();
+        });
+    });
   });
 });

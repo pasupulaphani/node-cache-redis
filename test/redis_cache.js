@@ -82,6 +82,11 @@ describe("cache", function () {
     const key = "chuck-norris";
     const value = "superman";
 
+    before(function (done) {
+      cache.deleteAll()
+        .then(() => done());
+    });
+
     it("should set if key not exists", function (done) {
 
       cache.wrap(key, value)
@@ -111,64 +116,72 @@ describe("cache", function () {
           done();
         });
     });
+
+    it("should do nothing when ttlInSeconds=0", function (done) {
+
+      cache.wrap(key, value, 0)
+        .then(function (v) {
+          v.should.be.equal(value);
+          done();
+        });
+    });
   });
 
+  describe("keys", function () {
 
-    describe("keys", function () {
+    const keyValues = {key1: "value1", key2: "value2"};
 
+    before(function (done) {
+      cache.deleteAll()
+        .then(() => done());
+    });
+
+    beforeEach(function (done) {
+      Promise.all(Object.keys(keyValues)
+        .map(key => cache.set(key, keyValues[key]))
+      ).then(() => done());
+    });
+
+    it("should return all the keys", function (done) {
+
+      cache.keys()
+        .then(keys => {
+          keyValues.should.have.keys(keys[0], keys[1]);
+          done();
+        });
+    });
+
+    it("should return all the keys matches pattern", function (done) {
+
+      cache.keys("key[2]")
+        .then(keys => {
+          keys.should.containEql("key2");
+          done();
+        });
+    });
+  });
+
+  describe("deleteAll", function () {
+
+    beforeEach(function (done) {
       const keyValues = {key1: "value1", key2: "value2"};
 
-      before(function (done) {
-        cache.deleteAll()
-          .then(() => done());
-      });
-
-      beforeEach(function (done) {
-        Promise.all(Object.keys(keyValues)
-          .map(key => cache.set(key, keyValues[key]))
-        ).then(() => done());
-      });
-
-      it("should return all the keys", function (done) {
-
-        cache.keys()
-          .then(keys => {
-            keyValues.should.have.keys(keys[0], keys[1]);
-            done();
-          });
-      });
-
-      it("should return all the keys matches pattern", function (done) {
-
-        cache.keys("key[2]")
-          .then(keys => {
-            keys.should.containEql("key2");
-            done();
-          });
-      });
+      Promise.all(Object.keys(keyValues)
+        .map(key => cache.set(key, keyValues[key]))
+      ).then(() => done());
     });
 
-    describe("deleteAll", function () {
+    it("should delete all the keys", function (done) {
 
-      beforeEach(function (done) {
-        const keyValues = {key1: "value1", key2: "value2"};
-
-        Promise.all(Object.keys(keyValues)
-          .map(key => cache.set(key, keyValues[key]))
-        ).then(() => done());
-      });
-
-      it("should delete all the keys", function (done) {
-
-        cache.deleteAll()
-          .then(function (v) {
-            v.should.be.ok();
-          })
-          .then(cache.keys)
-          .then(function (keys) {
-            keys.should.be.empty();
-            done();
-          });
-      });
+      cache.deleteAll()
+        .then(function (v) {
+          v.should.be.ok();
+        })
+        .then(cache.keys)
+        .then(function (keys) {
+          keys.should.be.empty();
+          done();
+        });
     });
+  });
 });
