@@ -1,184 +1,136 @@
-const should = require("should");
+require("should");
 const RedisCache = require("../lib/redis_cache");
 
-describe("redisCache", function () {
+describe("redisCache", () => {
 
-  const redisOptions = Object.assign({
-    host: process.env.REDIS_HOST || "127.0.0.1"
-  });
-  const cache = new RedisCache("testStore", redisOptions);
+  // describe("connect", () => {
+  //
+  //   it("should throw error on failed initialization", () => {
+  //     const redisOptions = Object.assign({
+  //       host: "UNAVAILABLE_HOST"
+  //     });
+  //
+  //     (() => new RedisCache("testCache", redisOptions)).should.throw();
+  //   });
+  // });
+  //
+  // describe("Store not available", () => {
+  // });
 
-  describe("set", function () {
 
-    const key = "captain-america";
-    const value = "daddyIssues";
+  describe("API", () => {
 
-    beforeEach(function (done) {
-      cache.deleteAll()
-        .then(function (v) {
-          v.should.be.ok();
-          done();
-        });
+    const redisOptions = Object.assign({
+      host: process.env.REDIS_HOST || "127.0.0.1"
+    });
+    const cache = new RedisCache("testCache", redisOptions);
+
+    describe("set", () => {
+
+      const key = "captain-america";
+      const value = "daddyIssues";
+
+      beforeEach(() => cache.deleteAll());
+
+      it("should set value without expiry if ttl is not provided", () => {
+
+        return cache.set(key, value)
+          .then(() => cache.get(key))
+          .should.eventually.be.equal(value);
+      });
+
+      it("should set value with expiry if ttl is provided", () => {
+
+        return cache.set("key", "value", 1)
+          .should.eventually.be.ok();
+      });
     });
 
-    it("should set value without expiry if ttl is not provided", function (done) {
+    describe("get", () => {
 
-      cache.set(key, value)
-        .then(function (test) {
-          test.should.be.ok();
-        })
-        .then(function () {
-          return cache.get(key);
-        })
-        .then(function (v) {
-          v.should.be.equal(value);
-          done();
-        });
+      const key = "chuck-norris";
+      const value = "superman";
+
+      before(() => cache.set(key, value));
+
+      it("should get the existing key", () => {
+
+        return cache.get(key)
+          .should.eventually.be.equal(value);
+      });
+
+      it("should not get the non-existing key", () => {
+
+        return cache.get("nonExistingKey")
+          .should.eventually.not.be.ok();
+      });
     });
 
-    it("should set value with expiry if ttl is provided", function (done) {
+    describe("wrap", () => {
 
-      cache.set("key", "value", 1)
-        .then(function (test) {
-          test.should.be.ok();
-          done();
-        });
-    });
-  });
+      const key = "chuck-norris";
+      const value = "superman";
 
-  describe("get", function () {
+      before(() => cache.deleteAll());
 
-    const key = "chuck-norris";
-    const value = "superman";
+      it("should set if key not exists", () => {
 
-    before(function (done) {
-      cache.set(key, value)
-        .then(function () {
-          done();
-        });
-    });
+        return cache.wrap(key, value)
+          .then(v => v.should.be.equal(value))
+          .then(() => cache.get(key))
+          .should.eventually.be.equal(value);
+      });
 
-    it("should get the existing key", function (done) {
+      it("should get if key exists", () => {
 
-      cache.get(key)
-        .then(function (v) {
-          v.should.be.equal(value);
-          done();
-        });
-    });
+        return cache.set(key, value)
+          .then(v => v.should.be.ok())
+          .then(() => cache.wrap(key))
+          .should.eventually.be.equal(value);
+      });
 
-    it("should not get the non-existing key", function (done) {
+      it("should do nothing when ttlInSeconds=0", () => {
 
-      cache.get("nonExistingKey")
-        .then(function (v) {
-          should(v).not.be.ok();
-          done();
-        });
-    });
-  });
-
-  describe("wrap", function () {
-
-    const key = "chuck-norris";
-    const value = "superman";
-
-    before(function (done) {
-      cache.deleteAll()
-        .then(() => done());
+        return cache.wrap(key, value, 0)
+          .should.eventually.be.equal(value);
+      });
     });
 
-    it("should set if key not exists", function (done) {
+    describe("keys", () => {
 
-      cache.wrap(key, value)
-        .then(function (v) {
-          v.should.be.equal(value);
-        })
-        .then(() => cache.get(key))
-        .then(function (v) {
-          v.should.be.equal(value);
-          done();
-        });
-    });
-
-    it("should get if key exists", function (done) {
-
-      cache.set(key, value)
-        .then(function (v) {
-          v.should.be.ok();
-        })
-        .then(() => cache.wrap(key))
-        .then(function (v) {
-          v.should.be.equal(value);
-          done();
-        });
-    });
-
-    it("should do nothing when ttlInSeconds=0", function (done) {
-
-      cache.wrap(key, value, 0)
-        .then(function (v) {
-          v.should.be.equal(value);
-          done();
-        });
-    });
-  });
-
-  describe("keys", function () {
-
-    const keyValues = {key1: "value1", key2: "value2"};
-
-    before(function (done) {
-      cache.deleteAll()
-        .then(() => done());
-    });
-
-    beforeEach(function (done) {
-      Promise.all(Object.keys(keyValues)
-        .map(key => cache.set(key, keyValues[key]))
-      ).then(() => done());
-    });
-
-    it("should return all the keys", function (done) {
-
-      cache.keys()
-        .then(keys => {
-          keyValues.should.have.keys(keys[0], keys[1]);
-          done();
-        });
-    });
-
-    it("should return all the keys matches pattern", function (done) {
-
-      cache.keys("key[2]")
-        .then(keys => {
-          keys.should.containEql("key2");
-          done();
-        });
-    });
-  });
-
-  describe("deleteAll", function () {
-
-    beforeEach(function (done) {
       const keyValues = {key1: "value1", key2: "value2"};
 
-      Promise.all(Object.keys(keyValues)
-        .map(key => cache.set(key, keyValues[key]))
-      ).then(() => done());
+      before(() => cache.deleteAll());
+      beforeEach(() => Promise.all(Object.keys(keyValues)
+          .map(key => cache.set(key, keyValues[key]))));
+
+      it("should return all the keys", () => {
+
+        return cache.keys()
+          .then(keys => keys.map(k => Object.keys(keyValues).should.containEql(k)));
+      });
+
+      it("should return all the keys matches pattern", () => {
+
+        return cache.keys("key[2]")
+          .should.eventually.containEql("key2");
+      });
     });
 
-    it("should delete all the keys", function (done) {
+    describe("deleteAll", () => {
 
-      cache.deleteAll()
-        .then(function (v) {
-          v.should.be.ok();
-        })
-        .then(() => cache.keys())
-        .then(keys => {
-          keys.should.be.empty();
-          done();
-        })
-        .catch(e => console.log(e));
+      const keyValues = {key1: "value1", key2: "value2"};
+
+      beforeEach(() => Promise.all(Object.keys(keyValues)
+          .map(key => cache.set(key, keyValues[key]))));
+
+      it("should delete all the keys", () => {
+
+        return cache.deleteAll()
+          .then(v => v.should.be.ok())
+          .then(() => cache.keys())
+          .should.eventually.be.empty();
+      });
     });
   });
 });

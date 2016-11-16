@@ -10,13 +10,10 @@ describe("redisPool", () => {
 
   describe("acquire", () => {
 
-    it("should acquire connection", (done) => {
+    it("should acquire connection", () => {
 
-      pool.acquire()
-        .then(conn => {
-          conn.should.be.ok();
-          done();
-        });
+      return pool.acquire()
+        .should.be.ok();
     });
   });
 });
