@@ -1,261 +1,207 @@
-const should = require("should");
+require("should");
 const Bluebird = require("bluebird");
 const RedisStore = require("../lib/redis_store");
 
-describe("redisStore", function () {
+describe("redisStore", () => {
 
+  const name = "testStore";
   const redisOptions = Object.assign({
     host: process.env.REDIS_HOST || "127.0.0.1"
   });
-  const store = new RedisStore("testStore", redisOptions);
 
-  describe("get", function () {
-    it("should retrieve an existing key", function (done) {
+  const store = new RedisStore(name, redisOptions);
+
+  describe("getName", () => {
+    it("should return with given name", () => {
+      store.getName().should.be.equal(name);
+    });
+  });
+
+  describe("get", () => {
+    it("should retrieve an existing key", () => {
 
       const key = "chuck-norris";
       const value = "superman";
 
-      store.set(key, value)
+      return store.set(key, value)
         .then(test => {
           test.should.be.ok();
         })
         .then(() => store.get(key))
-        .then(function (v) {
-          v.should.be.equal(value);
-          done();
-        });
+        .should.eventually.be.equal(value);
     });
 
-    it("should return null if key doesn't exist", function (done) {
+    it("should return null if key doesn't exist", () => {
 
-      store.get("unknownKey")
-        .then(function (v) {
-          should(v).be.null;
-          done();
-        });
+      return store.get("unknownKey")
+        .should.eventually.be.null;
     });
   });
 
-  describe("set", function () {
-    it("should store a value", function (done) {
+  describe("set", () => {
+    it("should store a value", () => {
 
       const key = "key";
       const value = "neverExpire";
 
-      store.set(key, value)
-        .then(function (test) {
+      return store.set(key, value)
+        .then(test => {
           test.should.be.ok();
         })
         .then(() => store.get(key))
-        .then(function (v) {
-          v.should.be.equal(value);
-          done();
-        });
+        .should.eventually.be.equal(value);
     });
 
-    it("should store with an expiry if ttl set", function (done) {
+    it("should store with an expiry if ttl set", () => {
 
       const key = "shortLivedKey";
       const value = "expireIn1s";
       const ttlInSeconds = 1;
 
       store.set(key, value, ttlInSeconds)
-        .then(function (test) {
+        .then(test => {
           test.should.be.ok();
         })
         .then(() => store.get(key))
-        .then(function (v) {
-          v.should.be.equal(value);
-        });
+        .should.eventually.be.equal(value);
 
-      Bluebird.delay(ttlInSeconds * 1000)
-        .done(() => {
-          return store.get(key)
-            .then(function (v) {
-              should(v).be.null;
-              done();
-            });
-        });
+      return Bluebird.delay(ttlInSeconds * 1000)
+        .done(() => store.get(key)
+            .should.eventually.be.null
+        );
     });
   });
 
-  describe("del", function () {
-    it("should delete an existing key", function (done) {
+  describe("del", () => {
+    it("should delete an existing key", () => {
 
       const key = "key";
       const value = "neverExpire";
 
-      store.set(key, value)
-        .then(function (test) {
+      return store.set(key, value)
+        .then(test => {
           test.should.be.ok();
         })
         .then(() => store.del(key))
-        .then(function (v) {
+        .then(v => {
           v.should.be.ok();
         })
         .then(() => store.get(key))
-        .then(function (v) {
-          should(v).be.null;
-          done();
-        });
+        .should.eventually.be.null;
     });
 
-    it("should return null deleting non-existing key", function (done) {
-      store.del("unknownKey")
-        .then(function (v) {
-          should(v).be.null;
-          done();
-        });
+    it("should return null deleting non-existing key", () => {
+      return store.del("unknownKey")
+        .should.eventually.be.null;
     });
   });
 
-  describe("expire", function () {
-    it("should set a key with expire in seconds", function (done) {
+  describe("expire", () => {
+    it("should set a key with expire in seconds", () => {
 
       const key = "key";
       const value = "make it expire";
       const ttlInSeconds = 1;
 
       store.set(key, value)
-        .then(function (test) {
+        .then(test => {
           test.should.be.ok();
         })
         .then(() => store.expire(key, ttlInSeconds))
-        .then(function (v) {
-          v.should.be.ok();
-        });
+        .should.eventually.be.ok();
 
-      Bluebird.delay(ttlInSeconds * 1000)
-        .done(() => {
-          return store.get(key)
-            .then(function (v) {
-              should(v).be.null;
-              done();
-            });
-        });
+      return Bluebird.delay(ttlInSeconds * 1000)
+        .done(() => store.get(key)
+            .should.eventually.be.null);
     });
 
-    it("should return null expiring non-existing key", function (done) {
-      store.expire("unknownKey", 10)
-        .then(function (v) {
-          should(v).be.null;
-          done();
-        });
+    it("should return null expiring non-existing key", () => {
+      return store.expire("unknownKey", 10)
+        .should.eventually.be.null;
     });
   });
 
-  describe("ttl", function () {
-    it("should return ttl left for a key in seconds", function (done) {
+  describe("ttl", () => {
+
+    before(() => store.deleteAll());
+
+    it("should return ttl left for a key in seconds", () => {
 
       const key = "key";
       const value = "make it expire";
       const ttlInSeconds = 10;
 
-      store.set(key, value, ttlInSeconds)
-        .then(function (test) {
+      return store.set(key, value, ttlInSeconds)
+        .then(test => {
           test.should.be.ok();
         })
         .then(() => store.ttlInSeconds(key))
-        .then(function (v) {
-
-          // it should be same as the time elapsed is very vvery small
-          v.should.be.equal(ttlInSeconds);
-          done();
-        });
-
+        // it should be same as the time elapsed is very vvery small
+        .should.eventually.be.equal(ttlInSeconds);
     });
 
-    it("should return null on ttl for a non-existing key", function (done) {
-      store.ttlInSeconds("unknownKey")
-        .then(function (v) {
-          should(v).be.null;
-          done();
-        });
+    it("should return null on ttl for a non-existing key", () => {
+      return store.ttlInSeconds("unknownKey")
+        .should.eventually.be.null;
     });
   });
 
-  describe("keys", function () {
+  describe("keys", () => {
 
     const keyValues = {key1: "value1", key2: "value2"};
 
-    before(function (done) {
-      store.deleteAll()
-        .then(() => done());
+    before(() => store.deleteAll());
+
+    beforeEach(() => Promise.all(Object.keys(keyValues)
+        .map(key => store.set(key, keyValues[key]))));
+
+    it("should return all the keys", () => {
+
+      return store.keys()
+        .then(keys => keys.map(k => Object.keys(keyValues).should.containEql(k)));
     });
 
-    beforeEach(function (done) {
-      Promise.all(Object.keys(keyValues)
-        .map(key => store.set(key, keyValues[key]))
-      ).then(() => done());
-    });
+    it("should return all the keys matches pattern", () => {
 
-    it("should return all the keys", function (done) {
-
-      store.keys()
-        .then(keys => {
-          keyValues.should.have.keys(keys[0], keys[1]);
-          done();
-        });
-    });
-
-    it("should return all the keys matches pattern", function (done) {
-
-      store.keys("key[2]")
-        .then(keys => {
-          keys.should.containEql("key2");
-          done();
-        });
+      return store.keys("key[2]")
+        .should.eventually.containEql("key2");
     });
   });
 
-  describe("deleteAll", function () {
+  describe("deleteAll", () => {
 
-    beforeEach(function (done) {
-      const keyValues = {key1: "value1", key2: "value2"};
+    const keyValues = {key1: "value1", key2: "value2"};
 
-      Promise.all(Object.keys(keyValues)
-        .map(key => store.set(key, keyValues[key]))
-      ).then(() => done());
+    beforeEach(() => Promise.all(Object.keys(keyValues)
+        .map(key => store.set(key, keyValues[key]))));
+
+    it("should delete all the keys", () => {
+
+      return store.deleteAll()
+        .then(v => v.should.be.ok())
+        .then(() => store.keys())
+        .should.eventually.be.empty();
     });
 
-    it("should delete all the keys", function (done) {
+    it("should delete all the keys matches pattern", () => {
 
-      store.deleteAll()
-        .then(function (v) {
+      return store.deleteAll("key[2]")
+        .then(v => {
           v.should.be.ok();
         })
-        .then(store.keys)
-        .then(function (keys) {
-          keys.should.be.empty();
-          done();
-        });
+        .then(() => store.keys())
+        .should.eventually.be.not.empty()
+        .and.not.containEql("key2");
     });
 
-    it("should delete all the keys matches pattern", function (done) {
+    it("should not delete when nothing matches", () => {
 
-      store.deleteAll("key[2]")
-        .then(function (v) {
-          v.should.be.ok();
-        })
-        .then(store.keys)
-        .then(function (keys) {
-          keys.should.be.not.empty();
-          keys.should.not.containEql("key2");
-          done();
-        });
-    });
-
-    it("should not delete when nothing matches", function (done) {
-
-      store.deleteAll()
-        .then(function (v) {
+      return store.deleteAll()
+        .then(v => {
           v.should.be.ok();
         })
         .then(() => store.deleteAll("nonExistingKey"))
-        .then(function (v) {
-          v.should.be.ok();
-          done();
-        });
+        .should.eventually.be.ok();
     });
   });
 });
