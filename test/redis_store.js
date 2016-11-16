@@ -185,21 +185,23 @@ describe("redisStore", function () {
 
   describe("keys", function () {
 
-    beforeEach(function (done) {
+    const keyValues = {key1: "value1", key2: "value2"};
+
+    before(function (done) {
       store.deleteAll()
         .then(() => done());
     });
 
+    beforeEach(function (done) {
+      Promise.all(Object.keys(keyValues)
+        .map(key => store.set(key, keyValues[key]))
+      ).then(() => done());
+    });
+
     it("should return all the keys", function (done) {
 
-      const keyValues = {key1: "value1", key2: "value2"};
-
-      for (var key in keyValues) {
-        store.set(key, keyValues[key]);
-      }
-
       store.keys()
-        .then(function (keys) {
+        .then(keys => {
           keyValues.should.have.keys(keys[0], keys[1]);
           done();
         });
@@ -207,14 +209,8 @@ describe("redisStore", function () {
 
     it("should return all the keys matches pattern", function (done) {
 
-      const keyValues = {key1: "value1", key2: "value2"};
-
-      for (var key in keyValues) {
-        store.set(key, keyValues[key]);
-      }
-
       store.keys("key[2]")
-        .then(function (keys) {
+        .then(keys => {
           keys.should.containEql("key2");
           done();
         });
@@ -229,7 +225,6 @@ describe("redisStore", function () {
       Promise.all(Object.keys(keyValues)
         .map(key => store.set(key, keyValues[key]))
       ).then(() => done());
-
     });
 
     it("should delete all the keys", function (done) {
