@@ -16,11 +16,10 @@ describe("redisStore", function () {
       const value = "superman";
 
       store.set(key, value)
-        .then(function (test) {
+        .then(test => {
           test.should.be.ok();
-        });
-
-      store.get(key)
+        })
+        .then(() => store.get(key))
         .then(function (v) {
           v.should.be.equal(value);
           done();
@@ -46,9 +45,8 @@ describe("redisStore", function () {
       store.set(key, value)
         .then(function (test) {
           test.should.be.ok();
-        });
-
-      store.get(key)
+        })
+        .then(() => store.get(key))
         .then(function (v) {
           v.should.be.equal(value);
           done();
@@ -66,9 +64,8 @@ describe("redisStore", function () {
       store.setex(key, value, ttlInSeconds)
         .then(function (test) {
           test.should.be.ok();
-        });
-
-      store.get(key)
+        })
+        .then(() => store.get(key))
         .then(function (v) {
           v.should.be.equal(value);
         });
@@ -93,14 +90,12 @@ describe("redisStore", function () {
       store.set(key, value)
         .then(function (test) {
           test.should.be.ok();
-        });
-
-      store.del(key)
+        })
+        .then(() => store.del(key))
         .then(function (v) {
           v.should.be.ok();
-        });
-
-      store.get(key)
+        })
+        .then(() => store.get(key))
         .then(function (v) {
           should(v).be.null;
           done();
@@ -126,9 +121,8 @@ describe("redisStore", function () {
       store.set(key, value)
         .then(function (test) {
           test.should.be.ok();
-        });
-
-      store.expire(key, ttlInSeconds)
+        })
+        .then(() => store.expire(key, ttlInSeconds))
         .then(function (v) {
           v.should.be.ok();
         });
@@ -162,9 +156,8 @@ describe("redisStore", function () {
       store.setex(key, value, ttlInSeconds)
         .then(function (test) {
           test.should.be.ok();
-        });
-
-      store.ttlInSeconds(key)
+        })
+        .then(() => store.ttlInSeconds(key))
         .then(function (v) {
 
           // it should be same as the time elapsed is very vvery small

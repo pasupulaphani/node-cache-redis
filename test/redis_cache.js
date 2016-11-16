@@ -1,7 +1,7 @@
 const should = require("should");
 const RedisCache = require("../lib/redis_cache");
 
-describe("cache", function () {
+describe("redisCache", function () {
 
   const redisOptions = Object.assign({
     host: process.env.REDIS_HOST || "127.0.0.1"
@@ -177,11 +177,12 @@ describe("cache", function () {
         .then(function (v) {
           v.should.be.ok();
         })
-        .then(cache.keys)
-        .then(function (keys) {
+        .then(() => cache.keys())
+        .then(keys => {
           keys.should.be.empty();
           done();
-        });
+        })
+        .catch(e => console.log(e));
     });
   });
 });
