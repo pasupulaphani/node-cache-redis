@@ -34,9 +34,10 @@
   },
   "dependencies": {
     "bluebird": "^3.4.6",
-    "debug": "^2.2.0",
-    "generic-pool": "^3.1.1",
-    "redis": "^2.6.2"
+    "debug": "^2.3.0",
+    "eslint": "^3.9.1",
+    "generic-pool": "3.1.1",
+    "redis": "^2.6.3"
   },
   "devDependencies": {
     "coveralls": "^2.11.14",
