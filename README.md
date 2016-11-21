@@ -7,11 +7,25 @@
 # simple-redis-cache
 Redis cache ready to scale with node-pool support
 
+> Cache Early; Cache Often
+
 > Note: This lib is in beta
 
 ## Prerequisites
 
 This module requires nodejs v4 or above as it has dependencies on constious es6 components such as Map, Set, Promise etc.
+
+## Featuring
+- Out of the box default configuration (but fully configurable)
+- Provides both sync and async API
+- Scalable easily, less friction during locking and purging
+- Synchronized locking with a semaphore
+- Design for multithread environment
+- Extensible Logging
+- Serialization: Used to serialize values in distributed scenarios, can be configured.
+- Flexible Expiration: Through configuration, you can set a default expiration mode and time for each layer.
+- Statistics / Counters: Gather statistical information and track caching operations in Performance Monitor as needed.
+- Modular Design: Lib comes in many different packages, separating the features and dependencies.
 
 ### Getting started
 
@@ -26,3 +40,8 @@ This module requires nodejs v4 or above as it has dependencies on constious es6 
 ### Run tests
 
     bash test.sh
+ 
+ 
+### Contributing
+
+Feel free to make changes. Please see the [Contributors' Guide](https://github.com/pasupulaphani/simple-redis-cache/blob/master/CONTRIBUTING.md) for more information on contributing to the documentation.
