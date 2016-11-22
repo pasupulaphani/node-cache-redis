@@ -41,6 +41,42 @@ describe("redisPool", () => {
         .should.eventually.be.equal(db);
     });
 
+    it("should wait to acquire if all used up", () => {
+      const poolOptions = {
+        min: 0,
+        max: 1
+      };
+      const pool = new RedisPool("testPool", redisOptions);
+
+      pool.availableObjectsCount().should.be.equal(poolOptions.min);
+      pool.getPoolSize().should.be.equal(poolOptions.min);
+      pool.waitingClientsCount().should.be.equal(0);
+
+      return pool.acquire()
+        .then(client => {
+          pool.availableObjectsCount().should.be.equal(poolOptions.min);
+          pool.getPoolSize().should.be.equal(1);
+          pool.waitingClientsCount().should.be.equal(0);
+          return pool.release(client);
+        })
+        .then(() => pool.availableObjectsCount().should.be.equal(1))
+        .then(() => pool.acquire())
+        .then(() => {
+          pool.availableObjectsCount().should.be.equal(0);
+          pool.getPoolSize().should.be.equal(1);
+          pool.waitingClientsCount().should.be.equal(0);
+        })
+        .then(() => {
+          pool.acquire(); // this is hanging op so no return
+          return;
+        })
+        .then(() => {
+          pool.availableObjectsCount().should.be.equal(0);
+          pool.getPoolSize().should.be.equal(1);
+          pool.waitingClientsCount().should.be.equal(1);
+        });
+    });
+
     it("should not acquire connection with invalid host", () => {
       redisOptions.host = "UNAVAILABLE_HOST";
 
@@ -63,6 +99,7 @@ describe("redisPool", () => {
 
       pool.availableObjectsCount().should.be.equal(poolOptions.min);
       pool.getPoolSize().should.be.equal(poolOptions.min);
+      pool.waitingClientsCount().should.be.equal(0);
 
       return pool.acquire()
         .then(client => {
@@ -85,6 +122,7 @@ describe("redisPool", () => {
 
       pool.availableObjectsCount().should.be.equal(poolOptions.min);
       pool.getPoolSize().should.be.equal(poolOptions.min);
+      pool.waitingClientsCount().should.be.equal(0);
 
       return pool.drain()
         .then(() => {
