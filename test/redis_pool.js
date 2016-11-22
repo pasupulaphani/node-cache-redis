@@ -15,13 +15,15 @@ describe("redisPool", () => {
         .should.be.ok();
     });
 
-    // this is due to the limitation of node-pool ATM
-    // it("should not acquire connection with invalid host", () => {
-    //   const redisOptions = Object.assign({
-    //     host: "UNAVAILABLE_HOST"
-    //   });
-    //
-    //   (() => new RedisPool("testCache", redisOptions)).should.throw();
-    // });
+    it("should not acquire connection with invalid host", () => {
+      const redisOptions = Object.assign({
+        host: "UNAVAILABLE_HOST"
+      });
+
+      const pool = new RedisPool("testCache", redisOptions);
+
+      // this is due to the limitation of node-pool ATM
+      return pool.acquire().should.eventually.be.instanceOf(Error);
+    });
   });
 });
