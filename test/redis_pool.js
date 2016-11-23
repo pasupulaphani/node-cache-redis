@@ -1,4 +1,5 @@
 require("should");
+const Bluebird = require("bluebird");
 const RedisPool = require("../lib/redis_pool");
 
 describe("redisPool", () => {
@@ -11,13 +12,14 @@ describe("redisPool", () => {
 
     it("should set db when sent as constructor option", () => {
 
-      redisOptions.db = 1;
-
-      const pool = new RedisPool("testPool", redisOptions);
+      const redisDb = 1;
+      const pool = new RedisPool("testPool", Object.assign(redisOptions, {
+        db: redisDb
+      }));
 
       return pool.acquire(0)
         .then(c => c.selected_db)
-        .should.eventually.be.equal(redisOptions.db);
+        .should.eventually.be.equal(redisDb);
     });
   });
 
@@ -46,7 +48,7 @@ describe("redisPool", () => {
         min: 0,
         max: 1
       };
-      const pool = new RedisPool("testPool", redisOptions);
+      const pool = new RedisPool("testPool", redisOptions, poolOptions);
 
       pool.availableObjectsCount().should.be.equal(poolOptions.min);
       pool.getPoolSize().should.be.equal(poolOptions.min);
@@ -78,12 +80,11 @@ describe("redisPool", () => {
     });
 
     it("should not acquire connection with invalid host", () => {
-      redisOptions.host = "UNAVAILABLE_HOST";
+      const pool = new RedisPool("testCache", {
+        host: "UNAVAILABLE_HOST"
+      });
 
-      const pool = new RedisPool("testCache", redisOptions);
-
-      // this is due to the limitation of node-pool ATM
-      return pool.acquire().should.eventually.be.instanceOf(Error);
+      return pool.acquire().should.be.rejected();
     });
   });
 
@@ -106,6 +107,30 @@ describe("redisPool", () => {
           pool.availableObjectsCount().should.be.equal(poolOptions.min - 1);
           return pool.release(client);
         })
+        .then(() => pool.availableObjectsCount().should.be.equal(poolOptions.min));
+    });
+  });
+
+  describe("destroy", () => {
+
+    const poolOptions = {
+      min: 2,
+      max: 4
+    };
+    const pool = new RedisPool("testPool", redisOptions, poolOptions);
+
+    it("should destroy connection with valid host", () => {
+
+      pool.availableObjectsCount().should.be.equal(poolOptions.min);
+      pool.getPoolSize().should.be.equal(poolOptions.min);
+      pool.waitingClientsCount().should.be.equal(0);
+
+      return pool.acquire()
+        .then(client => {
+          pool.availableObjectsCount().should.be.equal(poolOptions.min - 1);
+          return pool.destroy(client);
+        })
+        .then(() => Bluebird.delay(100))
         .then(() => pool.availableObjectsCount().should.be.equal(poolOptions.min));
     });
   });
