@@ -3,17 +3,17 @@ const RedisCache = require("../lib/redis_cache");
 
 describe("redisCache", () => {
 
-  // current limitation due to node-pool limitation
-  describe.only("connect", () => {
-
-    it("should throw error on failed initialization", () => {
-      const redisOptions = Object.assign({
-        host: "UNAVAILABLE_HOST"
-      });
-
-      (() => new RedisCache("testCache", redisOptions)).should.throw();
-    });
-  });
+  // // current limitation due to node-pool limitation
+  // describe.only("connect", () => {
+  //
+  //   it("should throw error on failed initialization", () => {
+  //     const redisOptions = Object.assign({
+  //       host: "UNAVAILABLE_HOST"
+  //     });
+  //
+  //     (() => new RedisCache("testCache", redisOptions)).should.throw();
+  //   });
+  // });
 
   // describe("Store not available", () => {
   // });
