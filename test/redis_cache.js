@@ -3,7 +3,8 @@ const RedisCache = require("../lib/redis_cache");
 
 describe("redisCache", () => {
 
-  // describe("connect", () => {
+  // // current limitation due to node-pool limitation
+  // describe.only("connect", () => {
   //
   //   it("should throw error on failed initialization", () => {
   //     const redisOptions = Object.assign({
@@ -13,17 +14,19 @@ describe("redisCache", () => {
   //     (() => new RedisCache("testCache", redisOptions)).should.throw();
   //   });
   // });
-  //
+
   // describe("Store not available", () => {
   // });
 
 
   describe("API", () => {
 
-    const redisOptions = Object.assign({
-      host: process.env.REDIS_HOST || "127.0.0.1"
+    const cache = new RedisCache({
+      name: "testCache",
+      redisOptions: {
+        host: process.env.REDIS_HOST || "127.0.0.1"
+      }
     });
-    const cache = new RedisCache("testCache", redisOptions);
 
     describe("set", () => {
 
@@ -127,7 +130,6 @@ describe("redisCache", () => {
       it("should delete all the keys", () => {
 
         return cache.deleteAll()
-          .then(v => v.should.be.ok())
           .then(() => cache.keys())
           .should.eventually.be.empty();
       });
