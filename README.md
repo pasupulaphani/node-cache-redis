@@ -39,3 +39,34 @@ This module requires nodejs v4 or above as it has dependencies on es6 components
 ### Run tests
 
     bash test.sh
+
+## Contribute
+
+[Discover how you can contribute by heading on over to the `CONTRIBUTING.md` file.](https://github.com/pasupulaphani/simple-redis-cache/blob/master/CONTRIBUTING.md)
+
+## Backers
+
+### Maintainers
+
+These amazing people are maintaining this project:
+
+*   [Phani](https://github.com/pasupulaphani) — [view contributions](https://github.com/pasupulaphani/simple-redis-cache/commits?author=pasupulaphani)
+
+### Sponsors
+
+No sponsors yet! Will you be the first?
+
+[![Patreon donate button](https://img.shields.io/badge/patreon-donate-yellow.svg)](http://patreon.com/phaninder "Donate to this project using Patreon")
+[![Gratipay donate button](https://img.shields.io/badge/gratipay-donate-yellow.svg)](https://gratipay.com/~pasupulaphani/ "Donate weekly to this project using Gratipay")
+[![Flattr donate button](https://img.shields.io/badge/flattr-donate-yellow.svg)](https://flattr.com/profile/pasupulaphani "Donate to this project using Flattr")
+<!-- [![PayPal donate button](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://phaninder.com/paypal "Donate to this project using Paypal") -->
+<!-- [![Bitcoin donate button](https://img.shields.io/badge/bitcoin-donate-yellow.svg)](https://phaninder.com/bitcoin "Donate once-off to this project using Bitcoin") -->
+<!-- [![Wishlist browse button](https://img.shields.io/badge/wishlist-donate-yellow.svg)](https://phaninder.com/wishlist "Buy an item on our wishlist for us") -->
+
+### Contributors
+
+These amazing people have contributed code to this project:
+
+*   [Oliver Brooks](https://github.com/oliverbrooks)
+
+[Discover how you can contribute by heading on over to the `CONTRIBUTING.md` file.](https://github.com/pasupulaphani/simple-redis-cache/blob/master/CONTRIBUTING.md)
