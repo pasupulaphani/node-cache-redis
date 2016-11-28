@@ -5,11 +5,12 @@ const RedisStore = require("../lib/redis_store");
 describe("redisStore", () => {
 
   const name = "testStore";
-  const redisOptions = Object.assign({
-    host: process.env.REDIS_HOST || "127.0.0.1"
-  });
 
-  const store = new RedisStore(name, redisOptions);
+  const store = new RedisStore({
+    name: name,
+    redisOptions: {
+      host: process.env.REDIS_HOST || "127.0.0.1"
+    }});
 
   describe("getName", () => {
     it("should return with given name", () => {

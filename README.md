@@ -11,7 +11,7 @@ Redis cache ready to scale with node-pool support
 
 ## Prerequisites
 
-This module requires nodejs v4 or above as it has dependencies on constious es6 components such as Map, Set, Promise etc.
+This module requires nodejs v4 or above as it has dependencies on es6 components such as Map, Set, Promise etc.
 
 ### Getting started
 
@@ -22,6 +22,19 @@ This module requires nodejs v4 or above as it has dependencies on constious es6 
 
     // set
     cache.set("key", "value");
+
+#### API
+
+- RedisCache([options])
+
+#### `options` object properties
+
+| Property  | Default   | Description |
+|-----------|-----------|-------------|
+| name      | Random unique string | Name your pool |
+| redisOptions      | ```{url: redis://127.0.0.1:6379}```      | opts from  https://github.com/NodeRedis/node_redis#options-object-properties |
+| poolOptions      | null      | opts from https://github.com/coopernurse/node-pool#createpool |
+| logger       | null      | Inject your custom logger |
 
 ### Run tests
 
