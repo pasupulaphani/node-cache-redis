@@ -18,11 +18,11 @@ describe("redisPool", () => {
       const redisOptions = Object.assign({}, options.redisOptions, {
         db: redisDb
       });
-      const pool = new RedisPool(Object.assign(options, {
+      const pool = new RedisPool(Object.assign({}, options, {
         redisOptions: redisOptions
       }));
 
-      return pool.acquire(0)
+      return pool.acquire()
         .then(c => c.selected_db)
         .should.eventually.be.equal(redisDb);
     });
@@ -86,15 +86,26 @@ describe("redisPool", () => {
         });
     });
 
-    it("should not acquire connection with invalid host", () => {
+    it("should invalid host fail acquire connection", () => {
       const redisOptions = Object.assign({}, options.redisOptions, {
         host: "UNAVAILABLE_HOST"
       });
-      const pool = new RedisPool(Object.assign(options, {
+      const pool = new RedisPool(Object.assign({}, options, {
         redisOptions: redisOptions
       }));
 
       return pool.acquire().should.be.rejectedWith(Error, { message: "CONN_FAILED" });
+    });
+
+    it("should conn timeout fail acquire connection", () => {
+      const poolOptions = {
+        acquireTimeoutMillis: 1
+      };
+      const pool = new RedisPool(Object.assign({}, options, {
+        poolOptions: poolOptions
+      }));
+
+      return pool.acquire().should.be.rejectedWith(Error, { name: "TimeoutError" });
     });
   });
 
