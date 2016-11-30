@@ -5,20 +5,57 @@ const RedisStore = require("../lib/redis_store");
 describe("redisStore", () => {
 
   const name = "testStore";
+  const redisOptions = {
+    host: process.env.REDIS_HOST || "127.0.0.1"
+  };
 
-  const store = new RedisStore({
-    name: name,
-    redisOptions: {
-      host: process.env.REDIS_HOST || "127.0.0.1"
-    }});
+  // describe("constructor", () => {
+  //
+  //   it("should invalid host fail acquire connection", () => {
+  //
+  //     (new RedisStore({
+  //       redisOptions: {
+  //         host: "UNAVAILABLE_HOST"
+  //       }
+  //     })).should.throw();
+  //   });
+  //
+  //   it("should conn timeout fail acquire connection", () => {
+  //
+  //     (new RedisStore({
+  //       redisOptions: redisOptions,
+  //       poolOptions: {
+  //         acquireTimeoutMillis: 1
+  //       }
+  //     })).should.throw();
+  //   });
+  // });
 
   describe("getName", () => {
-    it("should return with given name", () => {
+
+    it("should set given name", () => {
+
+      const store = new RedisStore({
+        name: name
+      });
       store.getName().should.be.equal(name);
+    });
+
+    it("should set random name if not set", () => {
+
+      const store = new RedisStore();
+
+      store.getName().should.not.be.empty();
     });
   });
 
   describe("get", () => {
+
+    const store = new RedisStore({
+      name: name,
+      redisOptions: redisOptions
+    });
+
     it("should retrieve an existing key", () => {
 
       const key = "chuck-norris";
@@ -40,6 +77,12 @@ describe("redisStore", () => {
   });
 
   describe("set", () => {
+
+    const store = new RedisStore({
+      name: name,
+      redisOptions: redisOptions
+    });
+
     it("should store a value", () => {
 
       const key = "key";
@@ -74,6 +117,12 @@ describe("redisStore", () => {
   });
 
   describe("del", () => {
+
+    const store = new RedisStore({
+      name: name,
+      redisOptions: redisOptions
+    });
+
     it("should delete an existing key", () => {
 
       const key = "key";
@@ -98,6 +147,12 @@ describe("redisStore", () => {
   });
 
   describe("expire", () => {
+
+    const store = new RedisStore({
+      name: name,
+      redisOptions: redisOptions
+    });
+
     it("should set a key with expire in seconds", () => {
 
       const key = "key";
@@ -124,6 +179,11 @@ describe("redisStore", () => {
 
   describe("ttl", () => {
 
+    const store = new RedisStore({
+      name: name,
+      redisOptions: redisOptions
+    });
+
     before(() => store.deleteAll());
 
     it("should return ttl left for a key in seconds", () => {
@@ -149,6 +209,11 @@ describe("redisStore", () => {
 
   describe("keys", () => {
 
+    const store = new RedisStore({
+      name: name,
+      redisOptions: redisOptions
+    });
+
     const keyValues = {key1: "value1", key2: "value2"};
 
     before(() => store.deleteAll());
@@ -170,6 +235,11 @@ describe("redisStore", () => {
   });
 
   describe("deleteAll", () => {
+
+    const store = new RedisStore({
+      name: name,
+      redisOptions: redisOptions
+    });
 
     const keyValues = {key1: "value1", key2: "value2"};
 
