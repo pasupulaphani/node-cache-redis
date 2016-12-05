@@ -57,32 +57,32 @@ describe("redisPool", () => {
         poolOptions: poolOptions
       }));
 
-      pool.availableObjectsCount().should.be.equal(poolOptions.min);
+      pool.availableCount().should.be.equal(poolOptions.min);
       pool.getPoolSize().should.be.equal(poolOptions.min);
-      pool.waitingClientsCount().should.be.equal(0);
+      pool.pendingCount().should.be.equal(0);
 
       return pool.acquire()
         .then(client => {
-          pool.availableObjectsCount().should.be.equal(poolOptions.min);
+          pool.availableCount().should.be.equal(poolOptions.min);
           pool.getPoolSize().should.be.equal(1);
-          pool.waitingClientsCount().should.be.equal(0);
+          pool.pendingCount().should.be.equal(0);
           return pool.release(client);
         })
-        .then(() => pool.availableObjectsCount().should.be.equal(1))
+        .then(() => pool.availableCount().should.be.equal(1))
         .then(() => pool.acquire())
         .then(() => {
-          pool.availableObjectsCount().should.be.equal(0);
+          pool.availableCount().should.be.equal(0);
           pool.getPoolSize().should.be.equal(1);
-          pool.waitingClientsCount().should.be.equal(0);
+          pool.pendingCount().should.be.equal(0);
         })
         .then(() => {
           pool.acquire(); // this is hanging op so no return
           return;
         })
         .then(() => {
-          pool.availableObjectsCount().should.be.equal(0);
+          pool.availableCount().should.be.equal(0);
           pool.getPoolSize().should.be.equal(1);
-          pool.waitingClientsCount().should.be.equal(1);
+          pool.pendingCount().should.be.equal(1);
         });
     });
 
@@ -99,13 +99,18 @@ describe("redisPool", () => {
 
     it("should conn timeout fail acquire connection", () => {
       const poolOptions = {
+        min : 1,
         acquireTimeoutMillis: 1
       };
       const pool = new RedisPool(Object.assign({}, options, {
         poolOptions: poolOptions
       }));
 
-      return pool.acquire().should.be.rejectedWith(Error, { name: "TimeoutError" });
+      // make the conn is inuse
+      pool.acquire()
+        .then(conn => pool.release(conn));
+
+      pool.acquire().should.be.rejectedWith(Error, { name: "TimeoutError" });
     });
   });
 
@@ -121,16 +126,16 @@ describe("redisPool", () => {
 
     it("should release connection with valid host", () => {
 
-      pool.availableObjectsCount().should.be.equal(poolOptions.min);
+      pool.availableCount().should.be.equal(poolOptions.min);
       pool.getPoolSize().should.be.equal(poolOptions.min);
-      pool.waitingClientsCount().should.be.equal(0);
+      pool.pendingCount().should.be.equal(0);
 
       return pool.acquire()
         .then(client => {
-          pool.availableObjectsCount().should.be.equal(poolOptions.min - 1);
+          pool.availableCount().should.be.equal(poolOptions.min - 1);
           return pool.release(client);
         })
-        .then(() => pool.availableObjectsCount().should.be.equal(poolOptions.min));
+        .then(() => pool.availableCount().should.be.equal(poolOptions.min));
     });
   });
 
@@ -146,17 +151,17 @@ describe("redisPool", () => {
 
     it("should destroy connection with valid host", () => {
 
-      pool.availableObjectsCount().should.be.equal(poolOptions.min);
+      pool.availableCount().should.be.equal(poolOptions.min);
       pool.getPoolSize().should.be.equal(poolOptions.min);
-      pool.waitingClientsCount().should.be.equal(0);
+      pool.pendingCount().should.be.equal(0);
 
       return pool.acquire()
         .then(client => {
-          pool.availableObjectsCount().should.be.equal(poolOptions.min - 1);
+          pool.availableCount().should.be.equal(poolOptions.min - 1);
           return pool.destroy(client);
         })
         .then(() => Bluebird.delay(100))
-        .then(() => pool.availableObjectsCount().should.be.equal(poolOptions.min));
+        .then(() => pool.availableCount().should.be.equal(poolOptions.min));
     });
   });
 
@@ -172,13 +177,13 @@ describe("redisPool", () => {
 
     it("should drain all the coonections", () => {
 
-      pool.availableObjectsCount().should.be.equal(poolOptions.min);
+      pool.availableCount().should.be.equal(poolOptions.min);
       pool.getPoolSize().should.be.equal(poolOptions.min);
-      pool.waitingClientsCount().should.be.equal(0);
+      pool.pendingCount().should.be.equal(0);
 
       return pool.drain()
         .then(() => {
-          pool.availableObjectsCount().should.be.equal(poolOptions.min);
+          pool.availableCount().should.be.equal(poolOptions.min);
           pool.getPoolSize().should.be.equal(poolOptions.min);
         });
       });
@@ -247,8 +252,8 @@ describe("redisPool", () => {
       const status = pool.status();
       status.name.should.be.equal(name);
       status.size.should.be.equal(poolOptions.min);
-      // status.avail.should.be.equal(poolOptions.min); // todo debug
-      status.waiting.should.be.equal(0);
+      status.available.should.be.equal(0);
+      status.pending.should.be.equal(0);
     });
   });
 });
