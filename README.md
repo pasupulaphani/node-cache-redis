@@ -4,9 +4,9 @@
 [![Dependency Status](https://www.versioneye.com/user/projects/583c520dd2d44d003fb603be/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/583c520dd2d44d003fb603be)
 [![Gratipay donate button](https://img.shields.io/badge/gratipay-donate-yellow.svg?style=flat-square)](https://gratipay.com/simple-redis-cache/)
 
-# simple-redis-cache
-Redis cache ready to scale with node-pool support [![See on Github](https://github.com/themes/tactile/images/octocat-icon.png)](https://github.com/pasupulaphani/simple-redis-store)
+# simple-redis-cache [![See on Github](https://github.com/themes/tactile/images/octocat-icon.png)](https://github.com/pasupulaphani/simple-redis-store)
 
+Redis cache ready to scale with node-pool support
 > Cache Early; Cache Often
 
 ## Prerequisites
