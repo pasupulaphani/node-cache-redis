@@ -28,9 +28,16 @@
   ],
   "scripts": {
     "lint": "node_modules/.bin/eslint ./lib",
-    "test": "./node_modules/.bin/mocha --reporter spec",
+    "test": "./node_modules/.bin/mocha --reporter spec && npm run lint",
     "cover": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha",
-    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "docs:generate": "./node_modules/.bin/jsdoc -c .jsdoc.json",
+    "docs:publish": "npm run docs:generate && sh ./scripts/gh_deploy.sh",
+    "publish:patch": "npm version patch && npm run publish:push",
+    "publish:minor": "npm version minor && npm run publish:push",
+    "publish:major": "npm version major && npm run publish:push",
+    "publish:push": "git push origin master --follow-tags && npm publish",
+    "postpublish": "npm run docs:generate && npm run docs:publish"
   },
   "dependencies": {
     "bluebird": "^3.4.6",
@@ -42,6 +49,7 @@
   },
   "devDependencies": {
     "coveralls": "^2.11.15",
+    "docdash": "^0.4.0",
     "eslint": "^3.11.1",
     "istanbul": "^0.4.5",
     "jsdoc": "^3.4.3",
