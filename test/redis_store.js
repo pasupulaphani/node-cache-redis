@@ -35,19 +35,78 @@ describe("redisStore", () => {
 
     it("should set given name", () => {
 
+      const name = "testStore";
       const store = new RedisStore({
-        name: name
+        name: name,
+        redisOptions: redisOptions
       });
+
       store.getName().should.be.equal(name);
     });
 
     it("should set random name if not set", () => {
 
-      const store = new RedisStore();
+      const store = new RedisStore({
+        redisOptions: redisOptions
+      });
 
       store.getName().should.not.be.empty();
     });
   });
+
+  describe("getRedisOptions", () => {
+
+    it("should set given redis options", () => {
+
+      const store = new RedisStore({
+        redisOptions: redisOptions
+      });
+
+      store.getRedisOptions().should.be.equal(redisOptions);
+    });
+  });
+
+  describe("getPoolOptions", () => {
+
+    it("should set given pool options", () => {
+
+      const poolOptions = {
+        min: 2,
+        max: 4
+      };
+      const store = new RedisStore({
+        name: name,
+        redisOptions: redisOptions,
+        poolOptions: poolOptions
+      });
+
+      store.getPoolOptions().should.be.equal(poolOptions);
+    });
+  });
+
+  describe("status", () => {
+
+    it("should get store stats", () => {
+
+      const name = "testStore";
+      const poolOptions = {
+        min: 2,
+        max: 4
+      };
+      const store = new RedisStore({
+        name: name,
+        redisOptions: redisOptions,
+        poolOptions: poolOptions
+      });
+
+      const status = store.status();
+      status.name.should.be.equal(name);
+      status.size.should.be.equal(poolOptions.min);
+      status.available.should.be.equal(0);
+      status.pending.should.be.equal(0);
+    });
+  });
+
 
   describe("get", () => {
 
