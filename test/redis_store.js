@@ -107,6 +107,25 @@ describe("redisStore", () => {
     });
   });
 
+  describe("ping", () => {
+
+    const store = new RedisStore({
+      redisOptions: redisOptions
+    });
+
+    it("should return 'PONG' if no arg is supplied", () => {
+
+      return store.ping()
+        .should.eventually.be.equal("PONG");
+    });
+
+    it("should return 'string supplied'", () => {
+
+      const str = "Yello";
+      return store.ping(str)
+        .should.eventually.be.equal(str);
+    });
+  });
 
   describe("get", () => {
 
