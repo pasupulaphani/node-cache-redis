@@ -86,6 +86,19 @@ describe("redisPool", () => {
         });
     });
 
+    it("should not fail with many higher min connections", () => {
+      const poolOptions = {
+        min: 5,
+        max: 10,
+      };
+      const pool = new RedisPool(Object.assign({}, options, {
+        poolOptions: poolOptions
+      }));
+
+      pool.acquire()
+        .should.eventually.be.ok();
+    });
+
     it("should invalid host fail acquire connection", () => {
       const redisOptions = Object.assign({}, options.redisOptions, {
         host: "UNAVAILABLE_HOST"
@@ -94,7 +107,7 @@ describe("redisPool", () => {
         redisOptions: redisOptions
       }));
 
-      return pool.acquire().should.be.rejectedWith(Error, { message: "CONN_FAILED" });
+      return pool.acquire().should.be.rejectedWith(Error, { name: "CONN_FAILED" });
     });
 
     it("should conn timeout fail acquire connection", () => {
