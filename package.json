@@ -1,6 +1,6 @@
 {
   "name": "simple-redis-cache",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Simplistic node redis cache ready can scale with generic-pool support",
   "main": "index.js",
   "repository": {
