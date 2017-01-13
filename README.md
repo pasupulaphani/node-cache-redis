@@ -1,4 +1,4 @@
-[![npm version](http://img.shields.io/npm/v/simple-redis-cache.svg?style=flat-square)](https://npmjs.org/package/simple-redis-cache)
+[![npm version](https://img.shields.io/npm/v/simple-redis-cache.svg?style=flat-square)](https://npmjs.org/package/simple-redis-cache)
 [![Build Status](https://travis-ci.org/pasupulaphani/simple-redis-cache.svg?branch=master)](https://travis-ci.org/pasupulaphani/simple-redis-cache)
 [![Coverage Status](https://coveralls.io/repos/github/pasupulaphani/simple-redis-cache/badge.svg?branch=master)](https://coveralls.io/github/pasupulaphani/simple-redis-cache?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/583c520dd2d44d003fb603be/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/583c520dd2d44d003fb603be)
@@ -6,7 +6,8 @@
 
 # simple-redis-cache [![See on Github](https://github.com/themes/tactile/images/octocat-icon.png)](https://github.com/pasupulaphani/simple-redis-store)
 
-Redis cache ready to scale with node-pool support
+Simplistic node redis cache ready can scale with generic-pool support
+
 > Cache Early; Cache Often
 
 ## Prerequisites
@@ -123,6 +124,8 @@ No sponsors yet! Will you be the first?
 <!-- [![Bitcoin donate button](https://img.shields.io/badge/bitcoin-donate-yellow.svg)](https://phaninder.com/bitcoin "Donate once-off to this project using Bitcoin") -->
 <!-- [![Wishlist browse button](https://img.shields.io/badge/wishlist-donate-yellow.svg)](https://phaninder.com/wishlist "Buy an item on our wishlist for us") -->
 
+<a href='https://pledgie.com/campaigns/33095'><img alt='Click here to lend your support to: simple-node-redis-cache and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/33095.png?skin_name=chrome' border='0' ></a>
+
 ### Contributors
 
 These amazing people have contributed code to this project:
@@ -132,5 +135,5 @@ These amazing people have contributed code to this project:
 Feel free to make changes. Please see the [Contributors' Guide](https://github.com/pasupulaphani/simple-redis-cache/blob/master/CONTRIBUTING.md) for more information on contributing to the documentation.
 
 <br />
-
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');ga('create', 'UA-57413413-5', 'auto');ga('send', 'pageview');</script>
 ---

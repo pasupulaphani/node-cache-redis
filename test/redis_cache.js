@@ -21,11 +21,13 @@ describe("redisCache", () => {
 
   describe("API", () => {
 
+    const name = "testCache";
+    const redisOptions = {
+      host: process.env.REDIS_HOST || "127.0.0.1"
+    };
     const cache = new RedisCache({
-      name: "testCache",
-      redisOptions: {
-        host: process.env.REDIS_HOST || "127.0.0.1"
-      }
+      name: name,
+      redisOptions: redisOptions
     });
 
     describe("set", () => {
@@ -132,6 +134,70 @@ describe("redisCache", () => {
         return cache.deleteAll()
           .then(() => cache.keys())
           .should.eventually.be.empty();
+      });
+    });
+
+    describe("getName", () => {
+
+      it("should set given name", () => {
+        cache.getName().should.be.equal(name);
+      });
+
+      it("should set random name if not set", () => {
+
+        const cache = new RedisCache({
+          redisOptions: redisOptions
+        });
+
+        cache.getName().should.not.be.empty();
+      });
+    });
+
+    describe("getRedisOptions", () => {
+
+      it("should set given redis options", () => {
+        cache.getRedisOptions().should.be.equal(redisOptions);
+      });
+    });
+
+    describe("getPoolOptions", () => {
+
+      it("should set given pool options", () => {
+
+        const poolOptions = {
+          min: 2,
+          max: 4
+        };
+        const cache = new RedisCache({
+          name: name,
+          redisOptions: redisOptions,
+          poolOptions: poolOptions
+        });
+
+        cache.getPoolOptions().should.be.equal(poolOptions);
+      });
+    });
+
+    describe("status", () => {
+
+      it("should get store stats", () => {
+
+        const name = "testStore";
+        const poolOptions = {
+          min: 2,
+          max: 4
+        };
+        const cache = new RedisCache({
+          name: name,
+          redisOptions: redisOptions,
+          poolOptions: poolOptions
+        });
+
+        const status = cache.status();
+        status.name.should.be.equal(name);
+        status.size.should.be.equal(poolOptions.min);
+        status.available.should.be.equal(0);
+        status.pending.should.be.equal(0);
       });
     });
   });
