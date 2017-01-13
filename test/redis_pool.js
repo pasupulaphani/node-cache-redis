@@ -150,6 +150,21 @@ describe("redisPool", () => {
         })
         .then(() => pool.availableCount().should.be.equal(poolOptions.min));
     });
+
+    it("should release connection with invalid host", () => {
+      const redisOptions = Object.assign({}, options.redisOptions, {
+        host: "UNAVAILABLE_HOST"
+      });
+      const pool = new RedisPool(Object.assign({}, options, {
+        redisOptions: redisOptions
+      }));
+
+      return pool.acquire()
+        .catch(() => {
+          return pool.release()
+            .should.be.rejectedWith(/Resource not currently part of this pool/);
+        });
+    });
   });
 
   describe("destroy", () => {
@@ -267,6 +282,28 @@ describe("redisPool", () => {
       status.size.should.be.equal(poolOptions.min);
       status.available.should.be.equal(0);
       status.pending.should.be.equal(0);
+    });
+  });
+
+  describe("sendCommand", () => {
+
+    const key = "MyNameIs";
+    const value = "RealSlimShady";
+    const pool = new RedisPool(options);
+
+    beforeEach(() => pool.sendCommand("del", "*"));
+
+    it("should execute given command", () => {
+
+      return pool.sendCommand("set", [key, value])
+        .then(() => pool.sendCommand("get", [key]))
+        .should.eventually.be.equal(value);
+    });
+
+    it("should reject when cmd failed", () => {
+
+      return pool.sendCommand("keys")
+        .should.be.rejectedWith(/ERR wrong number of arguments for 'keys' command/);
     });
   });
 });
