@@ -49,6 +49,80 @@ describe("redisStore", () => {
     });
   });
 
+  describe("getRedisOptions", () => {		
+
+    it("should set given redis options", () => {
+
+      const store = new RedisStore({
+        redisOptions: redisOptions
+      });
+
+      store.getRedisOptions().should.be.equal(redisOptions);
+    });
+  });
+
+  describe("getPoolOptions", () => {
+
+    it("should set given pool options", () => {
+
+      const poolOptions = {
+        min: 2,
+        max: 4
+      };
+      const store = new RedisStore({
+        name: name,
+        redisOptions: redisOptions,
+        poolOptions: poolOptions
+      });
+
+      store.getPoolOptions().should.be.equal(poolOptions);
+    });
+  });
+
+  describe("status", () => {
+
+    it("should get store stats", () => {
+
+      const name = "testStore";
+      const poolOptions = {
+        min: 2,
+        max: 4
+      };
+      const store = new RedisStore({
+        name: name,
+        redisOptions: redisOptions,
+        poolOptions: poolOptions
+      });
+
+      const status = store.status();
+      status.name.should.be.equal(name);
+      status.size.should.be.equal(poolOptions.min);
+      status.available.should.be.equal(0);
+      status.pending.should.be.equal(0);
+    });
+  });
+
+  describe("ping", () => {
+
+    const store = new RedisStore({
+      redisOptions: redisOptions
+    });
+
+    it("should return 'PONG' if no arg is supplied", () => {
+
+      return store.ping()
+        .should.eventually.be.equal("PONG");
+    });
+
+    it("should return 'string supplied'", () => {
+
+      const str = "Yello";
+      return store.ping(str)
+        .should.eventually.be.equal(str);
+    });
+  });
+
+
   describe("get", () => {
 
     const store = new RedisStore({
