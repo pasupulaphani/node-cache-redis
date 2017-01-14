@@ -49,7 +49,7 @@ describe("redisStore", () => {
     });
   });
 
-  describe("getRedisOptions", () => {		
+  describe("getRedisOptions", () => {
 
     it("should set given redis options", () => {
 
