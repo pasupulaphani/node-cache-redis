@@ -35,95 +35,17 @@ describe("redisStore", () => {
 
     it("should set given name", () => {
 
-      const name = "testStore";
       const store = new RedisStore({
-        name: name,
-        redisOptions: redisOptions
+        name: name
       });
-
       store.getName().should.be.equal(name);
     });
 
     it("should set random name if not set", () => {
 
-      const store = new RedisStore({
-        redisOptions: redisOptions
-      });
+      const store = new RedisStore();
 
       store.getName().should.not.be.empty();
-    });
-  });
-
-  describe("getRedisOptions", () => {
-
-    it("should set given redis options", () => {
-
-      const store = new RedisStore({
-        redisOptions: redisOptions
-      });
-
-      store.getRedisOptions().should.be.equal(redisOptions);
-    });
-  });
-
-  describe("getPoolOptions", () => {
-
-    it("should set given pool options", () => {
-
-      const poolOptions = {
-        min: 2,
-        max: 4
-      };
-      const store = new RedisStore({
-        name: name,
-        redisOptions: redisOptions,
-        poolOptions: poolOptions
-      });
-
-      store.getPoolOptions().should.be.equal(poolOptions);
-    });
-  });
-
-  describe("status", () => {
-
-    it("should get store stats", () => {
-
-      const name = "testStore";
-      const poolOptions = {
-        min: 2,
-        max: 4
-      };
-      const store = new RedisStore({
-        name: name,
-        redisOptions: redisOptions,
-        poolOptions: poolOptions
-      });
-
-      const status = store.status();
-      status.name.should.be.equal(name);
-      status.size.should.be.equal(poolOptions.min);
-      status.available.should.be.equal(0);
-      status.pending.should.be.equal(0);
-    });
-  });
-
-  describe("ping", () => {
-
-    const store = new RedisStore({
-      redisOptions: redisOptions
-    });
-
-    it("should return 'PONG' if no arg is supplied", () => {
-
-      return store.ping()
-        .should.eventually.be.equal("PONG");
-    });
-
-    it("should return 'string supplied'", () => {
-
-      const str = "Yello";
-      return store.ping(str)
-        .should.eventually.be.equal(str);
     });
   });
 
@@ -145,6 +67,21 @@ describe("redisStore", () => {
         })
         .then(() => store.get(key))
         .should.eventually.be.equal(value);
+    });
+
+    it("should retrieve parsed json", () => {
+
+      const key = "chuck-norris";
+      const value = {
+        type: "superman"
+      };
+
+      return store.set(key, value)
+        .then(test => {
+          test.should.be.ok();
+        })
+        .then(() => store.get(key))
+        .should.eventually.be.eql(value);
     });
 
     it("should return null if key doesn't exist", () => {
@@ -172,6 +109,34 @@ describe("redisStore", () => {
         })
         .then(() => store.get(key))
         .should.eventually.be.equal(value);
+    });
+
+    it("should store json", () => {
+
+      const key = "key";
+      const value = {
+        type: "json"
+      };
+
+      return store.set(key, value)
+        .then(test => {
+          test.should.be.ok();
+        })
+        .then(() => store.get(key))
+        .should.eventually.be.eql(value);
+    });
+
+    it("should store array", () => {
+
+      const key = "key";
+      const value = ["json", "node"];
+
+      return store.set(key, value)
+        .then(test => {
+          test.should.be.ok();
+        })
+        .then(() => store.get(key))
+        .should.eventually.be.eql(value);
     });
 
     it("should store with an expiry if ttl set", () => {
