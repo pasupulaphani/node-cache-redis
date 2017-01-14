@@ -35,20 +35,15 @@ describe("redisStore", () => {
 
     it("should set given name", () => {
 
-      const name = "testStore";
       const store = new RedisStore({
-        name: name,
-        redisOptions: redisOptions
+        name: name
       });
-
       store.getName().should.be.equal(name);
     });
 
     it("should set random name if not set", () => {
 
-      const store = new RedisStore({
-        redisOptions: redisOptions
-      });
+      const store = new RedisStore();
 
       store.getName().should.not.be.empty();
     });
@@ -127,6 +122,7 @@ describe("redisStore", () => {
     });
   });
 
+
   describe("get", () => {
 
     const store = new RedisStore({
@@ -145,6 +141,21 @@ describe("redisStore", () => {
         })
         .then(() => store.get(key))
         .should.eventually.be.equal(value);
+    });
+
+    it("should retrieve parsed json", () => {
+
+      const key = "chuck-norris";
+      const value = {
+        type: "superman"
+      };
+
+      return store.set(key, value)
+        .then(test => {
+          test.should.be.ok();
+        })
+        .then(() => store.get(key))
+        .should.eventually.be.eql(value);
     });
 
     it("should return null if key doesn't exist", () => {
@@ -172,6 +183,34 @@ describe("redisStore", () => {
         })
         .then(() => store.get(key))
         .should.eventually.be.equal(value);
+    });
+
+    it("should store json", () => {
+
+      const key = "key";
+      const value = {
+        type: "json"
+      };
+
+      return store.set(key, value)
+        .then(test => {
+          test.should.be.ok();
+        })
+        .then(() => store.get(key))
+        .should.eventually.be.eql(value);
+    });
+
+    it("should store array", () => {
+
+      const key = "key";
+      const value = ["json", "node"];
+
+      return store.set(key, value)
+        .then(test => {
+          test.should.be.ok();
+        })
+        .then(() => store.get(key))
+        .should.eventually.be.eql(value);
     });
 
     it("should store with an expiry if ttl set", () => {
