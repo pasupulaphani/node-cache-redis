@@ -1,6 +1,6 @@
 require("should");
 const Bluebird = require("bluebird");
-const RedisPool = require("../lib/redis_pool");
+const RedisPool = require("../lib/redis_connection_pool");
 
 describe("redisPool", () => {
 

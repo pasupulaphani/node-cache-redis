@@ -16,15 +16,17 @@ Simplistic node redis cache ready can scale with generic-pool support
 
 ## Featuring
 - Out of the box default configuration (but fully configurable)
-- Provides both sync and async API
 - Scalable easily, less friction during locking and purging
-- Synchronized locking with a semaphore
 - Design for multithread environment
 - Extensible Logging
-- Serialization: Used to serialize values in distributed scenarios, can be configured.
 - Flexible Expiration: Through configuration, you can set a default expiration mode and time for each layer.
 - Statistics / Counters: Gather statistical information and track caching operations in Performance Monitor as needed.
 - Modular Design: Lib comes in many different packages, separating the features and dependencies.
+<!---
+- Serialization: Used to serialize values in distributed scenarios, can be configured.
+- Synchronized locking with a semaphore
+- Provides both sync and async API
+-->
 
 ### Getting started
 
