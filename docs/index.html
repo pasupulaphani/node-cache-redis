@@ -58,15 +58,17 @@
 <h2>Prerequisites</h2><p><code>node &gt;= 4</code> This module requires nodejs v4 or above as it has dependencies on es6 components such as Map, Set, Promise etc.</p>
 <h2>Featuring</h2><ul>
 <li>Out of the box default configuration (but fully configurable)</li>
-<li>Provides both sync and async API</li>
 <li>Scalable easily, less friction during locking and purging</li>
-<li>Synchronized locking with a semaphore</li>
 <li>Design for multithread environment</li>
 <li>Extensible Logging</li>
-<li>Serialization: Used to serialize values in distributed scenarios, can be configured.</li>
 <li>Flexible Expiration: Through configuration, you can set a default expiration mode and time for each layer.</li>
 <li>Statistics / Counters: Gather statistical information and track caching operations in Performance Monitor as needed.</li>
 <li>Modular Design: Lib comes in many different packages, separating the features and dependencies.</li>
+</ul>
+<h5>Todo:</h5><ul>
+<li>Serialization: Used to serialize values in distributed scenarios, can be configured.</li>
+<li>Synchronized locking with a semaphore</li>
+<li>Provides both sync and async API</li>
 </ul>
 <h3>Getting started</h3><pre class="prettyprint source"><code>    npm install node-cache-redis</code></pre><h4>Usage</h4><pre class="prettyprint source"><code>    const RedisCache = require(&quot;node-cache-redis&quot;);
     const cache = new RedisCache();
