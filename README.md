@@ -1,10 +1,10 @@
-[![npm version](https://img.shields.io/npm/v/simple-redis-cache.svg?style=flat-square)](https://npmjs.org/package/simple-redis-cache)
-[![Build Status](https://travis-ci.org/pasupulaphani/simple-redis-cache.svg?branch=master)](https://travis-ci.org/pasupulaphani/simple-redis-cache)
-[![Coverage Status](https://coveralls.io/repos/github/pasupulaphani/simple-redis-cache/badge.svg?branch=master)](https://coveralls.io/github/pasupulaphani/simple-redis-cache?branch=master)
+[![npm version](https://img.shields.io/npm/v/node-cache-redis.svg?style=flat-square)](https://npmjs.org/package/node-cache-redis)
+[![Build Status](https://travis-ci.org/pasupulaphani/node-cache-redis.svg?branch=master)](https://travis-ci.org/pasupulaphani/node-cache-redis)
+[![Coverage Status](https://coveralls.io/repos/github/pasupulaphani/node-cache-redis/badge.svg?branch=master)](https://coveralls.io/github/pasupulaphani/node-cache-redis?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/583c520dd2d44d003fb603be/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/583c520dd2d44d003fb603be)
-[![Gratipay donate button](https://img.shields.io/badge/gratipay-donate-yellow.svg?style=flat-square)](https://gratipay.com/simple-redis-cache/)
+[![Gratipay donate button](https://img.shields.io/badge/gratipay-donate-yellow.svg?style=flat-square)](https://gratipay.com/node-cache-redis/)
 
-# simple-redis-cache [![See on Github](https://github.com/themes/tactile/images/octocat-icon.png)](https://github.com/pasupulaphani/simple-redis-store)
+# node-cache-redis [![See on Github](https://github.com/themes/tactile/images/octocat-icon.png)](https://github.com/pasupulaphani/simple-redis-store)
 
 Simplistic node redis cache ready can scale with generic-pool support
 
@@ -22,21 +22,23 @@ Simplistic node redis cache ready can scale with generic-pool support
 - Flexible Expiration: Through configuration, you can set a default expiration mode and time for each layer.
 - Statistics / Counters: Gather statistical information and track caching operations in Performance Monitor as needed.
 - Modular Design: Lib comes in many different packages, separating the features and dependencies.
-<!---
+
+##### Todo:
+
 - Serialization: Used to serialize values in distributed scenarios, can be configured.
 - Synchronized locking with a semaphore
 - Provides both sync and async API
--->
+
 
 ### Getting started
 
 ```
-    npm install simple-redis-cache
+    npm install node-cache-redis
 ```
 
 #### Usage
 ```
-    const RedisCache = require("simple-redis-cache");
+    const RedisCache = require("node-cache-redis");
     const cache = new RedisCache();
 
     // set
@@ -105,7 +107,7 @@ Simplistic node redis cache ready can scale with generic-pool support
 
 ## Contribute
 
-[Discover how you can contribute by heading on over to the `CONTRIBUTING.md` file.](https://github.com/pasupulaphani/simple-redis-cache/blob/master/CONTRIBUTING.md)
+[Discover how you can contribute by heading on over to the `CONTRIBUTING.md` file.](https://github.com/pasupulaphani/node-cache-redis/blob/master/CONTRIBUTING.md)
 
 ## Backers
 
@@ -113,7 +115,7 @@ Simplistic node redis cache ready can scale with generic-pool support
 
 These amazing people are maintaining this project:
 
-*   [Phani](https://github.com/pasupulaphani) — [view contributions](https://github.com/pasupulaphani/simple-redis-cache/commits?author=pasupulaphani)
+*   [Phani](https://github.com/pasupulaphani) — [view contributions](https://github.com/pasupulaphani/node-cache-redis/commits?author=pasupulaphani)
 
 ### Sponsors
 
@@ -134,7 +136,7 @@ These amazing people have contributed code to this project:
 
 *   [Oliver Brooks](https://github.com/oliverbrooks)
 
-Feel free to make changes. Please see the [Contributors' Guide](https://github.com/pasupulaphani/simple-redis-cache/blob/master/CONTRIBUTING.md) for more information on contributing to the documentation.
+Feel free to make changes. Please see the [Contributors' Guide](https://github.com/pasupulaphani/node-cache-redis/blob/master/CONTRIBUTING.md) for more information on contributing to the documentation.
 
 <br />
 <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');ga('create', 'UA-57413413-5', 'auto');ga('send', 'pageview');</script>
