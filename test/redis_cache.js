@@ -99,6 +99,18 @@ describe("redisCache", () => {
         return cache.wrap(key, value, 0)
           .should.eventually.be.equal(value);
       });
+
+      it("should do nothing when ttlInSeconds < 0", () => {
+
+        return cache.wrap(key, value, -1)
+          .should.eventually.be.equal(value);
+      });
+
+      it("should do nothing when ttlInSeconds is invalid", () => {
+
+        return cache.wrap(key, value, "NOT_NUMBER")
+          .should.eventually.be.equal(value);
+      });
     });
 
     describe("keys", () => {
