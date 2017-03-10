@@ -136,30 +136,28 @@ RedisCache.prototype.deleteAll = function (pattern) {
  * @param {string} key - key for the value stored
  * @param {function} fn - function to call if not cache found
  * @param {object} opts - options for wrap
- * @property {array} args - arguments to apply to function
  * @property {number} ttlInSeconds - time to live in seconds
  * @returns {string} 'OK' if successful
  */
 RedisCache.prototype.wrap = function (key, fn, opts) {
   opts = opts || {};
-  const args = Array.prototype.slice.call(opts.args || []);
   const ttlInSeconds = this.getTtl(opts.ttlInSeconds);
 
   if (ttlInSeconds &amp;&amp; (isNaN(ttlInSeconds) || ttlInSeconds &lt;= 0)) {
     debug(`Not caching, invalid ttl: ${ttlInSeconds}`);
-    return Promise.resolve(fn.apply(null, args));
+    return Promise.resolve(fn());
   }
 
   return this.store.get(key)
-    .then(value => {
-      if (!value) {
+    .then(cachedValue => {
+      if (!cachedValue) {
         debug("MISS", {key: key});
-        return Promise.resolve(fn.apply(null, args))
+        return Promise.resolve(fn())
           .then(value => this.set(key, value, ttlInSeconds)
           .then(() => value));
       } else {
         debug("HIT", {key: key});
-        return Promise.resolve(value);
+        return Promise.resolve(cachedValue);
       }
     });
 };

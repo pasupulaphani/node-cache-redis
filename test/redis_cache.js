@@ -80,18 +80,17 @@ describe("redisCache", () => {
         return "" + Math.floor(Math.random(100));
       }
 
-      function fn (test) {
-        return test;
-      }
-
       before(() => cache.deleteAll());
 
       it("should set if key doesn't exist", () => {
         const key = genKey();
 
+        function fn () {
+          return value;
+        }
+
         return cache
           .wrap(key, fn, {
-            args: [value],
             ttlInSeconds: 5000
           })
           .then(v => v.should.be.equal(value))
@@ -114,26 +113,36 @@ describe("redisCache", () => {
       });
 
       it("should do nothing when ttlInSeconds=0", () => {
+        function fn () {
+          return value;
+        }
 
-        return cache.wrap(genKey(), fn, [value], 0)
+        return cache
+          .wrap(genKey(), fn, {
+            ttlInSeconds: 0
+          })
           .should.eventually.be.equal(value);
       });
 
       it("should do nothing when ttlInSeconds < 0", () => {
+        function fn () {
+          return value;
+        }
 
         return cache
           .wrap(genKey(), fn, {
-            args: [value],
             ttlInSeconds: -1
           })
           .should.eventually.be.equal(value);
       });
 
       it("should do nothing when ttlInSeconds is invalid", () => {
+        function fn () {
+          return value;
+        }
 
         return cache
           .wrap(genKey(), fn, {
-            args: [value],
             ttlInSeconds: "NOT_NUMBER"
           })
           .should.eventually.be.equal(value);
