@@ -1,4 +1,4 @@
-require("should");
+const should = require("should");
 const RedisCache = require("../lib/redis_cache");
 
 describe("redisCache", () => {
@@ -27,7 +27,8 @@ describe("redisCache", () => {
     };
     const cache = new RedisCache({
       name: name,
-      redisOptions: redisOptions
+      redisOptions: redisOptions,
+      cacheTtl: 100
     });
 
     describe("set", () => {
@@ -73,42 +74,77 @@ describe("redisCache", () => {
 
     describe("wrap", () => {
 
-      const key = "chuck-norris";
-      const value = "superman";
+      const value = "test";
+
+      function genKey () {
+        return "" + Math.floor(Math.random(100));
+      }
 
       before(() => cache.deleteAll());
 
-      it("should set if key not exists", () => {
+      it("should set if key doesn't exist", () => {
+        const key = genKey();
 
-        return cache.wrap(key, value)
+        function fn () {
+          return value;
+        }
+
+        return cache
+          .wrap(key, fn, {
+            ttlInSeconds: 5000
+          })
           .then(v => v.should.be.equal(value))
           .then(() => cache.get(key))
           .should.eventually.be.equal(value);
       });
 
       it("should get if key exists", () => {
+        const key = genKey();
+
+        function failIfCalled (value) {
+          should.fail("Should not be called");
+          return value;
+        }
 
         return cache.set(key, value)
           .then(v => v.should.be.ok())
-          .then(() => cache.wrap(key))
+          .then(() => cache.wrap(key, failIfCalled))
           .should.eventually.be.equal(value);
       });
 
       it("should do nothing when ttlInSeconds=0", () => {
+        function fn () {
+          return value;
+        }
 
-        return cache.wrap(key, value, 0)
+        return cache
+          .wrap(genKey(), fn, {
+            ttlInSeconds: 0
+          })
           .should.eventually.be.equal(value);
       });
 
       it("should do nothing when ttlInSeconds < 0", () => {
+        function fn () {
+          return value;
+        }
 
-        return cache.wrap(key, value, -1)
+        return cache
+          .wrap(genKey(), fn, {
+            ttlInSeconds: -1
+          })
           .should.eventually.be.equal(value);
       });
 
       it("should do nothing when ttlInSeconds is invalid", () => {
+        function fn () {
+          return value;
+        }
 
-        return cache.wrap(key, value, "NOT_NUMBER")
+        return cache
+          .wrap(genKey(), fn, {
+            ttlInSeconds: "NOT_NUMBER"
+          })
           .should.eventually.be.equal(value);
       });
     });

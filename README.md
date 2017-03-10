@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/pasupulaphani/node-cache-redis.svg?branch=master)](https://travis-ci.org/pasupulaphani/node-cache-redis)
 [![Coverage Status](https://coveralls.io/repos/github/pasupulaphani/node-cache-redis/badge.svg?branch=master)](https://coveralls.io/github/pasupulaphani/node-cache-redis?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/583c520dd2d44d003fb603be/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/583c520dd2d44d003fb603be)
-[![Gratipay donate button](https://img.shields.io/badge/gratipay-donate-yellow.svg?style=flat-square)](https://gratipay.com/simple-redis-cache/)
+[![Gratipay donate button](https://img.shields.io/badge/gratipay-donate-yellow.svg?style=flat-square)](https://gratipay.com/node-cache-redis/)
 
 # node-cache-redis [![See on Github](https://github.com/themes/tactile/images/octocat-icon.png)](https://github.com/pasupulaphani/simple-redis-store)
 
@@ -42,7 +42,13 @@ Simplistic node redis cache ready can scale with generic-pool support
     const cache = new RedisCache();
 
     // set
-    cache.set("key", "value");
+    cache.set("key", "value")
+    .then(function () {
+      return cache.get("key");
+    })
+    .then(function (value) {
+      assert.eql(value, "value")
+    });
 
 ```
 
@@ -95,6 +101,15 @@ Simplistic node redis cache ready can scale with generic-pool support
       </td>
       <td class="description last">
         <p>Inject your custom logger</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="name"><code>ttlInSeconds</code></td>
+      <td class="type">
+        <span class="param-type">number</span>
+      </td>
+      <td class="description last">
+        <p>Default time to live for stored values</p>
       </td>
     </tr>
   </tbody>
