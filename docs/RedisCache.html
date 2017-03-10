@@ -663,7 +663,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="redis_cache.js.html">redis_cache.js</a>, <a href="redis_cache.js.html#line131">line 131</a>
+        <a href="redis_cache.js.html">redis_cache.js</a>, <a href="redis_cache.js.html#line133">line 133</a>
     </li></ul></dd>
     
 
@@ -769,7 +769,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="redis_cache.js.html">redis_cache.js</a>, <a href="redis_cache.js.html#line149">line 149</a>
+        <a href="redis_cache.js.html">redis_cache.js</a>, <a href="redis_cache.js.html#line151">line 151</a>
     </li></ul></dd>
     
 
@@ -875,7 +875,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="redis_cache.js.html">redis_cache.js</a>, <a href="redis_cache.js.html#line140">line 140</a>
+        <a href="redis_cache.js.html">redis_cache.js</a>, <a href="redis_cache.js.html#line142">line 142</a>
     </li></ul></dd>
     
 
@@ -1492,7 +1492,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="redis_cache.js.html">redis_cache.js</a>, <a href="redis_cache.js.html#line158">line 158</a>
+        <a href="redis_cache.js.html">redis_cache.js</a>, <a href="redis_cache.js.html#line160">line 160</a>
     </li></ul></dd>
     
 
@@ -1586,7 +1586,7 @@
 
     
 
-    <h4 class="name" id="wrap"><span class="type-signature"></span>wrap<span class="signature">(key, fn, args, ttlInSeconds)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="wrap"><span class="type-signature"></span>wrap<span class="signature">(key, fn, opts)</span><span class="type-signature"> &rarr; {string}</span></h4>
 
     
 
@@ -1598,7 +1598,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="redis_cache.js.html">redis_cache.js</a>, <a href="redis_cache.js.html#line103">line 103</a>
+        <a href="redis_cache.js.html">redis_cache.js</a>, <a href="redis_cache.js.html#line104">line 104</a>
     </li></ul></dd>
     
 
@@ -1632,6 +1632,81 @@
 
     
 </dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>arguments to apply to function</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ttlInSeconds</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>time to live in seconds</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
 
 
 
@@ -1722,13 +1797,13 @@
 
         <tr>
             
-                <td class="name"><code>args</code></td>
+                <td class="name"><code>opts</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">object</span>
 
 
             
@@ -1738,30 +1813,7 @@
 
             
 
-            <td class="description last"><p>arguments to apply to function</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>ttlInSeconds</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>time to live in seconds</p></td>
+            <td class="description last"><p>options for wrap</p></td>
         </tr>
 
     
