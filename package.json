@@ -46,22 +46,22 @@
     "postpublish": "npm run docs:generate && npm run docs:publish"
   },
   "dependencies": {
-    "debug": "^2.6.1",
+    "debug": "^2.6.6",
     "es6-promisify": "^5.0.0",
     "generic-pool": "3.1.7",
     "is-json": "^2.0.1",
     "lodash.pick": "^4.4.0",
-    "redis": "^2.6.5",
+    "redis": "^2.7.1",
     "retry-as-promised": "^2.2.0"
   },
   "devDependencies": {
     "bluebird": "^3.5.0",
-    "coveralls": "^2.12.0",
+    "coveralls": "^2.13.1",
     "docdash": "^0.4.0",
-    "eslint": "^3.17.1",
+    "eslint": "^3.19.0",
     "istanbul": "^0.4.5",
     "jsdoc": "^3.4.3",
-    "mocha": "^3.2.0",
+    "mocha": "^3.4.1",
     "mocha-lcov-reporter": "^1.3.0",
     "should": "^11.2.1"
   }

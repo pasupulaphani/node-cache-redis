@@ -1,24 +1,11 @@
-FROM mhart/alpine-node:7
-MAINTAINER 	Phani Pasupula <pasupulaphani@gmail.com>
+FROM node:alpine
 
-# Setup lib
-WORKDIR /lib
-ADD . .
+RUN apk update
+COPY package.json /tmp/package.json
+RUN cd /tmp && yarn install --pure-lockfile --ignore-optional
+RUN mkdir -p /usr/app && cp -a /tmp/node_modules /usr/app
 
-# Create test user
-#RUN adduser -h /home/tester -s /bin/sh -u 40561 -D tester tester
-#USER tester
-
-# Install Yarn
-ENV PATH /root/.yarn/bin:$PATH
-RUN apk update \
-  && apk add curl bash binutils tar \
-  && rm -rf /var/cache/apk/* \
-  && /bin/bash \
-  && touch ~/.bashrc \
-  && curl -o- -L https://yarnpkg.com/install.sh | bash \
-  && apk del curl tar binutils
-
-RUN yarn install --pure-lockfile --ignore-optional
+WORKDIR /usr/app
+COPY ./ /usr/app/
 
 CMD ["npm", "test"]
