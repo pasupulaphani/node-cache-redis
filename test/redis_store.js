@@ -313,13 +313,13 @@ describe("redisStore", () => {
         .then(test => {
           test.should.be.ok();
         })
-        .then(() => store.ttlInSeconds(key))
+        .then(() => store.getTtl(key))
         // it should be same as the time elapsed is very vvery small
         .should.eventually.be.equal(ttlInSeconds);
     });
 
     it("should return null on ttl for a non-existing key", () => {
-      return store.ttlInSeconds("unknownKey")
+      return store.getTtl("unknownKey")
         .should.eventually.be.null;
     });
   });
