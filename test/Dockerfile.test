@@ -2,7 +2,7 @@ FROM node:alpine
 
 RUN apk update
 COPY package.json /tmp/package.json
-RUN cd /tmp && yarn install --pure-lockfile --ignore-optional
+RUN cd /tmp && npm install
 RUN mkdir -p /usr/app && cp -a /tmp/node_modules /usr/app
 
 WORKDIR /usr/app
