@@ -5,4 +5,4 @@ then
   exit 1
 fi
 git add docs && git commit -m 'docs cmit prepublish'
-git push origin `git subtree split --prefix build_folder master`:gh-pages --force
+git push origin `git subtree split --prefix docs master`:gh-pages --force
