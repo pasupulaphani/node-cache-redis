@@ -175,13 +175,20 @@ describe("redisCache", () => {
       const keyValues = {key1: "value1", key2: "value2"};
 
       beforeEach(() => Promise.all(Object.keys(keyValues)
-          .map(key => cache.set(key, keyValues[key]))));
+        .map(key => cache.set(key, keyValues[key]))));
 
       it("should delete all the keys", () => {
 
         return cache.deleteAll()
           .then(() => cache.keys())
           .should.eventually.be.empty();
+      });
+
+      it("should delete all the keys with pattern", () => {
+
+        return cache.deleteAll("key1*")
+          .then(() => cache.keys())
+          .should.eventually.be.eql(["key2"]);
       });
     });
 

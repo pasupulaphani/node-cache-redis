@@ -366,7 +366,7 @@ describe("redisStore", () => {
     it("should delete all the keys", () => {
 
       return store.deleteAll()
-        .then(v => v.should.be.ok())
+        .then(v => v.should.be.eql(2))
         .then(() => store.keys())
         .should.eventually.be.empty();
     });
@@ -375,7 +375,7 @@ describe("redisStore", () => {
 
       return store.deleteAll("key[2]")
         .then(v => {
-          v.should.be.ok();
+          v.should.be.eql(1);
         })
         .then(() => store.keys())
         .should.eventually.be.not.empty()
@@ -386,10 +386,10 @@ describe("redisStore", () => {
 
       return store.deleteAll()
         .then(v => {
-          v.should.be.ok();
+          v.should.be.eql(2);
         })
         .then(() => store.deleteAll("nonExistingKey"))
-        .should.eventually.be.ok();
+        .should.eventually.be.eql(0);
     });
   });
 });
