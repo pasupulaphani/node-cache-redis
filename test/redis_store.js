@@ -391,5 +391,16 @@ describe("redisStore", () => {
         .then(() => store.deleteAll("nonExistingKey"))
         .should.eventually.be.eql(0);
     });
+
+    it("should delete if function is deleted from cache", () => {
+
+      return store.deleteAll()
+        .then(v => {
+          v.should.be.eql(2);
+        })
+        .then(() => store.sendCommand("script",["flush"]))
+        .then(() => store.deleteAll())
+        .should.eventually.be.eql(0);
+    });
   });
 });
