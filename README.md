@@ -14,6 +14,7 @@ Simplistic node redis cache ready can scale with generic-pool support
 ## Prerequisites
 
 ```node >= 4``` This module requires nodejs v4 or above as it has dependencies on es6 components such as Map, Set, Promise etc.
+```redis >= 4``` This module requires redis v4 or above as it has dependencies on `UNLINK` and `redis.replicate_commands()` for pattern deletion.
 
 ## Featuring
 - Out of the box default configuration (but fully configurable)
