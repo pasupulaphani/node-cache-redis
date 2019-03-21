@@ -151,11 +151,11 @@ describe("redisCache", () => {
 
     describe("keys", () => {
 
-      const keyValues = {key1: "value1", key2: "value2"};
+      const keyValues = {key1: "value1", "test:key2": "value2"};
 
       before(() => cache.deleteAll());
       beforeEach(() => Promise.all(Object.keys(keyValues)
-          .map(key => cache.set(key, keyValues[key]))));
+        .map(key => cache.set(key, keyValues[key]))));
 
       it("should return all the keys", () => {
 
@@ -163,10 +163,16 @@ describe("redisCache", () => {
           .then(keys => keys.map(k => Object.keys(keyValues).should.containEql(k)));
       });
 
-      it("should return all the keys matches pattern", () => {
+      it("should not return keys not matching pattern", () => {
 
-        return cache.keys("key[2]")
-          .should.eventually.containEql("key2");
+        return cache.keys("test:*")
+          .should.eventually.not.containEql("key1");
+      });
+
+      it("should return keys matches pattern", () => {
+
+        return cache.keys("test:*")
+          .should.eventually.containEql("test:key2");
       });
     });
 
