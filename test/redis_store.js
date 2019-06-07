@@ -6,7 +6,8 @@ describe("redisStore", () => {
 
   const name = "testStore";
   const redisOptions = {
-    host: process.env.REDIS_HOST || "127.0.0.1"
+    host: process.env.REDIS_HOST || "127.0.0.1",
+    auth_pass: process.env.REDIS_AUTH  || "admin"
   };
 
   // describe("constructor", () => {
@@ -251,7 +252,7 @@ describe("redisStore", () => {
         })
         .then(() => store.del(key))
         .then(v => {
-          v.should.be.ok();
+          v.should.be.exactly(1);
         })
         .then(() => store.get(key))
         .should.eventually.be.null;
@@ -259,7 +260,9 @@ describe("redisStore", () => {
 
     it("should return null deleting non-existing key", () => {
       return store.del("unknownKey")
-        .should.eventually.be.null;
+          .then(v => {
+            v.should.be.exactly(0);
+          });
     });
   });
 

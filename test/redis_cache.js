@@ -23,7 +23,8 @@ describe("redisCache", () => {
 
     const name = "testCache";
     const redisOptions = {
-      host: process.env.REDIS_HOST || "127.0.0.1"
+      host: process.env.REDIS_HOST || "127.0.0.1",
+      auth_pass: process.env.REDIS_AUTH  || "admin"
     };
     const cache = new RedisCache({
       name: name,
