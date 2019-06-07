@@ -1,6 +1,6 @@
 {
   "name": "node-cache-redis",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "description": "Simplistic node redis cache ready can scale with generic-pool support",
   "main": "index.js",
   "repository": {
@@ -18,6 +18,12 @@
     "test": "test"
   },
   "author": "pasupulaphani@gmail.com",
+  "contributors": [
+    {
+      "name": "Ron Yang",
+      "email": "yrong1997@gmail.com"
+    }
+  ],
   "license": "WTFPL",
   "keywords": [
     "redis",
@@ -34,7 +40,7 @@
   ],
   "scripts": {
     "lint": "node_modules/.bin/eslint ./lib",
-    "test": "./node_modules/.bin/mocha --reporter spec && npm run lint",
+    "test": "npm run lint&&./node_modules/.bin/mocha --reporter spec",
     "cover": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "docs:generate": "./node_modules/.bin/jsdoc -c .jsdoc.json",
@@ -45,12 +51,12 @@
     "prepublish": "npm run docs:generate"
   },
   "dependencies": {
-    "debug": "^3.1.0",
-    "es6-promisify": "^5.0.0",
-    "generic-pool": "3.2.0",
+    "debug": "^4.1.1",
+    "es6-promisify": "^6.0.1",
+    "generic-pool": "^3.7.1",
     "is-json": "^2.0.1",
     "lodash.pick": "^4.4.0",
-    "redis": "^2.7.1",
+    "redis": "^2.8.0",
     "retry-as-promised": "^2.2.0"
   },
   "devDependencies": {
