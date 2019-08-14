@@ -7,7 +7,7 @@ describe("redisStore", () => {
   const name = "testStore";
   const redisOptions = {
     host: process.env.REDIS_HOST || "127.0.0.1",
-    auth_pass: process.env.REDIS_AUTH  || "admin"
+    auth_pass: process.env.REDIS_AUTH || "admin"
   };
 
   // describe("constructor", () => {
@@ -229,7 +229,7 @@ describe("redisStore", () => {
 
       return Bluebird.delay(ttlInSeconds * 1000)
         .done(() => store.get(key)
-            .should.eventually.be.null
+          .should.eventually.be.null
         );
     });
   });
@@ -260,9 +260,9 @@ describe("redisStore", () => {
 
     it("should return null deleting non-existing key", () => {
       return store.del("unknownKey")
-          .then(v => {
-            v.should.be.exactly(0);
-          });
+        .then(v => {
+          v.should.be.exactly(0);
+        });
     });
   });
 
@@ -288,7 +288,7 @@ describe("redisStore", () => {
 
       return Bluebird.delay(ttlInSeconds * 1000)
         .done(() => store.get(key)
-            .should.eventually.be.null);
+          .should.eventually.be.null);
     });
 
     it("should return null expiring non-existing key", () => {
@@ -339,7 +339,7 @@ describe("redisStore", () => {
     before(() => store.deleteAll());
 
     beforeEach(() => Promise.all(Object.keys(keyValues)
-        .map(key => store.set(key, keyValues[key]))));
+      .map(key => store.set(key, keyValues[key]))));
 
     it("should return all the keys", () => {
 
@@ -364,7 +364,7 @@ describe("redisStore", () => {
     const keyValues = {key1: "value1", key2: "value2"};
 
     beforeEach(() => Promise.all(Object.keys(keyValues)
-        .map(key => store.set(key, keyValues[key]))));
+      .map(key => store.set(key, keyValues[key]))));
 
     it("should delete all the keys", () => {
 
@@ -401,7 +401,7 @@ describe("redisStore", () => {
         .then(v => {
           v.should.be.eql(2);
         })
-        .then(() => store.sendCommand("script",["flush"]))
+        .then(() => store.sendCommand("script", ["flush"]))
         .then(() => store.deleteAll())
         .should.eventually.be.eql(0);
     });
