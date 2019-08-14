@@ -73,6 +73,27 @@ describe("redisCache", () => {
       });
     });
 
+    describe("getset", () => {
+
+      const key = "chuck-norris";
+      const value = "superman";
+
+      before(() => cache.deleteAll());
+
+      it("should get the existing key which is NULL", () => {
+
+        return cache.getset(key, value, 60)
+          .should.eventually.not.be.ok();
+      });
+
+      it("should get previous value set", () => {
+
+        return cache.getset(key, value)
+          .should.eventually.be.equal(value);
+      });
+    });
+
+
     describe("wrap", () => {
 
       const value = "test";
