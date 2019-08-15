@@ -24,7 +24,7 @@ describe("redisCache", () => {
     const name = "testCache";
     const redisOptions = {
       host: process.env.REDIS_HOST || "127.0.0.1",
-      auth_pass: process.env.REDIS_AUTH  || "admin"
+      auth_pass: process.env.REDIS_AUTH || "admin"
     };
     const cache = new RedisCache({
       name: name,
@@ -73,11 +73,32 @@ describe("redisCache", () => {
       });
     });
 
+    describe("getset", () => {
+
+      const key = "chuck-norris";
+      const value = "superman";
+
+      before(() => cache.deleteAll());
+
+      it("should get the existing key which is NULL", () => {
+
+        return cache.getset(key, value, 60)
+          .should.eventually.not.be.ok();
+      });
+
+      it("should get previous value set", () => {
+
+        return cache.getset(key, value)
+          .should.eventually.be.equal(value);
+      });
+    });
+
+
     describe("wrap", () => {
 
       const value = "test";
 
-      function genKey () {
+      function genKey() {
         return "" + Math.floor(Math.random(100));
       }
 
@@ -86,7 +107,7 @@ describe("redisCache", () => {
       it("should set if key doesn't exist", () => {
         const key = genKey();
 
-        function fn () {
+        function fn() {
           return value;
         }
 
@@ -102,7 +123,7 @@ describe("redisCache", () => {
       it("should get if key exists", () => {
         const key = genKey();
 
-        function failIfCalled (value) {
+        function failIfCalled(value) {
           should.fail("Should not be called");
           return value;
         }
@@ -114,7 +135,7 @@ describe("redisCache", () => {
       });
 
       it("should do nothing when ttlInSeconds=0", () => {
-        function fn () {
+        function fn() {
           return value;
         }
 
@@ -126,7 +147,7 @@ describe("redisCache", () => {
       });
 
       it("should do nothing when ttlInSeconds < 0", () => {
-        function fn () {
+        function fn() {
           return value;
         }
 
@@ -138,7 +159,7 @@ describe("redisCache", () => {
       });
 
       it("should do nothing when ttlInSeconds is invalid", () => {
-        function fn () {
+        function fn() {
           return value;
         }
 

@@ -7,7 +7,7 @@ describe("redisPool", () => {
   const options = {
     redisOptions: {
       host: process.env.REDIS_HOST || "127.0.0.1",
-      auth_pass: process.env.REDIS_AUTH  || "admin"
+      auth_pass: process.env.REDIS_AUTH || "admin"
     }
   };
 
@@ -78,7 +78,7 @@ describe("redisPool", () => {
         })
         .then(() => {
           pool.acquire(); // this is hanging op so no return
-          return;
+
         })
         .then(() => {
           pool.availableCount().should.be.equal(0);
@@ -108,12 +108,12 @@ describe("redisPool", () => {
         redisOptions: redisOptions
       }));
 
-      return pool.acquire().should.be.rejectedWith(Error, { name: "CONN_FAILED" });
+      return pool.acquire().should.be.rejectedWith(Error, {name: "CONN_FAILED"});
     });
 
     it("should conn timeout fail acquire connection", () => {
       const poolOptions = {
-        min : 1,
+        min: 1,
         acquireTimeoutMillis: 1
       };
       const pool = new RedisPool(Object.assign({}, options, {
@@ -124,7 +124,7 @@ describe("redisPool", () => {
       pool.acquire()
         .then(conn => pool.release(conn));
 
-      pool.acquire().should.be.rejectedWith(Error, { name: "TimeoutError" });
+      pool.acquire().should.be.rejectedWith(Error, {name: "TimeoutError"});
     });
   });
 
@@ -215,7 +215,7 @@ describe("redisPool", () => {
           pool.availableCount().should.be.equal(poolOptions.min);
           pool.getPoolSize().should.be.equal(poolOptions.min);
         });
-      });
+    });
   });
 
   describe("getName", () => {
