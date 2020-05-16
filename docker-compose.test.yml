@@ -6,8 +6,8 @@ services:
       DEBUG: lib.*
       REDIS_HOST: redis
     build:
-      context: ../
-      dockerfile: ./test/Dockerfile.test
+      context: ./
+      dockerfile: ./Dockerfile.test
     command: 'npm test'
     links:
       - redis

@@ -1,47 +1,39 @@
-$( document ).ready(function() {
-    var searchAttr = 'data-search-mode';
-    jQuery.expr[':'].Contains = function(a,i,m){
-        return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
-    };
-    //on search
-    $("#nav-search").on("keyup", function(event) {
-        var search = $(this).val();
+(function() {
+  const input = document.querySelector('#search')
+  const targets = [ ...document.querySelectorAll('#sidebarNav li')]
+  input.addEventListener('keyup', () => {
+    // loop over each targets and hide the not corresponding ones
+    targets.forEach(target => {
+      if (!target.innerText.toLowerCase().includes(input.value.toLowerCase())) {
+        target.style.display = 'none'
 
-        if (!search) {
-            //no search, show all results
-            document.documentElement.removeAttribute(searchAttr);
-            $("nav > ul > li").not('.level-hide').show();
+        /**
+         * Detects an empty list
+         * Remove the list and the list's title if the list is not displayed
+         */
+        const list = [...target.parentNode.childNodes].filter( elem => elem.style.display !== 'none')
 
-            if(typeof hideAllButCurrent === "function"){
-                //let's do what ever collapse wants to do
-                hideAllButCurrent();
-            }
-            else{
-                //menu by default should be opened
-                $("nav > ul > li > ul li").show();
-            }
+        if (!list.length) {
+          target.parentNode.style.display = 'none'
+          target.parentNode.previousSibling.style.display = 'none'
         }
-        else{
-            //we are searching
-            document.documentElement.setAttribute(searchAttr, '');
 
-            //show all parents
-            $("nav > ul > li").show();
-            //hide all results
-            $("nav > ul > li > ul li").hide();
-            //show results matching filter
-            $("nav > ul > li > ul").find("a:Contains("+search+")").parent().show();
-            //hide parents without children
-            $("nav > ul > li").each(function(){
-                if($(this).find("a:Contains("+search+")").length == 0 && $(this).children("ul").length === 0){
-                    //has no child at all and does not contain text
-                    $(this).hide();
-                }
-                else if($(this).find("a:Contains("+search+")").length == 0 && $(this).find("ul").children(':visible').length == 0){
-                    //has no visible child and does not contain text
-                    $(this).hide();
-                }
-            });
+        /**
+         * Detects empty category
+         * Remove the entire category if no item is displayed
+         */
+        const category = [...target.parentNode.parentNode.childNodes]
+          .filter( elem => elem.tagName !== 'H2' && elem.style.display !== 'none')
+
+        if (!category.length) {
+          target.parentNode.parentNode.style.display = 'none'
         }
-    });
-});
+      } else {
+        target.parentNode.style.display = 'block'
+        target.parentNode.previousSibling.style.display = 'block'
+        target.parentNode.parentNode.style.display = 'block'
+        target.style.display = 'block'
+      }
+    })
+  })
+})()
