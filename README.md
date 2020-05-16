@@ -12,7 +12,7 @@ Simplistic node redis cache ready can scale with generic-pool support
 
 ## Prerequisites
 
-```node >= 4``` This module requires nodejs v4 or above as it has dependencies on es6 components such as Map, Set, Promise etc.
+```node >= 8``` This module requires nodejs v6
 ```redis >= 4``` This module requires redis v4 or above as it has dependencies on `UNLINK` and `redis.replicate_commands()` for pattern deletion.
 
 ## Featuring
@@ -150,6 +150,7 @@ No sponsors yet! Will you be the first?
 
 These amazing people have contributed code to this project:
 
+*   Ron Yang
 *   [Oliver Brooks](https://github.com/oliverbrooks)
 
 Feel free to make changes. Please see the [Contributors' Guide](https://github.com/pasupulaphani/node-cache-redis/blob/master/CONTRIBUTING.md) for more information on contributing to the documentation.

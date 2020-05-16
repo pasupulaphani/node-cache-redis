@@ -55,7 +55,6 @@
     "es6-promisify": "^6.0.1",
     "generic-pool": "^3.7.1",
     "is-json": "^2.0.1",
-    "lodash.pick": "^4.4.0",
     "redis": "^2.8.0",
     "retry-as-promised": "^2.2.0"
   },

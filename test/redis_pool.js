@@ -189,7 +189,7 @@ describe("redisPool", () => {
           pool.availableCount().should.be.equal(poolOptions.min - 1);
           return pool.destroy(client);
         })
-        .then(() => Bluebird.delay(100))
+        .then(() => Bluebird.delay(100)) // remove bluebird use await async
         .then(() => pool.availableCount().should.be.equal(poolOptions.min));
     });
   });
@@ -204,7 +204,7 @@ describe("redisPool", () => {
       poolOptions: poolOptions
     }));
 
-    it("should drain all the coonections", () => {
+    it("should drain all the coonections", (done) => {
 
       pool.availableCount().should.be.equal(poolOptions.min);
       pool.getPoolSize().should.be.equal(poolOptions.min);
@@ -212,8 +212,10 @@ describe("redisPool", () => {
 
       return pool.drain()
         .then(() => {
+          console.log('***********************test')
           pool.availableCount().should.be.equal(poolOptions.min);
           pool.getPoolSize().should.be.equal(poolOptions.min);
+          done();
         });
     });
   });

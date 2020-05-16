@@ -1,11 +1,10 @@
 FROM node:alpine
 
-RUN apk update
-COPY package.json /tmp/package.json
-RUN cd /tmp && npm install
-RUN mkdir -p /usr/app && cp -a /tmp/node_modules /usr/app
+WORKDIR /app
 
-WORKDIR /usr/app
-COPY ./ /usr/app/
+COPY ./package.json /app
+RUN  npm install
+ADD .  /app
+#fix abov
 
 CMD ["npm", "test"]
