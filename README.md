@@ -37,17 +37,17 @@ Simplistic node redis cache ready can scale with generic-pool support
 #### Usage
 
 ```
-    const RedisCache = require("node-cache-redis");
-    const cache = new RedisCache();
+    const { init, set, get } = require("node-cache-redis");
+    init();
 
     // set
-    await cache.set("key", { "hello": "world" })
-    const value = await cache.get("key")
+    await set("key", { "hello": "world" })
+    const value = await get("key")
 ```
 
 #### API
 
-- RedisCache([options]) [JSDOC pages](https://pasupulaphani.github.io/node-cache-redis/)
+- init([options]) [JSDOC pages](https://pasupulaphani.github.io/node-cache-redis/)
 
 #### `options` object properties
 

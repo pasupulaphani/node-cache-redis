@@ -84,7 +84,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="RedisCache.html">RedisCache</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#del">del</a></li><li><a href="global.html#deleteAll">deleteAll</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getPoolOptions">getPoolOptions</a></li><li><a href="global.html#getRedisOptions">getRedisOptions</a></li><li><a href="global.html#getset">getset</a></li><li><a href="global.html#getTtlInSeconds">getTtlInSeconds</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#keys">keys</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#setTtlInSeconds">setTtlInSeconds</a></li><li><a href="global.html#status">status</a></li><li><a href="global.html#wrap">wrap</a></li></ul></div>
                 
             </nav>
         </div>
@@ -150,16 +150,16 @@
 <pre class="prettyprint source"><code>    npm install node-cache-redis
 </code></pre>
 <h4>Usage</h4>
-<pre class="prettyprint source"><code>    const RedisCache = require(&quot;node-cache-redis&quot;);
-    const cache = new RedisCache();
+<pre class="prettyprint source"><code>    const { init, set, get } = require(&quot;node-cache-redis&quot;);
+    init();
 
     // set
-    await cache.set(&quot;key&quot;, { &quot;hello&quot;: &quot;world&quot; })
-    const value = await cache.get(&quot;key&quot;)
+    await set(&quot;key&quot;, { &quot;hello&quot;: &quot;world&quot; })
+    const value = await get(&quot;key&quot;)
 </code></pre>
 <h4>API</h4>
 <ul>
-<li>RedisCache([options]) <a href="https://pasupulaphani.github.io/node-cache-redis/">JSDOC pages</a></li>
+<li>init([options]) <a href="https://pasupulaphani.github.io/node-cache-redis/">JSDOC pages</a></li>
 </ul>
 <h4><code>options</code> object properties</h4>
 <table class="params">
