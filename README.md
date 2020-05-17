@@ -11,8 +11,8 @@ Simplistic node redis cache ready can scale with generic-pool support
 
 ## Prerequisites
 
-`node >= 8` This module requires nodejs v6
-`redis >= 4` This module requires redis v4 or above as it has dependencies on `UNLINK` and `redis.replicate_commands()` for pattern deletion.
+> `node >= 8` This module requires nodejs v6
+> `redis >= 4` This module requires redis v4 or above as it has dependencies on `UNLINK` and `redis.replicate_commands()` for pattern deletion.
 
 ## Featuring
 
@@ -158,7 +158,7 @@ No sponsors yet! Will you be the first?
 
 ### Contributors
 
-These amazing people have contributed code to this project:
+Amazing people who have contributed code to this project:
 
 - Ron Yang
 - [Oliver Brooks](https://github.com/oliverbrooks)
