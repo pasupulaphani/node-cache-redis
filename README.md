@@ -11,8 +11,8 @@ Simplistic node redis cache ready can scale with generic-pool support
 
 ## Prerequisites
 
-> `node >= 8` This module requires nodejs v6
-> `redis >= 4` This module requires redis v4 or above as it has dependencies on `UNLINK` and `redis.replicate_commands()` for pattern deletion.
+- `node >= 8` This module requires nodejs v6
+- `redis >= 4` This module requires redis v4 or above as it has dependencies on `UNLINK` and `redis.replicate_commands()` for pattern deletion.
 
 ## Featuring
 
@@ -23,11 +23,6 @@ Simplistic node redis cache ready can scale with generic-pool support
 - Flexible Expiration: Through configuration, you can set a default expiration mode and time for each layer.
 - Statistics / Counters: Gather statistical information and track caching operations in Performance Monitor as needed.
 - Modular Design: Lib comes in many different packages, separating the features and dependencies.
-
-##### Todo:
-
-- Serialization: Used to serialize values in distributed scenarios, can be configured.
-- Synchronized locking with a semaphore
 
 ### Getting started
 
@@ -42,15 +37,13 @@ Simplistic node redis cache ready can scale with generic-pool support
     const cache = new RedisCache();
 
     // set
-    cache.set("key", "value")
-    .then(function () {
-      return cache.get("key");
-    })
-    .then(function (value) {
-      assert.eql(value, "value")
-    });
-
+    await cache.set("key", { "hello": "world" })
+    const value = await cache.get("key")
 ```
+
+### Docs
+
+- [JSDOC pages](https://pasupulaphani.github.io/node-cache-redis/)
 
 #### API
 
@@ -130,6 +123,11 @@ docker run -it -p 6379:6379 redis
 npm t
 ```
 
+##### Todo:
+
+- Serialization: Used to serialize values in distributed scenarios and configuration.
+- Synchronized locking with a semaphore
+
 ## Contribute
 
 [Discover how you can contribute by heading on over to the `CONTRIBUTING.md` file.](https://github.com/pasupulaphani/node-cache-redis/blob/master/CONTRIBUTING.md)
@@ -140,7 +138,7 @@ npm t
 
 These amazing people are maintaining this project:
 
-- [Phani](https://github.com/pasupulaphani) — [view contributions](https://github.com/pasupulaphani/node-cache-redis/commits?author=pasupulaphani)
+- [Phaninder](https://github.com/pasupulaphani) — [view contributions](https://github.com/pasupulaphani/node-cache-redis/commits?author=pasupulaphani)
 
 ### Sponsors
 
