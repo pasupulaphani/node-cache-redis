@@ -4,16 +4,18 @@
     "dictionaries": ["jsdoc"]
   },
   "source": {
-    "include": ["lib", "README.md"],
+    "include": ["lib/redisCache.js", "README.md"],
     "includePattern": ".js$",
     "excludePattern": "(node_modules/|docs)"
   },
   "plugins": [
-    "plugins/markdown"
+    "plugins/markdown",
+    "node_modules/better-docs/category"
   ],
   "templates": {
     "cleverLinks": false,
     "monospaceLinks": true,
+    "search": true,
     "default": {
       "outputSourceFiles": true,
       "includeDate": false
@@ -21,7 +23,8 @@
     "better-docs": {
       "name": "node-cache-redis",
       "title": "Simplistic node redis cache ready can scale with generic-pool support",
-      "hideGenerator": true
+      "hideGenerator": true,
+      "trackingCode": "<script async src='https://www.googletagmanager.com/gtag/js?id=UA-57413413-5'></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-57413413-5');</script>"
     }
   },
   "opts": {
