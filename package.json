@@ -18,10 +18,12 @@
   },
   "homepage": "https://github.com/pasupulaphani/node-cache-redis#readme",
   "author": "pasupulaphani@gmail.com",
-  "contributors": [{
-    "name": "Ron Yang",
-    "email": "yrong1997@gmail.com"
-  }],
+  "contributors": [
+    {
+      "name": "Ron Yang",
+      "email": "yrong1997@gmail.com"
+    }
+  ],
   "license": "WTFPL",
   "keywords": [
     "redis",
@@ -38,8 +40,8 @@
   ],
   "scripts": {
     "lint": "eslint ./lib",
-    "test": "jest --runInBand",
-    "test:watch": "jest --runInBand --watch",
+    "test": "jest --runInBand --detectOpenHandles --forceExit",
+    "test:watch": "jest --runInBand --detectOpenHandles --forceExit --watch",
     "coveralls": "jest --coverage && coveralls < coverage/lcov.info",
     "docs": "jsdoc -c .jsdoc.json",
     "publish:patch": "npm version patch && npm run publish:push",
