@@ -221,7 +221,12 @@
   </tbody>
 </table>
 <h3>Run tests</h3>
-<pre><code>bash test.sh
+<h5>Using docker</h5>
+<pre class="prettyprint source"><code>bash test.sh
+</code></pre>
+<h5>Run manually</h5>
+<pre class="prettyprint source"><code>docker run -it -p 6379:6379 redis
+npm t
 </code></pre>
 <h2>Contribute</h2>
 <p><a href="https://github.com/pasupulaphani/node-cache-redis/blob/master/CONTRIBUTING.md">Discover how you can contribute by heading on over to the <code>CONTRIBUTING.md</code> file.</a></p>

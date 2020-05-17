@@ -3,7 +3,6 @@
 [![Coverage Status](https://coveralls.io/repos/github/pasupulaphani/node-cache-redis/badge.svg?branch=master)](https://coveralls.io/github/pasupulaphani/node-cache-redis?branch=master)
 [![](https://img.shields.io/badge/gratipay-donate-yellow.svg?style=flat-square)](https://gratipay.com/simple-redis-cache/)
 
-
 # node-cache-redis [![See on Github](https://github.com/themes/tactile/images/octocat-icon.png)](https://github.com/pasupulaphani/node-cache-redis)
 
 Simplistic node redis cache ready can scale with generic-pool support
@@ -12,10 +11,11 @@ Simplistic node redis cache ready can scale with generic-pool support
 
 ## Prerequisites
 
-```node >= 8``` This module requires nodejs v6
-```redis >= 4``` This module requires redis v4 or above as it has dependencies on `UNLINK` and `redis.replicate_commands()` for pattern deletion.
+`node >= 8` This module requires nodejs v6
+`redis >= 4` This module requires redis v4 or above as it has dependencies on `UNLINK` and `redis.replicate_commands()` for pattern deletion.
 
 ## Featuring
+
 - Out of the box default configuration (but fully configurable)
 - Scalable easily, less friction during locking and purging
 - Design for multithread environment
@@ -30,7 +30,6 @@ Simplistic node redis cache ready can scale with generic-pool support
 - Synchronized locking with a semaphore
 - Provides both sync and async API
 
-
 ### Getting started
 
 ```
@@ -38,6 +37,7 @@ Simplistic node redis cache ready can scale with generic-pool support
 ```
 
 #### Usage
+
 ```
     const RedisCache = require("node-cache-redis");
     const cache = new RedisCache();
@@ -116,10 +116,20 @@ Simplistic node redis cache ready can scale with generic-pool support
   </tbody>
 </table>
 
-
 ### Run tests
 
-    bash test.sh
+##### Using docker
+
+```
+bash test.sh
+```
+
+##### Run manually
+
+```
+docker run -it -p 6379:6379 redis
+npm t
+```
 
 ## Contribute
 
@@ -131,15 +141,16 @@ Simplistic node redis cache ready can scale with generic-pool support
 
 These amazing people are maintaining this project:
 
-*   [Phani](https://github.com/pasupulaphani) — [view contributions](https://github.com/pasupulaphani/node-cache-redis/commits?author=pasupulaphani)
+- [Phani](https://github.com/pasupulaphani) — [view contributions](https://github.com/pasupulaphani/node-cache-redis/commits?author=pasupulaphani)
 
 ### Sponsors
 
 No sponsors yet! Will you be the first?
 
-[![Patreon donate button](https://img.shields.io/badge/patreon-donate-yellow.svg)](http://patreon.com/phaninder "Donate to this project using Patreon")
-[![Gratipay donate button](https://img.shields.io/badge/gratipay-donate-yellow.svg)](https://gratipay.com/~pasupulaphani/ "Donate weekly to this project using Gratipay")
-[![Flattr donate button](https://img.shields.io/badge/flattr-donate-yellow.svg)](https://flattr.com/profile/pasupulaphani "Donate to this project using Flattr")
+[![Patreon donate button](https://img.shields.io/badge/patreon-donate-yellow.svg)](http://patreon.com/phaninder 'Donate to this project using Patreon')
+[![Gratipay donate button](https://img.shields.io/badge/gratipay-donate-yellow.svg)](https://gratipay.com/~pasupulaphani/ 'Donate weekly to this project using Gratipay')
+[![Flattr donate button](https://img.shields.io/badge/flattr-donate-yellow.svg)](https://flattr.com/profile/pasupulaphani 'Donate to this project using Flattr')
+
 <!-- [![PayPal donate button](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://phaninder.com/paypal "Donate to this project using Paypal") -->
 <!-- [![Bitcoin donate button](https://img.shields.io/badge/bitcoin-donate-yellow.svg)](https://phaninder.com/bitcoin "Donate once-off to this project using Bitcoin") -->
 <!-- [![Wishlist browse button](https://img.shields.io/badge/wishlist-donate-yellow.svg)](https://phaninder.com/wishlist "Buy an item on our wishlist for us") -->
@@ -150,10 +161,9 @@ No sponsors yet! Will you be the first?
 
 These amazing people have contributed code to this project:
 
-*   Ron Yang
-*   [Oliver Brooks](https://github.com/oliverbrooks)
+- Ron Yang
+- [Oliver Brooks](https://github.com/oliverbrooks)
 
 Feel free to make changes. Please see the [Contributors' Guide](https://github.com/pasupulaphani/node-cache-redis/blob/master/CONTRIBUTING.md) for more information on contributing to the documentation.
 
 ---
-
