@@ -3,6 +3,7 @@
   "version": "3.0.0",
   "description": "Simplistic node redis cache ready can scale with generic-pool support",
   "main": "index.js",
+  "files": ["lib"],
   "directories": {
     "lib": "lib"
   },
