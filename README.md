@@ -9,6 +9,10 @@ Simplistic node redis cache ready can scale with generic-pool support
 
 > Cache Early; Cache Often
 
+### Docs
+
+- [JSDOC pages](https://pasupulaphani.github.io/node-cache-redis/)
+
 ## Prerequisites
 
 - `node >= 8` This module requires nodejs v6
@@ -41,13 +45,9 @@ Simplistic node redis cache ready can scale with generic-pool support
     const value = await cache.get("key")
 ```
 
-### Docs
-
-- [JSDOC pages](https://pasupulaphani.github.io/node-cache-redis/)
-
 #### API
 
-- RedisCache([options])
+- RedisCache([options]) [JSDOC pages](https://pasupulaphani.github.io/node-cache-redis/)
 
 #### `options` object properties
 
