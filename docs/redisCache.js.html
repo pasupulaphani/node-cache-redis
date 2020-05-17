@@ -86,7 +86,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="RedisCache.html">RedisCache</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#del">del</a></li><li><a href="global.html#deleteAll">deleteAll</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getPoolOptions">getPoolOptions</a></li><li><a href="global.html#getRedisOptions">getRedisOptions</a></li><li><a href="global.html#getset">getset</a></li><li><a href="global.html#getTtl">getTtl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#keys">keys</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#setTtl">setTtl</a></li><li><a href="global.html#status">status</a></li><li><a href="global.html#wrap">wrap</a></li></ul></div>
                 
             </nav>
         </div>
@@ -107,9 +107,19 @@
 
 const RedisStore = require('./redisStore')
 const createLogger = require('./createLogger')
+const genRandomStr = require('./genRandomStr')
+const NotInitialisedError = require('./NotInitialisedError')
+
+let options = {}
+let store = null
+
+const getNumber = num => Number.isNaN(num) &amp;&amp; num >= 0 ? num : null
+const getStore = () => {
+  if (!store) throw NotInitialisedError('RedisCache not initialised')
+  return store
+}
 
 /**
- * @constructor
  * @param    {object}   options
  * @param    {string}   options.name         - Name your store
  * @param    {object}   options.redisOptions - opts from [node_redis#options-object-properties]{@link https://github.com/NodeRedis/node_redis#options-object-properties}
@@ -117,116 +127,136 @@ const createLogger = require('./createLogger')
  * @param    {object}   options.logger       - Inject your custom logger
  * @param    {integer}  options.ttlInSeconds - Number of seconds to store by default
  */
-const RedisCache = (module.exports = function ({
+exports.init = ({
   name,
   redisOptions,
-  poolOptions,
+  poolOptions = {},
   logger,
   ttlInSeconds
-} = {}) {
-  this.name = name || `redisCache-${Math.random().toString(36).substr(2, 10)}`
-  this.redisOptions = redisOptions
-  this.poolOptions = poolOptions || {}
-  this.logger = createLogger(logger)
-  this.ttlInSeconds = ttlInSeconds
-  this.store = new RedisStore({
-    name: this.name,
-    redisOptions: this.redisOptions,
-    poolOptions: this.poolOptions,
-    logger: this.logger,
-    ttlInSeconds: this.ttlInSeconds
-  })
-})
+} = {}) => {
+  if (store) return
+
+  options = {
+    name: name || `redisCache-${genRandomStr()}`,
+    redisOptions,
+    poolOptions,
+    logger: createLogger(logger),
+    ttlInSeconds
+  }
+
+  store = new RedisStore(options)
+}
 
 /**
- * Return the ttl or the default set on instantiation
- *
- * @param {number} ttlInSeconds - time to live in seconds
+ * Returns name of this pool
+ * @returns {string} Name of the pool
+ */
+exports.getName = () => getStore().getName()
+
+/**
+ * Returns redisOptions of this pool
+ * @returns {object} redis options given
+ */
+exports.getRedisOptions = () => getStore().getRedisOptions()
+
+/**
+ * Returns poolOptions of this pool
+ * @returns {object} pool options given
+ */
+exports.getPoolOptions = () => getStore().getPoolOptions()
+
+/**
+ * Returns pool status and stats
+ * @returns {object} cache and its store status and stats
+ */
+exports.status = () => getStore().status()
+
+/**
+ * Return the ttlInSeconds
+ * @returns {number?} ttl
+ */
+exports.getTtl = () => options.ttlInSeconds
+
+/**
+ * Sets the ttlInSeconds
  * @returns {number} ttl
  */
-RedisCache.prototype.getTtl = function (ttlInSeconds) {
-  return ttlInSeconds || this.ttlInSeconds
+exports.setTtl = ttl => {
+  options.ttlInSeconds = getNumber(ttl)
+  return options.ttlInSeconds
 }
 
 /**
  * Returns 'OK' if successful
- *
  * @param {string} key - key for the value stored
  * @param {string} value - value to stored
  * @param {number} ttlInSeconds - time to live in seconds
  * @returns {string} 'OK' if successful
  */
-RedisCache.prototype.set = function (key, value, ttlInSeconds) {
-  if (this.getTtl(ttlInSeconds) === 0) return Promise.resolve(value)
-
-  return this.store.set(key, value, ttlInSeconds)
+exports.set = async (key, value, ttlInSeconds) => {
+  const ttl = getNumber(ttlInSeconds) || options.ttlInSeconds
+  return ttl === 0 ? value : getStore().set(key, value, ttl)
 }
 
-RedisCache.prototype.getset = function (key, value, ttlInSeconds) {
-  if (this.getTtl(ttlInSeconds) === 0) return Promise.resolve(value)
-
-  return this.store.getset(key, value, ttlInSeconds)
+/**
+ * Returns 'OK' if successful
+ * @param {string} key - key for the value stored
+ * @param {string} value - value to stored
+ * @param {number} ttlInSeconds - time to live in seconds
+ * @returns {string} 'OK' if successful
+ */
+exports.getset = async (key, value, ttlInSeconds) => {
+  const ttl = getNumber(ttlInSeconds) || options.ttlInSeconds
+  return ttl === 0 ? value : getStore().getset(key, value, ttl)
 }
 
 /**
  * Returns value or null when the key is missing
- *
  * @param {string} key - key for the value stored
- * @returns {string} value or null when the key is missing
+ * @returns {any} value or null when the key is missing
  */
-RedisCache.prototype.get = function (key) {
-  return this.store.get(key)
-}
+exports.get = key => getStore().get(key)
 
 /**
  * Returns all keys matching pattern
- *
  * @param {string} pattern - glob-style patterns/default '*'
  * @returns {array} all keys matching pattern
  */
-RedisCache.prototype.keys = function (pattern) {
-  return this.store.keys(pattern || '*')
-}
+exports.keys = (pattern = '*') => getStore().keys(pattern)
 
 /**
  * Delete keys
- *
  * @param {array} keys - keys for the value stored
  * @returns {number} The number of keys that were removed.
  */
-RedisCache.prototype.del = function (keys) {
-  return this.store.del(keys)
-}
+exports.del = keys => getStore().del(keys)
 
 /**
  * Deletes all keys matching pattern
- *
  * @param {string} pattern - glob-style patterns/default '*'
  * @returns {number} The number of keys that were removed.
  */
-RedisCache.prototype.deleteAll = function (pattern) {
-  return this.store.deleteAll(pattern || '*')
-}
+exports.deleteAll = (pattern = '*') => getStore().deleteAll(pattern)
 
 /**
  * Wraps promise to set its value if not exists.
- *
- * @param {string} key - key for the value stored
- * @param {function} fn - function to call if not cache found
- * @param {object} opts - options for wrap
- * @property {number} ttlInSeconds - time to live in seconds
+ * @param {string}   key     - key for the value stored
+ * @param {function} fn      - function to call if not cache found
+ * @param {object}   opts    - options for wrap
+ * @property {number} opts.ttlInSeconds - time to live in seconds
  * @returns {string} 'OK' if successful
  */
-RedisCache.prototype.wrap = async function (key, fn, opts = {}) {
-  const ttlInSeconds = this.getTtl(opts.ttlInSeconds)
+exports.wrap = async (key, fn, {
+  ttlInSeconds
+} = {}) => {
+  const ttl = getNumber(ttlInSeconds) || options.ttlInSeconds
 
-  if (ttlInSeconds &amp;&amp; (Number.isNaN(ttlInSeconds) || ttlInSeconds &lt;= 0)) {
+  if (ttl &amp;&amp; ttl === 0) {
     debug(`Not caching, invalid ttl: ${ttlInSeconds}`)
-    return Promise.resolve(fn())
+    return fn()
   }
 
-  const cachedValue = await this.store.get(key)
-
+  const cachedValue = await getStore().get(key)
   if (!cachedValue) {
     debug('MISS', {
       key
@@ -239,43 +269,7 @@ RedisCache.prototype.wrap = async function (key, fn, opts = {}) {
   debug('HIT', {
     key
   })
-  return Promise.resolve(cachedValue)
-}
-
-/**
- * Returns factory.name for this pool
- *
- * @returns {string} Name of the pool
- */
-RedisCache.prototype.getName = function () {
-  return this.store.getName()
-}
-
-/**
- * Returns this.redisOptions for this pool
- *
- * @returns {object} redis options given
- */
-RedisCache.prototype.getRedisOptions = function () {
-  return this.store.getRedisOptions()
-}
-
-/**
- * Returns this.poolOptions for this pool
- *
- * @returns {object} pool options given
- */
-RedisCache.prototype.getPoolOptions = function () {
-  return this.store.getPoolOptions()
-}
-
-/**
- * Returns pool status and stats
- *
- * @returns {object} cache and its store status and stats
- */
-RedisCache.prototype.status = function () {
-  return this.store.status()
+  return cachedValue
 }
 </code></pre>
         </article>
