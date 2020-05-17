@@ -28,6 +28,11 @@ Simplistic node redis cache ready can scale with generic-pool support
 - Statistics / Counters: Gather statistical information.
 - Modular Design
 
+## Migration
+
+[4.0.0](https://github.com/pasupulaphani/node-cache-redis/releases/tag/v4.0.0) contains braking change. See 
+[CHANGELOG.md](https://github.com/pasupulaphani/node-cache-redis/blob/master/CHANGELOG.md)
+
 ### Getting started
 
 ```
@@ -47,7 +52,7 @@ Simplistic node redis cache ready can scale with generic-pool support
 
 #### API
 
-- init([options]) [JSDOC pages](https://pasupulaphani.github.io/node-cache-redis/)
+- init([options]) [JSDOC init](https://pasupulaphani.github.io/node-cache-redis/global.html#init)
 
 #### `options` object properties
 
