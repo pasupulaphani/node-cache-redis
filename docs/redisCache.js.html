@@ -86,7 +86,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#del">del</a></li><li><a href="global.html#deleteAll">deleteAll</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getPoolOptions">getPoolOptions</a></li><li><a href="global.html#getRedisOptions">getRedisOptions</a></li><li><a href="global.html#getset">getset</a></li><li><a href="global.html#getTtl">getTtl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#keys">keys</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#setTtl">setTtl</a></li><li><a href="global.html#status">status</a></li><li><a href="global.html#wrap">wrap</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#del">del</a></li><li><a href="global.html#deleteAll">deleteAll</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getPoolOptions">getPoolOptions</a></li><li><a href="global.html#getRedisOptions">getRedisOptions</a></li><li><a href="global.html#getset">getset</a></li><li><a href="global.html#getTtlInSeconds">getTtlInSeconds</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#keys">keys</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#setTtlInSeconds">setTtlInSeconds</a></li><li><a href="global.html#status">status</a></li><li><a href="global.html#wrap">wrap</a></li></ul></div>
                 
             </nav>
         </div>
@@ -113,11 +113,7 @@ const NotInitialisedError = require('./NotInitialisedError')
 let options = {}
 let store = null
 
-const getNumber = num => Number.isNaN(num) &amp;&amp; num >= 0 ? num : null
-const getStore = () => {
-  if (!store) throw NotInitialisedError('RedisCache not initialised')
-  return store
-}
+const getNumber = num => !Number.isNaN(num) &amp;&amp; num >= 0 ? num : null
 
 /**
  * @param    {object}   options
@@ -147,41 +143,46 @@ exports.init = ({
   store = new RedisStore(options)
 }
 
+exports.getStore = () => {
+  if (!store) throw NotInitialisedError('RedisCache not initialised')
+  return store
+}
+
 /**
  * Returns name of this pool
  * @returns {string} Name of the pool
  */
-exports.getName = () => getStore().getName()
+exports.getName = () => this.getStore().getName()
 
 /**
  * Returns redisOptions of this pool
  * @returns {object} redis options given
  */
-exports.getRedisOptions = () => getStore().getRedisOptions()
+exports.getRedisOptions = () => this.getStore().getRedisOptions()
 
 /**
  * Returns poolOptions of this pool
  * @returns {object} pool options given
  */
-exports.getPoolOptions = () => getStore().getPoolOptions()
+exports.getPoolOptions = () => this.getStore().getPoolOptions()
 
 /**
  * Returns pool status and stats
  * @returns {object} cache and its store status and stats
  */
-exports.status = () => getStore().status()
+exports.status = () => this.getStore().status()
 
 /**
  * Return the ttlInSeconds
- * @returns {number?} ttl
+ * @returns {number?} ttlInSeconds
  */
-exports.getTtl = () => options.ttlInSeconds
+exports.getTtlInSeconds = () => options.ttlInSeconds
 
 /**
  * Sets the ttlInSeconds
  * @returns {number} ttl
  */
-exports.setTtl = ttl => {
+exports.setTtlInSeconds = ttl => {
   options.ttlInSeconds = getNumber(ttl)
   return options.ttlInSeconds
 }
@@ -195,7 +196,7 @@ exports.setTtl = ttl => {
  */
 exports.set = async (key, value, ttlInSeconds) => {
   const ttl = getNumber(ttlInSeconds) || options.ttlInSeconds
-  return ttl === 0 ? value : getStore().set(key, value, ttl)
+  return ttl === 0 ? value : this.getStore().set(key, value, ttl)
 }
 
 /**
@@ -207,7 +208,7 @@ exports.set = async (key, value, ttlInSeconds) => {
  */
 exports.getset = async (key, value, ttlInSeconds) => {
   const ttl = getNumber(ttlInSeconds) || options.ttlInSeconds
-  return ttl === 0 ? value : getStore().getset(key, value, ttl)
+  return ttl === 0 ? value : this.getStore().getset(key, value, ttl)
 }
 
 /**
@@ -215,28 +216,28 @@ exports.getset = async (key, value, ttlInSeconds) => {
  * @param {string} key - key for the value stored
  * @returns {any} value or null when the key is missing
  */
-exports.get = key => getStore().get(key)
+exports.get = key => this.getStore().get(key)
 
 /**
  * Returns all keys matching pattern
  * @param {string} pattern - glob-style patterns/default '*'
  * @returns {array} all keys matching pattern
  */
-exports.keys = (pattern = '*') => getStore().keys(pattern)
+exports.keys = (pattern = '*') => this.getStore().keys(pattern)
 
 /**
  * Delete keys
  * @param {array} keys - keys for the value stored
  * @returns {number} The number of keys that were removed.
  */
-exports.del = keys => getStore().del(keys)
+exports.del = (keys = []) => this.getStore().del(keys)
 
 /**
  * Deletes all keys matching pattern
  * @param {string} pattern - glob-style patterns/default '*'
  * @returns {number} The number of keys that were removed.
  */
-exports.deleteAll = (pattern = '*') => getStore().deleteAll(pattern)
+exports.deleteAll = (pattern = '*') => this.getStore().deleteAll(pattern)
 
 /**
  * Wraps promise to set its value if not exists.
@@ -256,7 +257,7 @@ exports.wrap = async (key, fn, {
     return fn()
   }
 
-  const cachedValue = await getStore().get(key)
+  const cachedValue = await this.getStore().get(key)
   if (!cachedValue) {
     debug('MISS', {
       key
