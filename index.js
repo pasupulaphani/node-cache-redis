@@ -1,1 +1,1 @@
-module.exports = require("./lib/redis_cache");
+module.exports = require("./lib/redisCache");

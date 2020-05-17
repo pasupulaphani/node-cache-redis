@@ -1,40 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <title>Home - Documentation</title>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simplistic node redis cache ready can scale with generic-pool support Home</title>
 
-    <script src="scripts/prettify/prettify.js"></script>
-    <script src="scripts/prettify/lang-css.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
 </head>
-<body>
 
-<input type="checkbox" id="nav-trigger" class="nav-trigger" />
-<label for="nav-trigger" class="navicon-button x">
-  <div class="navicon"></div>
-</label>
 
-<label for="nav-trigger" class="overlay"></label>
 
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="RedisCache.html">RedisCache</a><ul class='methods'><li data-type='method'><a href="RedisCache.html#del">del</a></li><li data-type='method'><a href="RedisCache.html#deleteAll">deleteAll</a></li><li data-type='method'><a href="RedisCache.html#get">get</a></li><li data-type='method'><a href="RedisCache.html#getName">getName</a></li><li data-type='method'><a href="RedisCache.html#getPoolOptions">getPoolOptions</a></li><li data-type='method'><a href="RedisCache.html#getRedisOptions">getRedisOptions</a></li><li data-type='method'><a href="RedisCache.html#getTtl">getTtl</a></li><li data-type='method'><a href="RedisCache.html#keys">keys</a></li><li data-type='method'><a href="RedisCache.html#set">set</a></li><li data-type='method'><a href="RedisCache.html#status">status</a></li><li data-type='method'><a href="RedisCache.html#wrap">wrap</a></li></ul></li><li><a href="RedisPool.html">RedisPool</a><ul class='methods'><li data-type='method'><a href="RedisPool.html#acquire">acquire</a></li><li data-type='method'><a href="RedisPool.html#availableCount">availableCount</a></li><li data-type='method'><a href="RedisPool.html#destroy">destroy</a></li><li data-type='method'><a href="RedisPool.html#drain">drain</a></li><li data-type='method'><a href="RedisPool.html#getName">getName</a></li><li data-type='method'><a href="RedisPool.html#getPoolOptions">getPoolOptions</a></li><li data-type='method'><a href="RedisPool.html#getPoolSize">getPoolSize</a></li><li data-type='method'><a href="RedisPool.html#getRedisOptions">getRedisOptions</a></li><li data-type='method'><a href="RedisPool.html#pendingCount">pendingCount</a></li><li data-type='method'><a href="RedisPool.html#release">release</a></li><li data-type='method'><a href="RedisPool.html#sendCommand">sendCommand</a></li><li data-type='method'><a href="RedisPool.html#status">status</a></li></ul></li><li><a href="RedisStore.html">RedisStore</a><ul class='methods'><li data-type='method'><a href="RedisStore.html#_executeDeleteAll">_executeDeleteAll</a></li><li data-type='method'><a href="RedisStore.html#_loadDeleteAllScript">_loadDeleteAllScript</a></li><li data-type='method'><a href="RedisStore.html#del">del</a></li><li data-type='method'><a href="RedisStore.html#deleteAll">deleteAll</a></li><li data-type='method'><a href="RedisStore.html#expire">expire</a></li><li data-type='method'><a href="RedisStore.html#get">get</a></li><li data-type='method'><a href="RedisStore.html#getName">getName</a></li><li data-type='method'><a href="RedisStore.html#getPoolOptions">getPoolOptions</a></li><li data-type='method'><a href="RedisStore.html#getRedisOptions">getRedisOptions</a></li><li data-type='method'><a href="RedisStore.html#getTtl">getTtl</a></li><li data-type='method'><a href="RedisStore.html#keys">keys</a></li><li data-type='method'><a href="RedisStore.html#ping">ping</a></li><li data-type='method'><a href="RedisStore.html#sendCommand">sendCommand</a></li><li data-type='method'><a href="RedisStore.html#set">set</a></li><li data-type='method'><a href="RedisStore.html#status">status</a></li></ul></li></ul>
-</nav>
-
-<div id="main">
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
     
 
-    
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">node-cache-redis</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                <div class="dropdown is-hoverable is-right">
+                    <a class="dropdown-trigger link">
+                        Tutorials
+                        <i class="fas fa-chevron-down fa-xs"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-content">
+                        
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="RedisCache.html">RedisCache</a></li><li><a href="RedisPool.html">RedisPool</a></li><li><a href="RedisStore.html">RedisStore</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Title</p>
+                    <h1>Home</h1>
+                </header>
+                
 
 
 
     
 
 
+    <h3> </h3>
+
+
+
 
 
 
@@ -45,18 +111,29 @@
     
 
 
-    <section class="readme">
+
+
+    <section>
         <article><p><a href="https://badge.fury.io/js/node-cache-redis"><img src="https://badge.fury.io/js/node-cache-redis.svg" alt="npm version"></a>
 <a href="https://travis-ci.org/pasupulaphani/node-cache-redis"><img src="https://travis-ci.org/pasupulaphani/node-cache-redis.svg?branch=master" alt="Build Status"></a>
 <a href="https://coveralls.io/github/pasupulaphani/node-cache-redis?branch=master"><img src="https://coveralls.io/repos/github/pasupulaphani/node-cache-redis/badge.svg?branch=master" alt="Coverage Status"></a>
 <a href="https://gratipay.com/simple-redis-cache/"><img src="https://img.shields.io/badge/gratipay-donate-yellow.svg?style=flat-square" alt=""></a></p>
-<h1>node-cache-redis <a href="https://github.com/pasupulaphani/node-cache-redis"><img src="https://github.com/themes/tactile/images/octocat-icon.png" alt="See on Github"></a></h1><p>Simplistic node redis cache ready can scale with generic-pool support</p>
+<h1>node-cache-redis <a href="https://github.com/pasupulaphani/node-cache-redis"><img src="https://github.com/themes/tactile/images/octocat-icon.png" alt="See on Github"></a></h1>
+<p>Simplistic node redis cache ready can scale with generic-pool support</p>
 <blockquote>
 <p>Cache Early; Cache Often</p>
 </blockquote>
-<h2>Prerequisites</h2><p><code>node &gt;= 4</code> This module requires nodejs v4 or above as it has dependencies on es6 components such as Map, Set, Promise etc.
-<code>redis &gt;= 4</code> This module requires redis v4 or above as it has dependencies on <code>UNLINK</code> and <code>redis.replicate_commands()</code> for pattern deletion.</p>
-<h2>Featuring</h2><ul>
+<h3>Docs</h3>
+<ul>
+<li><a href="https://pasupulaphani.github.io/node-cache-redis/">JSDOC pages</a></li>
+</ul>
+<h2>Prerequisites</h2>
+<ul>
+<li><code>node &gt;= 8</code> This module requires nodejs v6</li>
+<li><code>redis &gt;= 4</code> This module requires redis v4 or above as it has dependencies on <code>UNLINK</code> and <code>redis.replicate_commands()</code> for pattern deletion.</li>
+</ul>
+<h2>Featuring</h2>
+<ul>
 <li>Out of the box default configuration (but fully configurable)</li>
 <li>Scalable easily, less friction during locking and purging</li>
 <li>Design for multithread environment</li>
@@ -65,26 +142,23 @@
 <li>Statistics / Counters: Gather statistical information and track caching operations in Performance Monitor as needed.</li>
 <li>Modular Design: Lib comes in many different packages, separating the features and dependencies.</li>
 </ul>
-<h5>Todo:</h5><ul>
-<li>Serialization: Used to serialize values in distributed scenarios, can be configured.</li>
-<li>Synchronized locking with a semaphore</li>
-<li>Provides both sync and async API</li>
-</ul>
-<h3>Getting started</h3><pre class="prettyprint source"><code>    npm install node-cache-redis</code></pre><h4>Usage</h4><pre class="prettyprint source"><code>    const RedisCache = require(&quot;node-cache-redis&quot;);
+<h3>Getting started</h3>
+<pre class="prettyprint source"><code>    npm install node-cache-redis
+</code></pre>
+<h4>Usage</h4>
+<pre class="prettyprint source"><code>    const RedisCache = require(&quot;node-cache-redis&quot;);
     const cache = new RedisCache();
 
     // set
-    cache.set(&quot;key&quot;, &quot;value&quot;)
-    .then(function () {
-      return cache.get(&quot;key&quot;);
-    })
-    .then(function (value) {
-      assert.eql(value, &quot;value&quot;)
-    });
-</code></pre><h4>API</h4><ul>
-<li>RedisCache([options])</li>
+    await cache.set(&quot;key&quot;, { &quot;hello&quot;: &quot;world&quot; })
+    const value = await cache.get(&quot;key&quot;)
+</code></pre>
+<h4>API</h4>
+<ul>
+<li>RedisCache([options]) <a href="https://pasupulaphani.github.io/node-cache-redis/">JSDOC pages</a></li>
 </ul>
-<h4><code>options</code> object properties</h4><table class="params">
+<h4><code>options</code> object properties</h4>
+<table class="params">
   <thead>
     <tr>
       <th>Name</th>
@@ -140,23 +214,40 @@
     </tr>
   </tbody>
 </table>
-
-
-<h3>Run tests</h3><pre class="prettyprint source"><code>bash test.sh</code></pre><h2>Contribute</h2><p><a href="https://github.com/pasupulaphani/node-cache-redis/blob/master/CONTRIBUTING.md">Discover how you can contribute by heading on over to the <code>CONTRIBUTING.md</code> file.</a></p>
-<h2>Backers</h2><h3>Maintainers</h3><p>These amazing people are maintaining this project:</p>
+<h3>Run tests</h3>
+<h5>Using docker</h5>
+<pre class="prettyprint source"><code>bash test.sh
+</code></pre>
+<h5>Run manually</h5>
+<pre class="prettyprint source"><code>docker run -it -p 6379:6379 redis
+npm t
+</code></pre>
+<h5>Todo:</h5>
 <ul>
-<li><a href="https://github.com/pasupulaphani">Phani</a> — <a href="https://github.com/pasupulaphani/node-cache-redis/commits?author=pasupulaphani">view contributions</a></li>
+<li>Serialization: Used to serialize values in distributed scenarios and configuration.</li>
+<li>Synchronized locking with a semaphore</li>
 </ul>
-<h3>Sponsors</h3><p>No sponsors yet! Will you be the first?</p>
+<h2>Contribute</h2>
+<p><a href="https://github.com/pasupulaphani/node-cache-redis/blob/master/CONTRIBUTING.md">Discover how you can contribute by heading on over to the <code>CONTRIBUTING.md</code> file.</a></p>
+<h2>Backers</h2>
+<h3>Maintainers</h3>
+<p>These amazing people are maintaining this project:</p>
+<ul>
+<li><a href="https://github.com/pasupulaphani">Phaninder</a> — <a href="https://github.com/pasupulaphani/node-cache-redis/commits?author=pasupulaphani">view contributions</a></li>
+</ul>
+<h3>Sponsors</h3>
+<p>No sponsors yet! Will you be the first?</p>
 <p><a href="http://patreon.com/phaninder" title="Donate to this project using Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" alt="Patreon donate button"></a>
 <a href="https://gratipay.com/~pasupulaphani/" title="Donate weekly to this project using Gratipay"><img src="https://img.shields.io/badge/gratipay-donate-yellow.svg" alt="Gratipay donate button"></a>
-<a href="https://flattr.com/profile/pasupulaphani" title="Donate to this project using Flattr"><img src="https://img.shields.io/badge/flattr-donate-yellow.svg" alt="Flattr donate button"></a>
+<a href="https://flattr.com/profile/pasupulaphani" title="Donate to this project using Flattr"><img src="https://img.shields.io/badge/flattr-donate-yellow.svg" alt="Flattr donate button"></a></p>
 <!-- [![PayPal donate button](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://phaninder.com/paypal "Donate to this project using Paypal") -->
 <!-- [![Bitcoin donate button](https://img.shields.io/badge/bitcoin-donate-yellow.svg)](https://phaninder.com/bitcoin "Donate once-off to this project using Bitcoin") -->
-<!-- [![Wishlist browse button](https://img.shields.io/badge/wishlist-donate-yellow.svg)](https://phaninder.com/wishlist "Buy an item on our wishlist for us") --></p>
-<p><a href='https://pledgie.com/campaigns/33095'><img alt='Click here to lend your support to: simple-node-redis-cache and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/33095.png?skin_name=chrome' border='0' ></a></p>
-<h3>Contributors</h3><p>These amazing people have contributed code to this project:</p>
+<!-- [![Wishlist browse button](https://img.shields.io/badge/wishlist-donate-yellow.svg)](https://phaninder.com/wishlist "Buy an item on our wishlist for us") -->
+<!-- <a href='https://pledgie.com/campaigns/33095'><img alt='Click here to lend your support to: simple-node-redis-cache and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/33095.png?skin_name=chrome' border='0' ></a> -->
+<h3>Contributors</h3>
+<p>Amazing people who have contributed code to this project:</p>
 <ul>
+<li>Ron Yang</li>
 <li><a href="https://github.com/oliverbrooks">Oliver Brooks</a></li>
 </ul>
 <p>Feel free to make changes. Please see the <a href="https://github.com/pasupulaphani/node-cache-redis/blob/master/CONTRIBUTING.md">Contributors' Guide</a> for more information on contributing to the documentation.</p>
@@ -168,15 +259,15 @@
 
 
 
-</div>
+            </div>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
 
-<br class="clear">
-
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
-</footer>
-
-<script>prettyPrint();</script>
-<script src="scripts/linenumber.js"></script>
 </body>
 </html>

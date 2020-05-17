@@ -3,6 +3,9 @@
   "version": "2.14.0",
   "description": "Simplistic node redis cache ready can scale with generic-pool support",
   "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/pasupulaphani/node-cache-redis.git"
@@ -14,9 +17,6 @@
     "url": "https://github.com/pasupulaphani/node-cache-redis/issues"
   },
   "homepage": "https://github.com/pasupulaphani/node-cache-redis#readme",
-  "directories": {
-    "test": "test"
-  },
   "author": "pasupulaphani@gmail.com",
   "contributors": [
     {
@@ -39,35 +39,34 @@
     "Serialization"
   ],
   "scripts": {
-    "lint": "node_modules/.bin/eslint ./lib",
-    "test": "npm run lint&&./node_modules/.bin/mocha --reporter spec",
-    "cover": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha",
-    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "docs:generate": "./node_modules/.bin/jsdoc -c .jsdoc.json",
+    "lint": "eslint ./lib",
+    "test": "jest --runInBand --detectOpenHandles",
+    "test:watch": "jest --runInBand --detectOpenHandles --watch",
+    "coveralls": "jest --coverage && coveralls < coverage/lcov.info",
+    "docs": "jsdoc -c .jsdoc.json",
     "publish:patch": "npm version patch && npm run publish:push",
     "publish:minor": "npm version minor && npm run publish:push",
     "publish:major": "npm version major && npm run publish:push",
     "publish:push": "git push origin master --follow-tags && npm publish",
-    "prepublish": "npm run docs:generate"
+    "prepublish": "npm run docs"
   },
   "dependencies": {
     "debug": "^4.1.1",
-    "es6-promisify": "^6.0.1",
     "generic-pool": "^3.7.1",
     "is-json": "^2.0.1",
-    "lodash.pick": "^4.4.0",
-    "redis": "^2.8.0",
-    "retry-as-promised": "^2.2.0"
+    "redis": "^3.0.2",
+    "retry-as-promised": "^3.2.0"
   },
   "devDependencies": {
-    "bluebird": "^3.5.0",
-    "coveralls": "^2.13.1",
-    "docdash": "^0.4.0",
-    "eslint": "^4.13.1",
-    "istanbul": "^0.4.5",
-    "jsdoc": "^3.4.3",
-    "mocha": "^3.4.1",
-    "mocha-lcov-reporter": "^1.3.0",
-    "should": "^13.1.3"
+    "better-docs": "^2.0.1",
+    "coveralls": "^3.1.0",
+    "eslint": "^7.0.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-prettier": "^3.1.3",
+    "jest": "^26.0.1",
+    "jsdoc": "^3.6.4",
+    "prettier": "^2.0.5"
   }
 }

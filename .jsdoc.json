@@ -17,6 +17,11 @@
     "default": {
       "outputSourceFiles": true,
       "includeDate": false
+    },
+    "better-docs": {
+      "name": "node-cache-redis",
+      "title": "Simplistic node redis cache ready can scale with generic-pool support",
+      "hideGenerator": true
     }
   },
   "opts": {
@@ -25,13 +30,10 @@
     "private": true,
     "recurse": true,
     "verbose": true,
-    "template": "./node_modules/docdash"
+    "template": "./node_modules/better-docs"
   },
   "markdown": {
     "parser": "gfm",
     "hardwrap": false
-  },
-  "docdash": {
-    "static": true
   }
 }

@@ -1,0 +1,294 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simplistic node redis cache ready can scale with generic-pool support redisCache.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">node-cache-redis</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                <div class="dropdown is-hoverable is-right">
+                    <a class="dropdown-trigger link">
+                        Tutorials
+                        <i class="fas fa-chevron-down fa-xs"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-content">
+                        
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="RedisCache.html">RedisCache</a></li><li><a href="RedisPool.html">RedisPool</a></li><li><a href="RedisStore.html">RedisStore</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>redisCache.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const debug = require('debug')('nodeCacheRedis')
+
+const RedisStore = require('./redisStore')
+const createLogger = require('./createLogger')
+
+/**
+ * @constructor
+ * @param    {object}   options
+ * @param    {string}   options.name         - Name your store
+ * @param    {object}   options.redisOptions - opts from [node_redis#options-object-properties]{@link https://github.com/NodeRedis/node_redis#options-object-properties}
+ * @param    {object}   options.poolOptions  - opts from [node-pool#createpool]{@link https://github.com/coopernurse/node-pool#createpool}
+ * @param    {object}   options.logger       - Inject your custom logger
+ * @param    {integer}  options.ttlInSeconds - Number of seconds to store by default
+ */
+const RedisCache = (module.exports = function ({
+  name,
+  redisOptions,
+  poolOptions,
+  logger,
+  ttlInSeconds
+} = {}) {
+  this.name = name || `redisCache-${Math.random().toString(36).substr(2, 10)}`
+  this.redisOptions = redisOptions
+  this.poolOptions = poolOptions || {}
+  this.logger = createLogger(logger)
+  this.ttlInSeconds = ttlInSeconds
+  this.store = new RedisStore({
+    name: this.name,
+    redisOptions: this.redisOptions,
+    poolOptions: this.poolOptions,
+    logger: this.logger,
+    ttlInSeconds: this.ttlInSeconds
+  })
+})
+
+/**
+ * Return the ttl or the default set on instantiation
+ *
+ * @param {number} ttlInSeconds - time to live in seconds
+ * @returns {number} ttl
+ */
+RedisCache.prototype.getTtl = function (ttlInSeconds) {
+  return ttlInSeconds || this.ttlInSeconds
+}
+
+/**
+ * Returns 'OK' if successful
+ *
+ * @param {string} key - key for the value stored
+ * @param {string} value - value to stored
+ * @param {number} ttlInSeconds - time to live in seconds
+ * @returns {string} 'OK' if successful
+ */
+RedisCache.prototype.set = function (key, value, ttlInSeconds) {
+  if (this.getTtl(ttlInSeconds) === 0) return Promise.resolve(value)
+
+  return this.store.set(key, value, ttlInSeconds)
+}
+
+RedisCache.prototype.getset = function (key, value, ttlInSeconds) {
+  if (this.getTtl(ttlInSeconds) === 0) return Promise.resolve(value)
+
+  return this.store.getset(key, value, ttlInSeconds)
+}
+
+/**
+ * Returns value or null when the key is missing
+ *
+ * @param {string} key - key for the value stored
+ * @returns {string} value or null when the key is missing
+ */
+RedisCache.prototype.get = function (key) {
+  return this.store.get(key)
+}
+
+/**
+ * Returns all keys matching pattern
+ *
+ * @param {string} pattern - glob-style patterns/default '*'
+ * @returns {array} all keys matching pattern
+ */
+RedisCache.prototype.keys = function (pattern) {
+  return this.store.keys(pattern || '*')
+}
+
+/**
+ * Delete keys
+ *
+ * @param {array} keys - keys for the value stored
+ * @returns {number} The number of keys that were removed.
+ */
+RedisCache.prototype.del = function (keys) {
+  return this.store.del(keys)
+}
+
+/**
+ * Deletes all keys matching pattern
+ *
+ * @param {string} pattern - glob-style patterns/default '*'
+ * @returns {number} The number of keys that were removed.
+ */
+RedisCache.prototype.deleteAll = function (pattern) {
+  return this.store.deleteAll(pattern || '*')
+}
+
+/**
+ * Wraps promise to set its value if not exists.
+ *
+ * @param {string} key - key for the value stored
+ * @param {function} fn - function to call if not cache found
+ * @param {object} opts - options for wrap
+ * @property {number} ttlInSeconds - time to live in seconds
+ * @returns {string} 'OK' if successful
+ */
+RedisCache.prototype.wrap = async function (key, fn, opts = {}) {
+  const ttlInSeconds = this.getTtl(opts.ttlInSeconds)
+
+  if (ttlInSeconds &amp;&amp; (Number.isNaN(ttlInSeconds) || ttlInSeconds &lt;= 0)) {
+    debug(`Not caching, invalid ttl: ${ttlInSeconds}`)
+    return Promise.resolve(fn())
+  }
+
+  const cachedValue = await this.store.get(key)
+
+  if (!cachedValue) {
+    debug('MISS', {
+      key
+    })
+
+    const value = await Promise.resolve(fn())
+    await this.set(key, value, ttlInSeconds)
+    return value
+  }
+  debug('HIT', {
+    key
+  })
+  return Promise.resolve(cachedValue)
+}
+
+/**
+ * Returns factory.name for this pool
+ *
+ * @returns {string} Name of the pool
+ */
+RedisCache.prototype.getName = function () {
+  return this.store.getName()
+}
+
+/**
+ * Returns this.redisOptions for this pool
+ *
+ * @returns {object} redis options given
+ */
+RedisCache.prototype.getRedisOptions = function () {
+  return this.store.getRedisOptions()
+}
+
+/**
+ * Returns this.poolOptions for this pool
+ *
+ * @returns {object} pool options given
+ */
+RedisCache.prototype.getPoolOptions = function () {
+  return this.store.getPoolOptions()
+}
+
+/**
+ * Returns pool status and stats
+ *
+ * @returns {object} cache and its store status and stats
+ */
+RedisCache.prototype.status = function () {
+  return this.store.status()
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

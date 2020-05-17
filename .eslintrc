@@ -1,47 +1,17 @@
 {
-  "extends": "eslint:recommended",
+  "extends": ["airbnb-base", "prettier"],
+  "plugins": ["prettier"],
   "env": {
     "browser": false,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "parserOptions": {
-    "ecmaVersion": 6
+    "ecmaVersion": 2018
   },
-  "globals": {
-    "describe": false,
-    "before": false,
-    "beforeEach": false,
-    "afterEach": false,
-    "it": false,
-    "after": true,
-    "window": true,
-    "location": true,
-    "document": true,
-    "map": true,
-    "navigator": true,
-    "Promise": true
-  },
-  // http://eslint.org/docs/rules/
   "rules": {
-    "camelcase": 1,
-    "new-cap": 0,
-    "key-spacing": 0,
-    "no-multi-spaces": 0,
-    "eol-last": 1,
-    "strict": 0,
-    "no-console": 0,
-    "no-undef": 2,
-    "no-unused-vars": 2,
-    "no-underscore-dangle": 0,
-    "semi": [2, "always"],
-    "space-before-function-paren": 1,
-    "quotes": [2, "double", "avoid-escape"],
-    "keyword-spacing": 1,
-    "require-yield": 0,
-    "valid-jsdoc": [1, {
-      "prefer": {
-          "return": "returns"
-      }
-    }]
+    "no-multi-assign": 0,
+    "func-names": 0,
+    "no-underscore-dangle": 0
   }
 }
