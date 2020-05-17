@@ -44,11 +44,11 @@
     "test:watch": "jest --runInBand --detectOpenHandles --forceExit --watch",
     "coveralls": "coveralls < coverage/lcov.info",
     "docs": "jsdoc -c .jsdoc.json",
-    "publish:patch": "npm version patch && npm run publish:push",
-    "publish:minor": "npm version minor && npm run publish:push",
-    "publish:major": "npm version major && npm run publish:push",
+    "prepublish": "npm run docs",
     "publish:push": "git push origin master --follow-tags && npm publish",
-    "prepublish": "npm run docs"
+    "publish:major": "npm version major && npm run publish:push",
+    "publish:minor": "npm version minor && npm run publish:push",
+    "publish:patch": "npm version patch && npm run publish:push"
   },
   "dependencies": {
     "debug": "^4.1.1",
