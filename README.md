@@ -9,7 +9,7 @@ Simplistic node redis cache ready can scale with generic-pool support
 
 > Cache Early; Cache Often
 
-### Docs
+### Documentation
 
 - [JSDOC pages](https://pasupulaphani.github.io/node-cache-redis/)
 
@@ -20,13 +20,13 @@ Simplistic node redis cache ready can scale with generic-pool support
 
 ## Featuring
 
-- Out of the box default configuration (but fully configurable)
-- Scalable easily, less friction during locking and purging
-- Design for multithread environment
-- Extensible Logging
+- Works out of the box
+- Easy to scale with low friction during locking and purging
+- Designed for multithread environment
+- Logging can be customized
 - Flexible Expiration: Through configuration, you can set a default expiration mode and time for each layer.
-- Statistics / Counters: Gather statistical information and track caching operations in Performance Monitor as needed.
-- Modular Design: Lib comes in many different packages, separating the features and dependencies.
+- Statistics / Counters: Gather statistical information.
+- Modular Design
 
 ### Getting started
 
