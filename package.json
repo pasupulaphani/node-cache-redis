@@ -38,8 +38,8 @@
   ],
   "scripts": {
     "lint": "eslint ./lib",
-    "test": "jest --runInBand",
-    "test:watch": "jest --runInBand --watch",
+    "test": "jest --runInBand --detectOpenHandles",
+    "test:watch": "jest --runInBand --detectOpenHandles --watch",
     "coveralls": "jest --coverage && coveralls < coverage/lcov.info",
     "docs": "jsdoc -c .jsdoc.json",
     "publish:patch": "npm version patch && npm run publish:push",
