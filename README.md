@@ -28,7 +28,6 @@ Simplistic node redis cache ready can scale with generic-pool support
 
 - Serialization: Used to serialize values in distributed scenarios, can be configured.
 - Synchronized locking with a semaphore
-- Provides both sync and async API
 
 ### Getting started
 
