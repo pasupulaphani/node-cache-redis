@@ -123,9 +123,15 @@
 <blockquote>
 <p>Cache Early; Cache Often</p>
 </blockquote>
+<h3>Docs</h3>
+<ul>
+<li><a href="https://pasupulaphani.github.io/node-cache-redis/">JSDOC pages</a></li>
+</ul>
 <h2>Prerequisites</h2>
-<p><code>node &gt;= 8</code> This module requires nodejs v6
-<code>redis &gt;= 4</code> This module requires redis v4 or above as it has dependencies on <code>UNLINK</code> and <code>redis.replicate_commands()</code> for pattern deletion.</p>
+<ul>
+<li><code>node &gt;= 8</code> This module requires nodejs v6</li>
+<li><code>redis &gt;= 4</code> This module requires redis v4 or above as it has dependencies on <code>UNLINK</code> and <code>redis.replicate_commands()</code> for pattern deletion.</li>
+</ul>
 <h2>Featuring</h2>
 <ul>
 <li>Out of the box default configuration (but fully configurable)</li>
@@ -136,12 +142,6 @@
 <li>Statistics / Counters: Gather statistical information and track caching operations in Performance Monitor as needed.</li>
 <li>Modular Design: Lib comes in many different packages, separating the features and dependencies.</li>
 </ul>
-<h5>Todo:</h5>
-<ul>
-<li>Serialization: Used to serialize values in distributed scenarios, can be configured.</li>
-<li>Synchronized locking with a semaphore</li>
-<li>Provides both sync and async API</li>
-</ul>
 <h3>Getting started</h3>
 <pre class="prettyprint source"><code>    npm install node-cache-redis
 </code></pre>
@@ -150,18 +150,12 @@
     const cache = new RedisCache();
 
     // set
-    cache.set(&quot;key&quot;, &quot;value&quot;)
-    .then(function () {
-      return cache.get(&quot;key&quot;);
-    })
-    .then(function (value) {
-      assert.eql(value, &quot;value&quot;)
-    });
-
+    await cache.set(&quot;key&quot;, { &quot;hello&quot;: &quot;world&quot; })
+    const value = await cache.get(&quot;key&quot;)
 </code></pre>
 <h4>API</h4>
 <ul>
-<li>RedisCache([options])</li>
+<li>RedisCache([options]) <a href="https://pasupulaphani.github.io/node-cache-redis/">JSDOC pages</a></li>
 </ul>
 <h4><code>options</code> object properties</h4>
 <table class="params">
@@ -228,13 +222,18 @@
 <pre class="prettyprint source"><code>docker run -it -p 6379:6379 redis
 npm t
 </code></pre>
+<h5>Todo:</h5>
+<ul>
+<li>Serialization: Used to serialize values in distributed scenarios and configuration.</li>
+<li>Synchronized locking with a semaphore</li>
+</ul>
 <h2>Contribute</h2>
 <p><a href="https://github.com/pasupulaphani/node-cache-redis/blob/master/CONTRIBUTING.md">Discover how you can contribute by heading on over to the <code>CONTRIBUTING.md</code> file.</a></p>
 <h2>Backers</h2>
 <h3>Maintainers</h3>
 <p>These amazing people are maintaining this project:</p>
 <ul>
-<li><a href="https://github.com/pasupulaphani">Phani</a> — <a href="https://github.com/pasupulaphani/node-cache-redis/commits?author=pasupulaphani">view contributions</a></li>
+<li><a href="https://github.com/pasupulaphani">Phaninder</a> — <a href="https://github.com/pasupulaphani/node-cache-redis/commits?author=pasupulaphani">view contributions</a></li>
 </ul>
 <h3>Sponsors</h3>
 <p>No sponsors yet! Will you be the first?</p>
@@ -246,7 +245,7 @@ npm t
 <!-- [![Wishlist browse button](https://img.shields.io/badge/wishlist-donate-yellow.svg)](https://phaninder.com/wishlist "Buy an item on our wishlist for us") -->
 <!-- <a href='https://pledgie.com/campaigns/33095'><img alt='Click here to lend your support to: simple-node-redis-cache and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/33095.png?skin_name=chrome' border='0' ></a> -->
 <h3>Contributors</h3>
-<p>These amazing people have contributed code to this project:</p>
+<p>Amazing people who have contributed code to this project:</p>
 <ul>
 <li>Ron Yang</li>
 <li><a href="https://github.com/oliverbrooks">Oliver Brooks</a></li>

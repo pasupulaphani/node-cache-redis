@@ -18,10 +18,12 @@
   },
   "homepage": "https://github.com/pasupulaphani/node-cache-redis#readme",
   "author": "pasupulaphani@gmail.com",
-  "contributors": [{
-    "name": "Ron Yang",
-    "email": "yrong1997@gmail.com"
-  }],
+  "contributors": [
+    {
+      "name": "Ron Yang",
+      "email": "yrong1997@gmail.com"
+    }
+  ],
   "license": "WTFPL",
   "keywords": [
     "redis",
@@ -57,7 +59,6 @@
   },
   "devDependencies": {
     "better-docs": "^2.0.1",
-    "bluebird": "^3.7.2",
     "coveralls": "^3.1.0",
     "eslint": "^7.0.0",
     "eslint-config-airbnb-base": "^14.1.0",
