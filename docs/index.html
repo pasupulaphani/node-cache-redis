@@ -150,16 +150,16 @@
 <pre class="prettyprint source"><code>    npm install node-cache-redis
 </code></pre>
 <h4>Usage</h4>
-<pre class="prettyprint source"><code>    const RedisCache = require(&quot;node-cache-redis&quot;);
-    const cache = new RedisCache();
+<pre class="prettyprint source"><code>    const { init, set, get } = require(&quot;node-cache-redis&quot;);
+    init();
 
     // set
-    await cache.set(&quot;key&quot;, { &quot;hello&quot;: &quot;world&quot; })
-    const value = await cache.get(&quot;key&quot;)
+    await set(&quot;key&quot;, { &quot;hello&quot;: &quot;world&quot; })
+    const value = await get(&quot;key&quot;)
 </code></pre>
 <h4>API</h4>
 <ul>
-<li>RedisCache([options]) <a href="https://pasupulaphani.github.io/node-cache-redis/">JSDOC pages</a></li>
+<li>init([options]) <a href="https://pasupulaphani.github.io/node-cache-redis/">JSDOC pages</a></li>
 </ul>
 <h4><code>options</code> object properties</h4>
 <table class="params">
