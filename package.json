@@ -27,7 +27,7 @@
       "email": "yrong1997@gmail.com"
     }
   ],
-  "license": "WTFPL",
+  "license": "MIT",
   "keywords": [
     "redis",
     "cache",
