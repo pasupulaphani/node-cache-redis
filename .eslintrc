@@ -5,12 +5,8 @@
     "node": true,
     "jest": true
   },
-  "parserOptions": {
-    "ecmaVersion": 2018
-  },
   "rules": {
-    "no-multi-assign": 1,
-    "func-names": 1,
-    "no-underscore-dangle": 1
+    "arrow-parens": ["error", "as-needed"],
+    "no-underscore-dangle": 0
   }
 }

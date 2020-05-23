@@ -113,7 +113,7 @@ const NotInitialisedError = require('./NotInitialisedError')
 let options = {}
 let store = null
 
-const getNumber = num => !Number.isNaN(num) &amp;&amp; num >= 0 ? num : null
+const getNumber = (num) => (!Number.isNaN(num) &amp;&amp; num >= 0 ? num : null)
 
 /**
  * @param    {object}   options
@@ -182,7 +182,7 @@ exports.getTtlInSeconds = () => options.ttlInSeconds
  * Sets the ttlInSeconds
  * @returns {number} ttl
  */
-exports.setTtlInSeconds = ttl => {
+exports.setTtlInSeconds = (ttl) => {
   options.ttlInSeconds = getNumber(ttl)
   return options.ttlInSeconds
 }
@@ -216,7 +216,7 @@ exports.getset = async (key, value, ttlInSeconds) => {
  * @param {string} key - key for the value stored
  * @returns {any} value or null when the key is missing
  */
-exports.get = key => this.getStore().get(key)
+exports.get = (key) => this.getStore().get(key)
 
 /**
  * Returns all keys matching pattern
@@ -247,9 +247,7 @@ exports.deleteAll = (pattern = '*') => this.getStore().deleteAll(pattern)
  * @property {number} opts.ttlInSeconds - time to live in seconds
  * @returns {string} 'OK' if successful
  */
-exports.wrap = async (key, fn, {
-  ttlInSeconds
-} = {}) => {
+exports.wrap = async (key, fn, { ttlInSeconds } = {}) => {
   const ttl = getNumber(ttlInSeconds) || options.ttlInSeconds
 
   if (ttl &amp;&amp; ttl === 0) {
