@@ -1,7 +1,7 @@
 [![npm version](https://badge.fury.io/js/node-cache-redis.svg)](https://badge.fury.io/js/node-cache-redis)
 [![Build Status](https://travis-ci.org/pasupulaphani/node-cache-redis.svg?branch=master)](https://travis-ci.org/pasupulaphani/node-cache-redis)
 [![Coverage Status](https://coveralls.io/repos/github/pasupulaphani/node-cache-redis/badge.svg?branch=master)](https://coveralls.io/github/pasupulaphani/node-cache-redis?branch=master)
-[![](https://img.shields.io/badge/gratipay-donate-yellow.svg?style=flat-square)](https://gratipay.com/simple-redis-cache/)
+[![Patreon donate button](https://img.shields.io/badge/patreon-donate-yellow.svg)](http://patreon.com/phaninder 'Donate to this project using Patreon')
 
 # node-cache-redis [![See on Github](https://github.com/themes/tactile/images/octocat-icon.png)](https://github.com/pasupulaphani/node-cache-redis)
 
@@ -30,7 +30,7 @@ Simplistic node redis cache ready can scale with generic-pool support
 
 ## Migration
 
-[4.0.0](https://github.com/pasupulaphani/node-cache-redis/releases/tag/v4.0.0) contains braking change. See 
+[4.0.0](https://github.com/pasupulaphani/node-cache-redis/releases/tag/v4.0.0) contains braking change. See
 [CHANGELOG.md](https://github.com/pasupulaphani/node-cache-redis/blob/master/CHANGELOG.md)
 
 ### Getting started
@@ -150,7 +150,6 @@ These amazing people are maintaining this project:
 No sponsors yet! Will you be the first?
 
 [![Patreon donate button](https://img.shields.io/badge/patreon-donate-yellow.svg)](http://patreon.com/phaninder 'Donate to this project using Patreon')
-[![Gratipay donate button](https://img.shields.io/badge/gratipay-donate-yellow.svg)](https://gratipay.com/~pasupulaphani/ 'Donate weekly to this project using Gratipay')
 [![Flattr donate button](https://img.shields.io/badge/flattr-donate-yellow.svg)](https://flattr.com/profile/pasupulaphani 'Donate to this project using Flattr')
 
 <!-- [![PayPal donate button](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://phaninder.com/paypal "Donate to this project using Paypal") -->
