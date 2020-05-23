@@ -1,109 +1,138 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-57413413-5"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+      gtag('config', 'UA-57413413-5')
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Simplistic node redis cache ready can scale with generic-pool support
+      redisCache.js
+    </title>
 
-<head>
-  <script async src='https://www.googletagmanager.com/gtag/js?id=UA-57413413-5'></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-57413413-5');</script>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Simplistic node redis cache ready can scale with generic-pool support redisCache.js</title>
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="./build/entry.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+      integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+      crossorigin="anonymous"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css"
+    />
+    <link type="text/css" rel="stylesheet" href="styles/app.min.css" />
+    <link type="text/css" rel="stylesheet" href="styles/iframe.css" />
+    <link type="text/css" rel="stylesheet" href="" />
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </head>
 
-  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script src="./build/entry.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
-  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
-  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
-  <link type="text/css" rel="stylesheet" href="">
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-
-  
-</head>
-
-
-
-<body class="layout small-header">
+  <body class="layout small-header">
     <div id="stickyNavbarOverlay"></div>
-    
 
-<div class="top-nav">
-    <div class="inner">
-        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
+    <div class="top-nav">
+      <div class="inner">
+        <a
+          id="hamburger"
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
         </a>
         <div class="logo">
-            
-             
-                <a href="index.html">
-                    <h1 class="navbar-item">node-cache-redis</h1>
-                </a>
-            
+          <a href="index.html">
+            <h1 class="navbar-item">node-cache-redis</h1>
+          </a>
         </div>
         <div class="menu">
-            
-            <div class="navigation">
-                <a
-                    href="index.html"
-                    class="link"
-                >
-                    API Documentation
-                </a>
-                <div class="dropdown is-hoverable is-right">
-                    <a class="dropdown-trigger link">
-                        Tutorials
-                        <i class="fas fa-chevron-down fa-xs"></i>
-                    </a>
-                    <div class="dropdown-menu">
-                        <div class="dropdown-content">
-                        
-                        </div>
-                    </div>
-                </div>
-                
-                
+          <div class="navigation">
+            <a href="index.html" class="link">
+              API Documentation
+            </a>
+            <div class="dropdown is-hoverable is-right">
+              <a class="dropdown-trigger link">
+                Tutorials
+                <i class="fas fa-chevron-down fa-xs"></i>
+              </a>
+              <div class="dropdown-menu">
+                <div class="dropdown-content"></div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
     <div id="main">
-        <div
-            class="sidebar "
-            id="sidebarNav"
-        >
-            
-                <div class="search-wrapper">
-                    <input id="search" type="text" placeholder="Search docs..." class="input">
-                </div>
-            
-            <nav>
-                
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#del">del</a></li><li><a href="global.html#deleteAll">deleteAll</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getName">getName</a></li><li><a href="global.html#getPoolOptions">getPoolOptions</a></li><li><a href="global.html#getRedisOptions">getRedisOptions</a></li><li><a href="global.html#getset">getset</a></li><li><a href="global.html#getTtlInSeconds">getTtlInSeconds</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#keys">keys</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#setTtlInSeconds">setTtlInSeconds</a></li><li><a href="global.html#status">status</a></li><li><a href="global.html#wrap">wrap</a></li></ul></div>
-                
-            </nav>
+      <div class="sidebar" id="sidebarNav">
+        <div class="search-wrapper">
+          <input
+            id="search"
+            type="text"
+            placeholder="Search docs..."
+            class="input"
+          />
         </div>
-        <div class="core" id="main-content-wrapper">
-            <div class="content">
-                <header class="page-title">
-                    <p>Source</p>
-                    <h1>redisCache.js</h1>
-                </header>
-                
 
+        <nav>
+          <h2><a href="index.html">Documentation</a></h2>
+          <div class="category">
+            <h3>Global</h3>
+            <ul>
+              <li><a href="global.html#del">del</a></li>
+              <li><a href="global.html#deleteAll">deleteAll</a></li>
+              <li><a href="global.html#get">get</a></li>
+              <li><a href="global.html#getName">getName</a></li>
+              <li><a href="global.html#getPoolOptions">getPoolOptions</a></li>
+              <li><a href="global.html#getRedisOptions">getRedisOptions</a></li>
+              <li><a href="global.html#getset">getset</a></li>
+              <li><a href="global.html#getTtlInSeconds">getTtlInSeconds</a></li>
+              <li><a href="global.html#init">init</a></li>
+              <li><a href="global.html#keys">keys</a></li>
+              <li><a href="global.html#set">set</a></li>
+              <li><a href="global.html#setTtlInSeconds">setTtlInSeconds</a></li>
+              <li><a href="global.html#status">status</a></li>
+              <li><a href="global.html#wrap">wrap</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="core" id="main-content-wrapper">
+        <div class="content">
+          <header class="page-title">
+            <p>Source</p>
+            <h1>redisCache.js</h1>
+          </header>
 
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>const debug = require('debug')('nodeCacheRedis')
+          <section>
+            <article>
+              <pre
+                class="prettyprint source linenums"
+              ><code>const debug = require('debug')('nodeCacheRedis')
 
 const RedisStore = require('./redisStore')
 const createLogger = require('./createLogger')
@@ -113,7 +142,7 @@ const NotInitialisedError = require('./NotInitialisedError')
 let options = {}
 let store = null
 
-const getNumber = (num) => (!Number.isNaN(num) &amp;&amp; num >= 0 ? num : null)
+const getPositiveNumOr0 = (num) => (!Number.isNaN(num) &amp;&amp; num >= 0 ? num : null)
 
 /**
  * @param    {object}   options
@@ -183,7 +212,7 @@ exports.getTtlInSeconds = () => options.ttlInSeconds
  * @returns {number} ttl
  */
 exports.setTtlInSeconds = (ttl) => {
-  options.ttlInSeconds = getNumber(ttl)
+  options.ttlInSeconds = getPositiveNumOr0(ttl)
   return options.ttlInSeconds
 }
 
@@ -195,7 +224,7 @@ exports.setTtlInSeconds = (ttl) => {
  * @returns {string} 'OK' if successful
  */
 exports.set = async (key, value, ttlInSeconds) => {
-  const ttl = getNumber(ttlInSeconds) || options.ttlInSeconds
+  const ttl = getPositiveNumOr0(ttlInSeconds) || options.ttlInSeconds
   return ttl === 0 ? value : this.getStore().set(key, value, ttl)
 }
 
@@ -207,7 +236,7 @@ exports.set = async (key, value, ttlInSeconds) => {
  * @returns {string} 'OK' if successful
  */
 exports.getset = async (key, value, ttlInSeconds) => {
-  const ttl = getNumber(ttlInSeconds) || options.ttlInSeconds
+  const ttl = getPositiveNumOr0(ttlInSeconds) || options.ttlInSeconds
   return ttl === 0 ? value : this.getStore().getset(key, value, ttl)
 }
 
@@ -248,7 +277,7 @@ exports.deleteAll = (pattern = '*') => this.getStore().deleteAll(pattern)
  * @returns {string} 'OK' if successful
  */
 exports.wrap = async (key, fn, { ttlInSeconds } = {}) => {
-  const ttl = getNumber(ttlInSeconds) || options.ttlInSeconds
+  const ttl = getPositiveNumOr0(ttlInSeconds) || options.ttlInSeconds
 
   if (ttl &amp;&amp; ttl === 0) {
     debug(`Not caching, invalid ttl: ${ttlInSeconds}`)
@@ -271,23 +300,18 @@ exports.wrap = async (key, fn, { ttlInSeconds } = {}) => {
   return cachedValue
 }
 </code></pre>
-        </article>
-    </section>
-
-
-
-
-            </div>
-            
+            </article>
+          </section>
         </div>
-        <div id="side-nav" class="side-nav">
-        </div>
+      </div>
+      <div id="side-nav" class="side-nav"></div>
     </div>
-<script src="scripts/app.min.js"></script>
-<script>PR.prettyPrint();</script>
-<script src="scripts/linenumber.js"> </script>
+    <script src="scripts/app.min.js"></script>
+    <script>
+      PR.prettyPrint()
+    </script>
+    <script src="scripts/linenumber.js"></script>
 
-<script src="scripts/search.js"> </script>
-
-</body>
+    <script src="scripts/search.js"></script>
+  </body>
 </html>
