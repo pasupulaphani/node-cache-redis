@@ -107,13 +107,11 @@
 
 const RedisStore = require('./redisStore')
 const createLogger = require('./createLogger')
-const genRandomStr = require('./genRandomStr')
 const NotInitialisedError = require('./NotInitialisedError')
+const { genRandomStr, getPositiveNumOr0 } = require('./util')
 
 let options = {}
 let store = null
-
-const getNumber = num => !Number.isNaN(num) &amp;&amp; num >= 0 ? num : null
 
 /**
  * @param    {object}   options
@@ -137,7 +135,7 @@ exports.init = ({
     redisOptions,
     poolOptions,
     logger: createLogger(logger),
-    ttlInSeconds
+    ttlInSeconds: getPositiveNumOr0(ttlInSeconds)
   }
 
   store = new RedisStore(options)
@@ -183,7 +181,7 @@ exports.getTtlInSeconds = () => options.ttlInSeconds
  * @returns {number} ttl
  */
 exports.setTtlInSeconds = ttl => {
-  options.ttlInSeconds = getNumber(ttl)
+  options.ttlInSeconds = getPositiveNumOr0(ttl)
   return options.ttlInSeconds
 }
 
@@ -195,7 +193,7 @@ exports.setTtlInSeconds = ttl => {
  * @returns {string} 'OK' if successful
  */
 exports.set = async (key, value, ttlInSeconds) => {
-  const ttl = getNumber(ttlInSeconds) || options.ttlInSeconds
+  const ttl = getPositiveNumOr0(ttlInSeconds) || options.ttlInSeconds
   return ttl === 0 ? value : this.getStore().set(key, value, ttl)
 }
 
@@ -207,7 +205,7 @@ exports.set = async (key, value, ttlInSeconds) => {
  * @returns {string} 'OK' if successful
  */
 exports.getset = async (key, value, ttlInSeconds) => {
-  const ttl = getNumber(ttlInSeconds) || options.ttlInSeconds
+  const ttl = getPositiveNumOr0(ttlInSeconds) || options.ttlInSeconds
   return ttl === 0 ? value : this.getStore().getset(key, value, ttl)
 }
 
@@ -247,12 +245,10 @@ exports.deleteAll = (pattern = '*') => this.getStore().deleteAll(pattern)
  * @property {number} opts.ttlInSeconds - time to live in seconds
  * @returns {string} 'OK' if successful
  */
-exports.wrap = async (key, fn, {
-  ttlInSeconds
-} = {}) => {
-  const ttl = getNumber(ttlInSeconds) || options.ttlInSeconds
+exports.wrap = async (key, fn, { ttlInSeconds } = {}) => {
+  const ttl = getPositiveNumOr0(ttlInSeconds) || options.ttlInSeconds
 
-  if (ttl &amp;&amp; ttl === 0) {
+  if (ttl === 0) {
     debug(`Not caching, invalid ttl: ${ttlInSeconds}`)
     return fn()
   }
