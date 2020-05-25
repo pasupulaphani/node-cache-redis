@@ -1,0 +1,22 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended",
+    "tslint-config-standard",
+    "tslint-config-prettier"
+  ],
+  "rulesDirectory": ["tslint-no-focused-test"],
+  "rules": {
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+    "member-ordering": false,
+    "interface-name": [true, "never-prefix"],
+    "no-focused-test": true,
+    "interface-over-type-literal": false,
+    "no-string-literal": false,
+    "ban-types": false,
+    "await-promise": {
+      "options": ["PromiseLike"]
+    }
+  }
+}
