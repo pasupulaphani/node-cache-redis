@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>node-cache-redis | node-cache-redis</title>
+	<title>RedisPool | node-cache-redis</title>
 	<meta name="description" content="Documentation for node-cache-redis">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -2692,7 +2692,7 @@ img {
 		<div class="container">
 			<div class="table-wrap">
 				<div class="table-cell">
-					<strong><a href="index.html">node-cache-redis</a></strong>
+					<strong><a href="../index.html">node-cache-redis</a></strong>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -2722,29 +2722,601 @@ img {
 </header>
 <nav class="tsd-navigation secondary">
 	<ul>
+		<li class="current tsd-kind-class tsd-parent-kind-module tsd-is-external">
+			<a href="_redisconnectionpool_.redispool.html" class="tsd-kind-icon">Redis<wbr>Pool</a>
+			<ul>
+				<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-external">
+					<a href="_redisconnectionpool_.redispool.html#constructor" class="tsd-kind-icon">constructor</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a href="_redisconnectionpool_.redispool.html#logger" class="tsd-kind-icon">logger</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a href="_redisconnectionpool_.redispool.html#name" class="tsd-kind-icon">name</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a href="_redisconnectionpool_.redispool.html#pool" class="tsd-kind-icon">pool</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a href="_redisconnectionpool_.redispool.html#pooloptions" class="tsd-kind-icon">pool<wbr>Options</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a href="_redisconnectionpool_.redispool.html#redisoptions" class="tsd-kind-icon">redis<wbr>Options</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a href="_redisconnectionpool_.redispool.html#acquire" class="tsd-kind-icon">acquire</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a href="_redisconnectionpool_.redispool.html#availablecount" class="tsd-kind-icon">available<wbr>Count</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a href="_redisconnectionpool_.redispool.html#destroy" class="tsd-kind-icon">destroy</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a href="_redisconnectionpool_.redispool.html#drain" class="tsd-kind-icon">drain</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a href="_redisconnectionpool_.redispool.html#getname" class="tsd-kind-icon">get<wbr>Name</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a href="_redisconnectionpool_.redispool.html#getpooloptions" class="tsd-kind-icon">get<wbr>Pool<wbr>Options</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a href="_redisconnectionpool_.redispool.html#getpoolsize" class="tsd-kind-icon">get<wbr>Pool<wbr>Size</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a href="_redisconnectionpool_.redispool.html#getredisoptions" class="tsd-kind-icon">get<wbr>Redis<wbr>Options</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a href="_redisconnectionpool_.redispool.html#pendingcount" class="tsd-kind-icon">pending<wbr>Count</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a href="_redisconnectionpool_.redispool.html#release" class="tsd-kind-icon">release</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a href="_redisconnectionpool_.redispool.html#sendcommand" class="tsd-kind-icon">send<wbr>Command</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a href="_redisconnectionpool_.redispool.html#status" class="tsd-kind-icon">status</a>
+				</li>
+			</ul>
+		</li>
+		<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-external">
+			<a href="../interfaces/_redisconnectionpool_.redispoolstatus.html" class="tsd-kind-icon">Redis<wbr>Pool<wbr>Status</a>
+		</li>
+		<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-external tsd-is-not-exported">
+			<a href="../modules/_redisconnectionpool_.html#debug" class="tsd-kind-icon">debug</a>
+		</li>
+		<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-external tsd-is-not-exported">
+			<a href="../modules/_redisconnectionpool_.html#createclient" class="tsd-kind-icon">create<wbr>Client</a>
+		</li>
+		<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-external tsd-is-not-exported">
+			<a href="../modules/_redisconnectionpool_.html#selectdb" class="tsd-kind-icon">selectDB</a>
+		</li>
 	</ul>
 </nav>
 <div class="container container-main">
 	<div class="content-wrap">
+		<section class="tsd-panel tsd-comment">
+			<div class="tsd-comment tsd-typography">
+				<div class="lead">
+					<p>RedisPool</p>
+				</div>
+			</div>
+		</section>
+		<section class="tsd-panel tsd-hierarchy">
+			<h3>Hierarchy</h3>
+			<ul class="tsd-hierarchy">
+				<li>
+					<span class="target">RedisPool</span>
+					<ul class="tsd-hierarchy">
+						<li>
+							<a href="_redisstore_.redisstore.html" class="tsd-signature-type">RedisStore</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</section>
 		<section class="tsd-panel-group tsd-index-group">
 			<h2>Index</h2>
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
-					<section class="tsd-index-section ">
-						<h3>Modules</h3>
+					<section class="tsd-index-section tsd-is-external">
+						<h3>Constructors</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-module tsd-is-external"><a href="modules/_redisconnectionpool_.html" class="tsd-kind-icon">&quot;<wbr>Redis<wbr>Connection<wbr>Pool&quot;</a></li>
-							<li class="tsd-kind-module tsd-is-external"><a href="modules/_redisstore_.html" class="tsd-kind-icon">&quot;<wbr>Redis<wbr>Store&quot;</a></li>
-							<li class="tsd-kind-module tsd-is-external"><a href="modules/_error_invalidttlerror_.html" class="tsd-kind-icon">&quot;error/<wbr>Invalid<wbr>Ttl<wbr>Error&quot;</a></li>
-							<li class="tsd-kind-module tsd-is-external"><a href="modules/_error_notinitialisederror_.html" class="tsd-kind-icon">&quot;error/<wbr>Not<wbr>Initialised<wbr>Error&quot;</a></li>
-							<li class="tsd-kind-module tsd-is-external"><a href="modules/_helpers_createlogger_.html" class="tsd-kind-icon">&quot;helpers/create<wbr>Logger&quot;</a></li>
-							<li class="tsd-kind-module tsd-is-external"><a href="modules/_helpers_genrandomstr_.html" class="tsd-kind-icon">&quot;helpers/gen<wbr>Random<wbr>Str&quot;</a></li>
-							<li class="tsd-kind-module tsd-is-external"><a href="modules/_helpers_index_.html" class="tsd-kind-icon">&quot;helpers/index&quot;</a></li>
-							<li class="tsd-kind-module tsd-is-external"><a href="modules/_helpers_validatedttl_.html" class="tsd-kind-icon">&quot;helpers/validated<wbr>Ttl&quot;</a></li>
-							<li class="tsd-kind-module"><a href="modules/_rediscache_.html" class="tsd-kind-icon">&quot;redis<wbr>Cache&quot;</a></li>
+							<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-external"><a href="_redisconnectionpool_.redispool.html#constructor" class="tsd-kind-icon">constructor</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section tsd-is-external">
+						<h3>Properties</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="_redisconnectionpool_.redispool.html#logger" class="tsd-kind-icon">logger</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="_redisconnectionpool_.redispool.html#name" class="tsd-kind-icon">name</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="_redisconnectionpool_.redispool.html#pool" class="tsd-kind-icon">pool</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="_redisconnectionpool_.redispool.html#pooloptions" class="tsd-kind-icon">pool<wbr>Options</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="_redisconnectionpool_.redispool.html#redisoptions" class="tsd-kind-icon">redis<wbr>Options</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section tsd-is-external">
+						<h3>Methods</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_redisconnectionpool_.redispool.html#acquire" class="tsd-kind-icon">acquire</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_redisconnectionpool_.redispool.html#availablecount" class="tsd-kind-icon">available<wbr>Count</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_redisconnectionpool_.redispool.html#destroy" class="tsd-kind-icon">destroy</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_redisconnectionpool_.redispool.html#drain" class="tsd-kind-icon">drain</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_redisconnectionpool_.redispool.html#getname" class="tsd-kind-icon">get<wbr>Name</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_redisconnectionpool_.redispool.html#getpooloptions" class="tsd-kind-icon">get<wbr>Pool<wbr>Options</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_redisconnectionpool_.redispool.html#getpoolsize" class="tsd-kind-icon">get<wbr>Pool<wbr>Size</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_redisconnectionpool_.redispool.html#getredisoptions" class="tsd-kind-icon">get<wbr>Redis<wbr>Options</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_redisconnectionpool_.redispool.html#pendingcount" class="tsd-kind-icon">pending<wbr>Count</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_redisconnectionpool_.redispool.html#release" class="tsd-kind-icon">release</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_redisconnectionpool_.redispool.html#sendcommand" class="tsd-kind-icon">send<wbr>Command</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_redisconnectionpool_.redispool.html#status" class="tsd-kind-icon">status</a></li>
 						</ul>
 					</section>
 				</div>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group tsd-is-external">
+			<h2>Constructors</h2>
+			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-external">
+				<a name="constructor" class="tsd-anchor"></a>
+				<h3>constructor</h3>
+				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-external">
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Redis<wbr>Pool<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>logger<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_helpers_createlogger_.logger.html" class="tsd-signature-type">Logger</a><span class="tsd-signature-symbol">; </span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>poolOptions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Options</span><span class="tsd-signature-symbol">; </span>redisOptions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ClientOpts</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_redisconnectionpool_.redispool.html" class="tsd-signature-type">RedisPool</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/pasupulaphani/node-cache-redis/blob/1abcbe6/src/RedisConnectionPool.ts#L68">src/RedisConnectionPool.ts:68</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>logger<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_helpers_createlogger_.logger.html" class="tsd-signature-type">Logger</a><span class="tsd-signature-symbol">; </span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>poolOptions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Options</span><span class="tsd-signature-symbol">; </span>redisOptions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ClientOpts</span><span class="tsd-signature-symbol"> }</span></h5>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter">
+										<h5>logger<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_helpers_createlogger_.logger.html" class="tsd-signature-type">Logger</a></h5>
+									</li>
+									<li class="tsd-parameter">
+										<h5>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+									</li>
+									<li class="tsd-parameter">
+										<h5>pool<wbr>Options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Options</span></h5>
+									</li>
+									<li class="tsd-parameter">
+										<h5>redis<wbr>Options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ClientOpts</span></h5>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="_redisconnectionpool_.redispool.html" class="tsd-signature-type">RedisPool</a></h4>
+					</li>
+				</ul>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group tsd-is-external">
+			<h2>Properties</h2>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+				<a name="logger" class="tsd-anchor"></a>
+				<h3>logger</h3>
+				<div class="tsd-signature tsd-kind-icon">logger<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>debug<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">; </span>error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">; </span>info<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">; </span>log<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">; </span>warn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol"> }</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/pasupulaphani/node-cache-redis/blob/1abcbe6/src/RedisConnectionPool.ts#L60">src/RedisConnectionPool.ts:60</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-type-declaration">
+					<h4>Type declaration</h4>
+					<ul class="tsd-parameters">
+						<li class="tsd-parameter">
+							<h5>debug<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span></h5>
+						</li>
+						<li class="tsd-parameter">
+							<h5>error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span></h5>
+						</li>
+						<li class="tsd-parameter">
+							<h5>info<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span></h5>
+						</li>
+						<li class="tsd-parameter">
+							<h5>log<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span></h5>
+						</li>
+						<li class="tsd-parameter">
+							<h5>warn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span></h5>
+						</li>
+					</ul>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+				<a name="name" class="tsd-anchor"></a>
+				<h3>name</h3>
+				<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/pasupulaphani/node-cache-redis/blob/1abcbe6/src/RedisConnectionPool.ts#L57">src/RedisConnectionPool.ts:57</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+				<a name="pool" class="tsd-anchor"></a>
+				<h3>pool</h3>
+				<div class="tsd-signature tsd-kind-icon">pool<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Pool</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/pasupulaphani/node-cache-redis/blob/1abcbe6/src/RedisConnectionPool.ts#L68">src/RedisConnectionPool.ts:68</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+				<a name="pooloptions" class="tsd-anchor"></a>
+				<h3>pool<wbr>Options</h3>
+				<div class="tsd-signature tsd-kind-icon">pool<wbr>Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">PoolOptions</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/pasupulaphani/node-cache-redis/blob/1abcbe6/src/RedisConnectionPool.ts#L59">src/RedisConnectionPool.ts:59</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+				<a name="redisoptions" class="tsd-anchor"></a>
+				<h3>redis<wbr>Options</h3>
+				<div class="tsd-signature tsd-kind-icon">redis<wbr>Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RedisOptions</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/pasupulaphani/node-cache-redis/blob/1abcbe6/src/RedisConnectionPool.ts#L58">src/RedisConnectionPool.ts:58</a></li>
+					</ul>
+				</aside>
+			</section>
+		</section>
+		<section class="tsd-panel-group tsd-member-group tsd-is-external">
+			<h2>Methods</h2>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+				<a name="acquire" class="tsd-anchor"></a>
+				<h3>acquire</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<li class="tsd-signature tsd-kind-icon">acquire<span class="tsd-signature-symbol">(</span>priority<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span>, db<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">RedisClient</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/pasupulaphani/node-cache-redis/blob/1abcbe6/src/RedisConnectionPool.ts#L205">src/RedisConnectionPool.ts:205</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Acquire a Redis connection and use an optional priority.</p>
+							</div>
+							<dl class="tsd-comment-tags">
+								<dt>async</dt>
+								<dd></dd>
+							</dl>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> priority: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>priority list number</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> db: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Use the db with range {0-16}</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">RedisClient</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise resolve with the connection or Error</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+				<a name="availablecount" class="tsd-anchor"></a>
+				<h3>available<wbr>Count</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<li class="tsd-signature tsd-kind-icon">available<wbr>Count<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/pasupulaphani/node-cache-redis/blob/1abcbe6/src/RedisConnectionPool.ts#L291">src/RedisConnectionPool.ts:291</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Returns available connections count of the pool</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						<p>available connections count of the pool</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+				<a name="destroy" class="tsd-anchor"></a>
+				<h3>destroy</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<li class="tsd-signature tsd-kind-icon">destroy<span class="tsd-signature-symbol">(</span>client<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">RedisClient</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/pasupulaphani/node-cache-redis/blob/1abcbe6/src/RedisConnectionPool.ts#L236">src/RedisConnectionPool.ts:236</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Destroy a Redis connection.</p>
+							</div>
+							<dl class="tsd-comment-tags">
+								<dt>async</dt>
+								<dd></dd>
+							</dl>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> client: <span class="tsd-signature-type">RedisClient</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Redis connection</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>void</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+				<a name="drain" class="tsd-anchor"></a>
+				<h3>drain</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<li class="tsd-signature tsd-kind-icon">drain<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/pasupulaphani/node-cache-redis/blob/1abcbe6/src/RedisConnectionPool.ts#L245">src/RedisConnectionPool.ts:245</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Drains the connection pool and call the callback id provided.</p>
+							</div>
+							<dl class="tsd-comment-tags">
+								<dt>async</dt>
+								<dd></dd>
+							</dl>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+				<a name="getname" class="tsd-anchor"></a>
+				<h3>get<wbr>Name</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Name<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/pasupulaphani/node-cache-redis/blob/1abcbe6/src/RedisConnectionPool.ts#L255">src/RedisConnectionPool.ts:255</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Returns factory.name for this pool</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						<p>Name of the pool</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+				<a name="getpooloptions" class="tsd-anchor"></a>
+				<h3>get<wbr>Pool<wbr>Options</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Pool<wbr>Options<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PoolOptions</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/pasupulaphani/node-cache-redis/blob/1abcbe6/src/RedisConnectionPool.ts#L273">src/RedisConnectionPool.ts:273</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Returns this.poolOptions for this pool</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">PoolOptions</span></h4>
+						<p>pool options given</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+				<a name="getpoolsize" class="tsd-anchor"></a>
+				<h3>get<wbr>Pool<wbr>Size</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Pool<wbr>Size<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/pasupulaphani/node-cache-redis/blob/1abcbe6/src/RedisConnectionPool.ts#L282">src/RedisConnectionPool.ts:282</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Returns size of the pool</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						<p>size of the pool</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+				<a name="getredisoptions" class="tsd-anchor"></a>
+				<h3>get<wbr>Redis<wbr>Options</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<li class="tsd-signature tsd-kind-icon">get<wbr>Redis<wbr>Options<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RedisOptions</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/pasupulaphani/node-cache-redis/blob/1abcbe6/src/RedisConnectionPool.ts#L264">src/RedisConnectionPool.ts:264</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Returns this.redisOptions for this pool</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">RedisOptions</span></h4>
+						<p>redis options given</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+				<a name="pendingcount" class="tsd-anchor"></a>
+				<h3>pending<wbr>Count</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<li class="tsd-signature tsd-kind-icon">pending<wbr>Count<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/pasupulaphani/node-cache-redis/blob/1abcbe6/src/RedisConnectionPool.ts#L300">src/RedisConnectionPool.ts:300</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Returns pending connections count of the pool</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						<p>pending connections count of the pool</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+				<a name="release" class="tsd-anchor"></a>
+				<h3>release</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<li class="tsd-signature tsd-kind-icon">release<span class="tsd-signature-symbol">(</span>client<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">RedisClient</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/pasupulaphani/node-cache-redis/blob/1abcbe6/src/RedisConnectionPool.ts#L226">src/RedisConnectionPool.ts:226</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Release a Redis connection to the pool.</p>
+							</div>
+							<dl class="tsd-comment-tags">
+								<dt>async</dt>
+								<dd></dd>
+							</dl>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> client: <span class="tsd-signature-type">RedisClient</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Redis connection</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>void</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+				<a name="sendcommand" class="tsd-anchor"></a>
+				<h3>send<wbr>Command</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<li class="tsd-signature tsd-kind-icon">send<wbr>Command<span class="tsd-signature-symbol">(</span>commandName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, commandArgs<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/pasupulaphani/node-cache-redis/blob/1abcbe6/src/RedisConnectionPool.ts#L178">src/RedisConnectionPool.ts:178</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Send redis instructions</p>
+							</div>
+							<dl class="tsd-comment-tags">
+								<dt>async</dt>
+								<dd></dd>
+							</dl>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>commandName: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Name of the command</p>
+								</div>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagDefault value">Default value</span> commandArgs: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>Args sent to the command</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						<p>Promise resolve with the result or Error</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+				<a name="status" class="tsd-anchor"></a>
+				<h3>status</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<li class="tsd-signature tsd-kind-icon">status<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_redisconnectionpool_.redispoolstatus.html" class="tsd-signature-type">RedisPoolStatus</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/pasupulaphani/node-cache-redis/blob/1abcbe6/src/RedisConnectionPool.ts#L309">src/RedisConnectionPool.ts:309</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Returns pool status and stats</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <a href="../interfaces/_redisconnectionpool_.redispoolstatus.html" class="tsd-signature-type">RedisPoolStatus</a></h4>
+						<p>pool status and stats</p>
+					</li>
+				</ul>
 			</section>
 		</section>
 		<footer class="with-border-bottom">
