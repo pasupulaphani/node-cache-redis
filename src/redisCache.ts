@@ -91,6 +91,12 @@ export const setDefaultTtlInS = (ttl: number): number | undefined =>
   getStore().setDefaultTtlInS(ttl)
 
 /**
+ * Unsets the defaulTtlInS
+ * @returns {void}
+ */
+export const unsetDefaultTtlInS = (): boolean => getStore().unsetDefaultTtlInS()
+
+/**
  * Returns 'OK' if successful
  * @param {string}   key - key for the value stored
  * @param {any}      value - value to stored

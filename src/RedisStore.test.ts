@@ -60,6 +60,31 @@ describe('redisStore', () => {
     })
   })
 
+  describe('getDefaultTtlInS', () => {
+    test('returns undefined when not set', () => {
+      expect(store.getDefaultTtlInS()).toBeUndefined()
+    })
+
+    test('get defaultTtlInS', () => {
+      expect(store.setDefaultTtlInS(2)).toBe(2)
+      expect(store.getDefaultTtlInS()).toBe(2)
+    })
+  })
+
+  describe('setDefaultTtlInS', () => {
+    test('set defaultTtlInS option', () => {
+      expect(store.setDefaultTtlInS(2)).toBe(2)
+      expect(store.getDefaultTtlInS()).toBe(2)
+    })
+  })
+
+  describe('unsetDefaultTtlInS', () => {
+    test('unset defaultTtlInS option', () => {
+      expect(store.unsetDefaultTtlInS()).toBe(true)
+      expect(store.getDefaultTtlInS()).toBeUndefined()
+    })
+  })
+
   describe('status', () => {
     test('get store stats', () => {
       const status = store.status()

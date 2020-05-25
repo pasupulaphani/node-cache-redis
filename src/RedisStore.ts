@@ -56,13 +56,23 @@ class RedisStore extends RedisPool {
   }
 
   /**
-   * Sets the ttlInSeconds
+   * Sets the defaulTtlInS
    * @param {number} ttl
    * @returns {number} ttl
    */
   setDefaultTtlInS(ttl: number): number | undefined {
     this.defaulTtlInS = validatedTtl(ttl)
     return this.defaulTtlInS
+  }
+
+  /**
+   * Unsets the defaulTtlInS
+   * @param {number} ttl
+   * @returns {number} ttl
+   */
+  unsetDefaultTtlInS(): boolean {
+    this.defaulTtlInS = undefined
+    return true
   }
 
   /**

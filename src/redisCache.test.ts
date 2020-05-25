@@ -16,6 +16,7 @@ import {
   set,
   setDefaultTtlInS,
   getStatus,
+  unsetDefaultTtlInS,
   wrap
 } from './redisCache'
 
@@ -62,9 +63,16 @@ describe('redisCache', () => {
   })
 
   describe('setDefaultTtlInS', () => {
-    test('set ttlInSeconds option', () => {
+    test('set defaultTtlInS option', () => {
       expect(setDefaultTtlInS(2)).toBe(2)
       expect(getDefaultTtlInS()).toBe(2)
+    })
+  })
+
+  describe('unsetDefaultTtlInS', () => {
+    test('unset defaultTtlInS option', () => {
+      expect(unsetDefaultTtlInS()).toBe(true)
+      expect(getDefaultTtlInS()).toBeUndefined()
     })
   })
 
@@ -132,6 +140,7 @@ describe('redisCache', () => {
     const defaulTtlInS = 10
 
     beforeAll(() => deleteAll())
+    afterAll(() => unsetDefaultTtlInS())
 
     afterEach(() => setDefaultTtlInS(defaulTtlInS))
 
