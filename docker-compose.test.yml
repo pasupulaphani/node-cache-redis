@@ -3,10 +3,10 @@ services:
   sut:
     environment:
       NODE_ENV: development
-      DEBUG: lib.*
+      DEBUG: src.*
       REDIS_HOST: redis
     build:
-      context: ./
+      context: .
       dockerfile: ./Dockerfile.test
     command: 'npm test'
     links:

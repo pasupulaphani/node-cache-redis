@@ -1,5 +1,6 @@
+import { InvalidTtlError } from './error'
 import { genRandomStr } from './helpers'
-import InvalidTtlError from './error/InvalidTtlError'
+import RedisStore from './RedisStore'
 
 import {
   init,
@@ -21,6 +22,10 @@ import {
 } from './redisCache'
 
 describe('redisCache', () => {
+  // test('throws NotInitialisedError when not init', () => {
+  //   expect(getName()).toThrow(NotInitialisedError)
+  // })
+
   const name = 'testCache'
   const redisOptions = {
     host: process.env.REDIS_HOST || '127.0.0.1',
@@ -78,7 +83,7 @@ describe('redisCache', () => {
 
   describe('getStore', () => {
     test('returns store', () => {
-      expect(getStore()).not.toBeNull()
+      expect(getStore()).toBeInstanceOf(RedisStore)
     })
   })
 
