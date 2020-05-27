@@ -11,40 +11,38 @@ const debug = Debug('nodeCacheRedis')
 let store: RedisStore
 
 /**
- * @param {object}    options
- * @param {string?}   options.name         - Name your store
- * @param {object}    options.redisOptions - opts from [node_redis#options-object-properties]{@link https://github.com/NodeRedis/node_redis#options-object-properties}
- * @param {object?}   options.poolOptions  - opts from [node-pool#createpool]{@link https://github.com/coopernurse/node-pool#createpool}
- * @param {object?}   options.logger       - Inject your custom logger
- * @param {integer?}  options.defaulTtlInS - Number of seconds to store by default
+ * @param options
+ * @param options.name         - Name your cache store
+ * @param options.redisOptions - opts from [node_redis#options-object-properties]{@link https://github.com/NodeRedis/node_redis#options-object-properties}
+ * @param options.poolOptions  - opts from [node-pool#createpool]{@link https://github.com/coopernurse/node-pool#createpool}
+ * @param options.logger       - Inject your custom logger
+ * @param options.defaulTtlInS - Number of seconds to store by default
  */
-export const init = ({
-  name,
-  redisOptions,
-  poolOptions = {},
-  logger,
-  defaulTtlInS
-}: {
+export const init = (options: {
+  /** Name your cache store */
   name?: string
+  /** opts from [node_redis#options-object-properties]{@link https://github.com/NodeRedis/node_redis#options-object-properties} */
   redisOptions: RedisOptions
+  /** opts from [node-pool#createpool]{@link https://github.com/coopernurse/node-pool#createpool} */
   poolOptions?: PoolOptions
+  /** Inject your custom logger */
   logger?: Logger
+  /** Number of seconds to store by default */
   defaulTtlInS?: number
 }) => {
   if (store) return
 
+  const { name, logger, defaulTtlInS } = options || {}
   store = new RedisStore({
+    ...options,
     name: name || `redisCache-${genRandomStr()}`,
-    redisOptions,
-    poolOptions,
     logger: createLogger(logger),
     defaulTtlInS: validatedTtl(defaulTtlInS)
   })
 }
 
 /**
- * Returns name of this pool
- * @returns {string} Name of the pool
+ * Returns cache store
  */
 export const getStore = (): RedisStore => {
   if (!store) throw new NotInitialisedError('RedisCache not initialised')
@@ -53,55 +51,48 @@ export const getStore = (): RedisStore => {
 
 /**
  * Returns name of this pool
- * @returns {string} Name of the pool
  */
 export const getName = (): string => getStore().getName()
 
 /**
  * Returns redisOptions of this pool
- * @returns {object} redis options given
  */
 export const getRedisOptions = (): RedisOptions => getStore().getRedisOptions()
 
 /**
  * Returns poolOptions of this pool
- * @returns {object} pool options given
  */
 export const getPoolOptions = (): PoolOptions => getStore().getPoolOptions()
 
 /**
  * Returns pool status and stats
- * @returns {object} cache and its store status and stats
  */
 export const getStatus = (): RedisPoolStatus => getStore().status()
 
 /**
  * Return the defaulTtlInS
- * @returns {number} defaulTtlInS
  */
 export const getDefaultTtlInS = (): number | undefined =>
   getStore().getDefaultTtlInS()
 
 /**
  * Sets the defaulTtlInS
- * @param {number} defaulTtlInS - new default ttl in seconds
- * @returns {number} defaulTtlInS
+ * @param ttl - new default ttl in seconds
  */
 export const setDefaultTtlInS = (ttl: number): number | undefined =>
   getStore().setDefaultTtlInS(ttl)
 
 /**
  * Unsets the defaulTtlInS
- * @returns {void}
  */
 export const unsetDefaultTtlInS = (): boolean => getStore().unsetDefaultTtlInS()
 
 /**
  * Returns 'OK' if successful
- * @param {string}   key - key for the value stored
- * @param {any}      value - value to stored
- * @param {number?}  ttlInSeconds - time to live in seconds
- * @returns {Promise<string>} 'OK' if successful
+ * @param key - key for the value stored
+ * @param value - value to stored
+ * @param ttlInSeconds - time to live in seconds
+ * @returns 'OK' if successful
  */
 export const set = (
   key: string,
@@ -113,10 +104,10 @@ export const set = (
 
 /**
  * Returns 'OK' if successful
- * @param {string} key - key for the value stored
- * @param {any}    value - value to stored
- * @param {number} ttlInSeconds - time to live in seconds
- * @returns {Promise<T>} 'OK' if successful
+ * @param key - key for the value stored
+ * @param value - value to stored
+ * @param ttlInSeconds - time to live in seconds
+ * @returns 'OK' if successful
  */
 export const getset = (
   key: string,
@@ -128,31 +119,31 @@ export const getset = (
 
 /**
  * Returns value or null when the key is missing
- * @param {string} key - key for the value stored
- * @returns {Promise<any>} value or null when the key is missing
+ * @param key - key for the value stored
+ * @returns value or null when the key is missing
  */
 export const get = (key: string): Promise<any> => getStore().get(key)
 
 /**
  * Returns all keys matching pattern
- * @param {string} pattern - glob-style patterns/default '*'
- * @returns {Promise<string[]>} all keys matching pattern
+ * @param pattern - glob-style patterns/default '*'
+ * @returns all keys matching pattern
  */
 export const keys = (pattern: string = '*'): Promise<string[]> =>
   getStore().keys(pattern)
 
 /**
  * Delete keys
- * @param {array<string>} keys - keys for the value stored
- * @returns {Promise<number>} The number of keys that were removed.
+ * @param keys - keys for the value stored
+ * @returns The number of keys that were removed.
  */
 export const del = (_keys: string[] = []): Promise<number> =>
   getStore().del(_keys)
 
 /**
  * Deletes all keys matching pattern
- * @param {string} pattern - glob-style patterns/default '*'
- * @returns {Promise<number>} The number of keys that were removed.
+ * @param pattern - glob-style patterns/default '*'
+ * @returns The number of keys that were removed.
  */
 export const deleteAll = (pattern: string = '*'): Promise<number> =>
   getStore().deleteAll(pattern)
@@ -160,11 +151,11 @@ export const deleteAll = (pattern: string = '*'): Promise<number> =>
 /**
  * Wraps promise to set its value if not exists.
  * @async
- * @param {string}   key     - key for the value stored
- * @param {function} fn      - function to call if not cache found
- * @param {object?}   opts    - options for wrap
+ * @param key     - key for the value stored
+ * @param fn      - function to call if not cache found
+ * @param opts    - options for wrap
  * @property {number} opts.ttlInSeconds - time to live in seconds
- * @returns {string} 'OK' if successful
+ * @returns 'OK' if successful
  */
 export const wrap = async (
   key: string,

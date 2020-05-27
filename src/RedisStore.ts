@@ -18,12 +18,12 @@ class RedisStore extends RedisPool {
 
   /**
    * @constructor
-   * @param {object}   options
-   * @param {string}   options.name         - Name your store
-   * @param {object}   options.redisOptions - opts from [node_redis#options-object-properties]{@link https://github.com/NodeRedis/node_redis#options-object-properties}
-   * @param {object}   options.poolOptions  - opts from [node-pool#createpool]{@link https://github.com/coopernurse/node-pool#createpool}
-   * @param {object}   options.logger       - Inject your custom logger
-   * @param {integer}  options.defaulTtlInS - Number of seconds to store by default
+   * @param options
+   * @param options.name         - Name your store
+   * @param
+   * @param
+   * @param options.logger       - Inject your custom logger
+   * @param options.defaulTtlInS - Number of seconds to store by default
    */
   constructor({
     name,
@@ -49,7 +49,7 @@ class RedisStore extends RedisPool {
 
   /**
    * Return the defaulTtlInS
-   * @returns {number?} defaulTtlInS
+   * @returns defaulTtlInS
    */
   getDefaultTtlInS(): number | undefined {
     return this.defaulTtlInS
@@ -57,8 +57,8 @@ class RedisStore extends RedisPool {
 
   /**
    * Sets the defaulTtlInS
-   * @param {number} ttl
-   * @returns {number} ttl
+   * @param ttl
+   * @returns defaulTtlInS
    */
   setDefaultTtlInS(ttl: number): number | undefined {
     this.defaulTtlInS = validatedTtl(ttl)
@@ -67,8 +67,8 @@ class RedisStore extends RedisPool {
 
   /**
    * Unsets the defaulTtlInS
-   * @param {number} ttl
-   * @returns {number} ttl
+   * @param ttl
+   * @returns true
    */
   unsetDefaultTtlInS(): boolean {
     this.defaulTtlInS = undefined
@@ -78,8 +78,8 @@ class RedisStore extends RedisPool {
   /**
    * Returns 'PONG'
    *
-   * @param {string} str - string passed
-   * @returns {string} 'PONG'/string passed
+   * @param str - string passed
+   * @returns 'PONG'/string passed
    */
   ping(str?: string): Promise<string> {
     return super.sendCommand('ping', str ? [str] : [])
@@ -88,8 +88,8 @@ class RedisStore extends RedisPool {
   /**
    * Returns value or null when the key is missing - See [redis get]{@link https://redis.io/commands/get}
    * @async
-   * @param {string} key - key for the value stored
-   * @returns {Promise<any>} value or null when the key is missing
+   * @param key - key for the value stored
+   * @returns value or null when the key is missing
    */
   async get(key: string): Promise<any> {
     let result = await super.sendCommand('get', [key])
@@ -105,10 +105,10 @@ class RedisStore extends RedisPool {
   /**
    * Returns 'OK' if successful
    *
-   * @param {string} key - key for the value stored
-   * @param {any}  value - value to stored
-   * @param {number} ttlInSeconds - time to live in seconds
-   * @returns {Promise<string>} 'OK' if successful
+   * @param key - key for the value stored
+   * @param value - value to stored
+   * @param ttlInSeconds - time to live in seconds
+   * @returns 'OK' if successful
    */
   set(key: string, value: any, ttlInSeconds?: number): Promise<any> {
     const str =
@@ -126,10 +126,10 @@ class RedisStore extends RedisPool {
   /**
    * Returns 'OK' if successful
    * @async
-   * @param {string} key          - key for the value stored
-   * @param {any}    value        - value to stored
-   * @param {number} ttlInSeconds - time to live in seconds
-   * @returns {Promise<any>}
+   * @param key          - key for the value stored
+   * @param value        - value to stored
+   * @param ttlInSeconds - time to live in seconds
+   * @returns
    */
   async getset(
     key: string,
@@ -158,8 +158,8 @@ class RedisStore extends RedisPool {
   /**
    * Returns the number of keys that were removed - See [redis del]{@link https://redis.io/commands/del}
    *
-   * @param {string[]} keys - list of keys to delete
-   * @returns {Promise<number>} The number of keys that were removed.
+   * @param keys - list of keys to delete
+   * @returns The number of keys that were removed.
    */
   del(keys: string[] = []): Promise<number> {
     return super.sendCommand('del', keys)
@@ -170,7 +170,7 @@ class RedisStore extends RedisPool {
    *
    * @param   {string}  key          - key to set expire
    * @param   {number}  ttlInSeconds - time to live in seconds
-   * @returns {Promise<number>} 1 if the timeout was set successfully; if not 0
+   * @returns 1 if the timeout was set successfully; if not 0
    */
   expire(key: string, ttlInSeconds: number): Promise<number> {
     const ttl = validatedTtl(ttlInSeconds)
@@ -180,8 +180,8 @@ class RedisStore extends RedisPool {
   /**
    * Returns TTL in seconds, or a negative value in order to signal an error - See [redis ttl]{@link https://redis.io/commands/ttl}
    *
-   * @param {string} key - list of keys to delete
-   * @returns {Promise<number>} TTL in seconds, or a negative value in order to signal an error
+   * @param key - list of keys to delete
+   * @returns TTL in seconds, or a negative value in order to signal an error
    */
   getTtl(key: string): Promise<number> {
     return super.sendCommand('ttl', [key])
@@ -190,8 +190,8 @@ class RedisStore extends RedisPool {
   /**
    * Returns all keys matching pattern - See [redis keys]{@link https://redis.io/commands/keys}
    *
-   * @param {string} pattern - glob-style patterns/default '*'
-   * @returns {Promise<string[]>} all keys matching pattern
+   * @param pattern - glob-style patterns/default '*'
+   * @returns all keys matching pattern
    */
   keys(pattern: string = '*'): Promise<string[]> {
     return super.sendCommand('keys', [pattern])
@@ -200,8 +200,8 @@ class RedisStore extends RedisPool {
   /**
    * Deletes all keys matching pattern
    *
-   * @param {string} pattern - glob-style patterns/default '*'
-   * @returns {Promise<number>} The number of keys that were removed.
+   * @param pattern - glob-style patterns/default '*'
+   * @returns The number of keys that were removed.
    */
   deleteAll(pattern: string = '*'): Promise<number> {
     debug('clearing redis keys: ', pattern)
@@ -210,7 +210,7 @@ class RedisStore extends RedisPool {
 
   /**
    * Preloads delete all scripts into redis script cache (this script requires redis >=  4.0.0)
-   * @returns {Promise<string>} sha1 hash of preloaded function
+   * @returns sha1 hash of preloaded function
    * @private
    */
   _loadDeleteAllScript(): Promise<any> | null {
@@ -244,8 +244,8 @@ class RedisStore extends RedisPool {
   /**
    * Preloads and execute delete all script
    * @async
-   * @param {string} pattern - glob-style patterns/default '*'
-   * @returns {Promise<number>} The number of keys that were removed.
+   * @param pattern - glob-style patterns/default '*'
+   * @returns The number of keys that were removed.
    * @private
    */
   async _executeDeleteAll(pattern: string): Promise<number> {

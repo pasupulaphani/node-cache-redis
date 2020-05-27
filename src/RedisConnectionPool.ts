@@ -69,11 +69,11 @@ class RedisPool {
 
   /**
    * @constructor
-   * @param {object}  options
-   * @param {string}  options.name         - Name your pool
-   * @param {object}  options.redisOptions - opts from [node_redis#options-object-properties]{@link https://github.com/NodeRedis/node_redis#options-object-properties}
-   * @param {object}  options.poolOptions  - opts from [node-pool#createpool]{@link https://github.com/coopernurse/node-pool#createpool}
-   * @param {object}  options.logger       - Inject your custom logger
+   * @param options
+   * @param options.name         - Name your pool
+   * @param
+   * @param
+   * @param options.logger       - Inject your custom logger
    */
   constructor({
     name,
@@ -171,9 +171,9 @@ class RedisPool {
   /**
    * Send redis instructions
    * @async
-   * @param {string} commandName - Name of the command
-   * @param {array}  commandArgs - Args sent to the command
-   * @returns {promise} Promise resolve with the result or Error
+   * @param commandName - Name of the command
+   * @param commandArgs - Args sent to the command
+   * @returns Promise resolve with the result or Error
    */
   async sendCommand(commandName: string, commandArgs: any[] = []) {
     debug('Executing send_command', commandName, commandArgs)
@@ -198,9 +198,9 @@ class RedisPool {
   /**
    * Acquire a Redis connection and use an optional priority.
    * @async
-   * @param {number} priority - priority list number
-   * @param {number} db       - Use the db with range {0-16}
-   * @returns {Promise<RedisClient>} Promise resolve with the connection or Error
+   * @param priority - priority list number
+   * @param
+   * @returns Promise resolve with the connection or Error
    */
   async acquire(priority?: number, db?: number): Promise<RedisClient> {
     const client = await this.pool.acquire(priority)
@@ -220,8 +220,8 @@ class RedisPool {
   /**
    * Release a Redis connection to the pool.
    * @async
-   * @param {RedisClient} client - Redis connection
-   * @returns {PromiseLike<void>} void
+   * @param client - Redis connection
+   * @returns void
    */
   async release(client?: RedisClient): Promise<void> {
     await this.pool.release(client)
@@ -230,8 +230,8 @@ class RedisPool {
   /**
    * Destroy a Redis connection.
    * @async
-   * @param {RedisClient} client - Redis connection
-   * @returns {PromiseLike<void>} void
+   * @param client - Redis connection
+   * @returns void
    */
   async destroy(client?: RedisClient): Promise<void> {
     await this.pool.destroy(client)
@@ -240,7 +240,7 @@ class RedisPool {
   /**
    * Drains the connection pool and call the callback id provided.
    * @async
-   * @returns {promise} Promise
+   * @returns Promise
    */
   async drain(): Promise<void> {
     await this.pool.drain()
@@ -250,7 +250,7 @@ class RedisPool {
   /**
    * Returns factory.name for this pool
    *
-   * @returns {string} Name of the pool
+   * @returns Name of the pool
    */
   getName(): string {
     return this.name
@@ -259,7 +259,7 @@ class RedisPool {
   /**
    * Returns this.redisOptions for this pool
    *
-   * @returns {object} redis options given
+   * @returns redis options given
    */
   getRedisOptions(): RedisOptions {
     return this.redisOptions
@@ -268,7 +268,7 @@ class RedisPool {
   /**
    * Returns this.poolOptions for this pool
    *
-   * @returns {object} pool options given
+   * @returns pool options given
    */
   getPoolOptions(): PoolOptions {
     return this.poolOptions
@@ -277,7 +277,7 @@ class RedisPool {
   /**
    * Returns size of the pool
    *
-   * @returns {number} size of the pool
+   * @returns size of the pool
    */
   getPoolSize(): number {
     return this.pool.size
@@ -286,7 +286,7 @@ class RedisPool {
   /**
    * Returns available connections count of the pool
    *
-   * @returns {number} available connections count of the pool
+   * @returns available connections count of the pool
    */
   availableCount(): number {
     return this.pool.available
@@ -295,7 +295,7 @@ class RedisPool {
   /**
    * Returns pending connections count of the pool
    *
-   * @returns {number} pending connections count of the pool
+   * @returns pending connections count of the pool
    */
   pendingCount(): number {
     return this.pool.pending
@@ -304,7 +304,7 @@ class RedisPool {
   /**
    * Returns pool status and stats
    *
-   * @returns {object} pool status and stats
+   * @returns pool status and stats
    */
   status(): RedisPoolStatus {
     return {
