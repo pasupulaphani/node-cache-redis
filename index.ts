@@ -1,1 +1,1 @@
-export * as RedisCache from './src/redisCache'
+export * from './src/redisCache'

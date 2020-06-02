@@ -42,7 +42,7 @@
     "lint": "tslint -p tsconfig.json",
     "build": "npm run build:clean && tsc",
     "build:watch": "tsc --watch",
-    "build:clean": "rimraf docs",
+    "build:clean": "rimraf dist",
     "test": "jest --runInBand --detectOpenHandles --forceExit --coverage",
     "test:watch": "jest --runInBand --detectOpenHandles --forceExit --watch",
     "coveralls": "coveralls < coverage/lcov.info",
