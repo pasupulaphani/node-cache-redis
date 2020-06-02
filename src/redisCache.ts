@@ -129,7 +129,7 @@ export const get = (key: string): Promise<any> => getStore().get(key)
  * @param pattern - glob-style patterns/default '*'
  * @returns all keys matching pattern
  */
-export const keys = (pattern: string = '*'): Promise<string[]> =>
+export const keys = (pattern = '*'): Promise<string[]> =>
   getStore().keys(pattern)
 
 /**
@@ -145,7 +145,7 @@ export const del = (_keys: string[] = []): Promise<number> =>
  * @param pattern - glob-style patterns/default '*'
  * @returns The number of keys that were removed.
  */
-export const deleteAll = (pattern: string = '*'): Promise<number> =>
+export const deleteAll = (pattern = '*'): Promise<number> =>
   getStore().deleteAll(pattern)
 
 /**
@@ -154,17 +154,18 @@ export const deleteAll = (pattern: string = '*'): Promise<number> =>
  * @param key     - key for the value stored
  * @param fn      - function to call if not cache found
  * @param opts    - options for wrap
- * @property {number} opts.ttlInSeconds - time to live in seconds
+ * @param opts.ttlInSeconds - time to live in seconds
  * @returns 'OK' if successful
  */
 export const wrap = async (
   key: string,
   fn: Function,
-  { ttlInSeconds }: any = {}
+  opts: { ttlInSeconds?: number } = {}
 ): Promise<any> => {
-  const ttl = validatedTtl(ttlInSeconds, getDefaultTtlInS())
+  const ttl = validatedTtl(opts.ttlInSeconds, getDefaultTtlInS())
   if (!ttl) {
-    debug(`Not caching, invalid ttl: ${ttlInSeconds}`)
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    debug(`Not caching, invalid ttl: ${ttl}`)
     return fn()
   }
 

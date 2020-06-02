@@ -55,8 +55,11 @@ export interface RedisPoolStatus {
  */
 class RedisPool {
   name: string
+
   redisOptions: RedisOptions
+
   poolOptions: PoolOptions
+
   logger: {
     debug: Function
     log: Function
@@ -179,14 +182,18 @@ class RedisPool {
     debug('Executing send_command', commandName, commandArgs)
 
     const conn = await this.pool.acquire(this.poolOptions.priorityRange || 1)
+    if (!conn) {
+      throw new Error('No connection acquired')
+    }
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const sendCommand = util.promisify(conn.send_command).bind(conn)
     let result
     try {
       result = await sendCommand(commandName, commandArgs)
-      this.pool.release(conn)
+      await this.pool.release(conn)
     } catch (error) {
-      this.pool.release(conn)
+      await this.pool.release(conn)
       this.logger.error('Errored send_command', error)
       debug('Errored send_command', error)
       throw error
@@ -244,7 +251,7 @@ class RedisPool {
    */
   async drain(): Promise<void> {
     await this.pool.drain()
-    this.pool.clear()
+    await this.pool.clear()
   }
 
   /**
