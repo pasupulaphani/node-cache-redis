@@ -46,7 +46,7 @@
     "test": "jest --runInBand --detectOpenHandles --forceExit --coverage",
     "test:watch": "jest --runInBand --detectOpenHandles --forceExit --watch",
     "coveralls": "coveralls < coverage/lcov.info",
-    "docs": "npm run build:clean && typedoc --readme none --theme minimal --out docs/ src/redisCache.ts",
+    "docs": "npm run docs:clean && typedoc --readme none --theme minimal --out docs/ src/redisCache.ts && touch ./docs/.nojekyll",
     "docs:clean": "rimraf docs",
     "prepublish": "npm run docs && npm run build",
     "publish:push": "git push origin master --follow-tags && npm publish",
