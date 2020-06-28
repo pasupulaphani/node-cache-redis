@@ -104,7 +104,7 @@ describe('redisConnectionPool', () => {
       expect(localPool.getPoolSize()).toBe(1)
       expect(localPool.pendingCount()).toBe(0)
 
-      // tslint:disable-next-line:no-floating-promises
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       localPool.acquire() // this is hanging op so no return
       expect(localPool.availableCount()).toBe(0)
       expect(localPool.getPoolSize()).toBe(1)

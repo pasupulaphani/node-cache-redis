@@ -1,8 +1,23 @@
 language: node_js
 node_js:
   - '10'
+
 services:
   - redis-server
+
 after_success:
   - npm run lint
   - npm run coveralls
+
+deploy:
+  provider: pages
+  local_dir: docs
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  keep_history: true
+  on:
+    branch: master
+
+cache:
+  directories:
+    - node_modules

@@ -14,6 +14,7 @@ const debug = Debug('nodeRedisStore')
  */
 class RedisStore extends RedisPool {
   defaulTtlInS: number | undefined
+
   deleteScriptPromise: Promise<any> | null = null
 
   /**
@@ -193,7 +194,7 @@ class RedisStore extends RedisPool {
    * @param pattern - glob-style patterns/default '*'
    * @returns all keys matching pattern
    */
-  keys(pattern: string = '*'): Promise<string[]> {
+  keys(pattern = '*'): Promise<string[]> {
     return super.sendCommand('keys', [pattern])
   }
 
@@ -203,7 +204,7 @@ class RedisStore extends RedisPool {
    * @param pattern - glob-style patterns/default '*'
    * @returns The number of keys that were removed.
    */
-  deleteAll(pattern: string = '*'): Promise<number> {
+  deleteAll(pattern = '*'): Promise<number> {
     debug('clearing redis keys: ', pattern)
     return this._executeDeleteAll(pattern)
   }
@@ -253,7 +254,8 @@ class RedisStore extends RedisPool {
     try {
       sha1 = await this._loadDeleteAllScript()
     } catch (error) {
-      if (error.code === 'NOSCRIPT') {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      if (error && error.code === 'NOSCRIPT') {
         // We can get here only if server is restarted somehow and cache is deleted
         this.deleteScriptPromise = null
         return this._executeDeleteAll(pattern)

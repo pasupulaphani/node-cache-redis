@@ -192,7 +192,7 @@ describe('redisCache', () => {
 
       await expect(
         wrap(localKey, fn, {
-          ttlInSeconds: 'NOT_NUMBER'
+          ttlInSeconds: NaN
         })
       ).rejects.toThrow(InvalidTtlError)
     })
