@@ -17,13 +17,6 @@ deploy:
   on:
     branch: use-eslint
 
-notifications:
-  email:
-    on_success: never
-    on_failure: always
-  on:
-    branch: master
-
 cache:
   directories:
     - node_modules
