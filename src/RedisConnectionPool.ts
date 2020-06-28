@@ -68,6 +68,7 @@ class RedisPool {
     error: Function
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   pool: Pool<any>
 
   /**
