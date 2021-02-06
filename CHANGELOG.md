@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+
+## [6.2.0](https://github.com/pasupulaphani/node-cache-redis/releases/tag/v6.2.0) - 2021-02-06
+
+### Added
+
+- Added type definition files
+
 ## [6.0.0](https://github.com/pasupulaphani/node-cache-redis/releases/tag/v6.0.0) - 2020-05-25
 
 ### Added
