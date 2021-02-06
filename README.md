@@ -11,7 +11,7 @@ Simplistic node redis cache ready can scale with generic-pool support
 
 ### Documentation
 
-- [TSDOC pages](https://pasupulaphani.github.io/node-cache-redis/modules/_rediscache_.html)
+- [TSDOC pages](https://pasupulaphani.github.io/node-cache-redis/index.html)
 
 ## Prerequisites
 
