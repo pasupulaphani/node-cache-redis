@@ -16,7 +16,7 @@ let store: RedisStore
  * @param options.redisOptions - opts from [node_redis#options-object-properties]{@link https://github.com/NodeRedis/node_redis#options-object-properties}
  * @param options.poolOptions  - opts from [node-pool#createpool]{@link https://github.com/coopernurse/node-pool#createpool}
  * @param options.logger       - Inject your custom logger
- * @param options.defaulTtlInS - Number of seconds to store by default
+ * @param options.defaultTtlInS - Number of seconds to store by default
  */
 export const init = (options: {
   /** Name your cache store */
@@ -28,16 +28,16 @@ export const init = (options: {
   /** Inject your custom logger */
   logger?: Logger
   /** Number of seconds to store by default */
-  defaulTtlInS?: number
+  defaultTtlInS?: number
 }) => {
   if (store) return
 
-  const { name, logger, defaulTtlInS } = options || {}
+  const { name, logger, defaultTtlInS } = options || {}
   store = new RedisStore({
     ...options,
     name: name || `redisCache-${genRandomStr()}`,
     logger: createLogger(logger),
-    defaulTtlInS: validatedTtl(defaulTtlInS)
+    defaultTtlInS: validatedTtl(defaultTtlInS)
   })
 }
 
@@ -70,20 +70,20 @@ export const getPoolOptions = (): PoolOptions => getStore().getPoolOptions()
 export const getStatus = (): RedisPoolStatus => getStore().status()
 
 /**
- * Return the defaulTtlInS
+ * Return the defaultTtlInS
  */
 export const getDefaultTtlInS = (): number | undefined =>
   getStore().getDefaultTtlInS()
 
 /**
- * Sets the defaulTtlInS
+ * Sets the defaultTtlInS
  * @param ttl - new default ttl in seconds
  */
 export const setDefaultTtlInS = (ttl: number): number | undefined =>
   getStore().setDefaultTtlInS(ttl)
 
 /**
- * Unsets the defaulTtlInS
+ * Unsets the defaultTtlInS
  */
 export const unsetDefaultTtlInS = (): boolean => getStore().unsetDefaultTtlInS()
 

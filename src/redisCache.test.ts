@@ -142,12 +142,12 @@ describe('redisCache', () => {
     const fnToFail = () => {
       throw new Error('not be called')
     }
-    const defaulTtlInS = 10
+    const defaultTtlInS = 10
 
     beforeAll(() => deleteAll())
     afterAll(() => unsetDefaultTtlInS())
 
-    afterEach(() => setDefaultTtlInS(defaulTtlInS))
+    afterEach(() => setDefaultTtlInS(defaultTtlInS))
 
     test("set if key doesn't exist", async () => {
       const localKey = genRandomStr()
