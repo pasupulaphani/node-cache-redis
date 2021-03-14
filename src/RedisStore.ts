@@ -13,7 +13,7 @@ const debug = Debug('nodeRedisStore')
  * RedisStore
  */
 class RedisStore extends RedisPool {
-  defaulTtlInS: number | undefined
+  defaultTtlInS: number | undefined
 
   deleteScriptPromise: Promise<any> | null = null
 
@@ -24,20 +24,20 @@ class RedisStore extends RedisPool {
    * @param
    * @param
    * @param options.logger       - Inject your custom logger
-   * @param options.defaulTtlInS - Number of seconds to store by default
+   * @param options.defaultTtlInS - Number of seconds to store by default
    */
   constructor({
     name,
     redisOptions,
     poolOptions,
     logger,
-    defaulTtlInS
+    defaultTtlInS
   }: {
     name?: string
     redisOptions: RedisOptions
     poolOptions?: PoolOptions
     logger?: Logger
-    defaulTtlInS?: number
+    defaultTtlInS?: number
   }) {
     super({
       name: name || `redisStore-${genRandomStr()}`,
@@ -45,34 +45,34 @@ class RedisStore extends RedisPool {
       poolOptions,
       logger: createLogger(logger)
     })
-    this.defaulTtlInS = validatedTtl(defaulTtlInS)
+    this.defaultTtlInS = validatedTtl(defaultTtlInS)
   }
 
   /**
-   * Return the defaulTtlInS
-   * @returns defaulTtlInS
+   * Return the defaultTtlInS
+   * @returns defaultTtlInS
    */
   getDefaultTtlInS(): number | undefined {
-    return this.defaulTtlInS
+    return this.defaultTtlInS
   }
 
   /**
-   * Sets the defaulTtlInS
+   * Sets the defaultTtlInS
    * @param ttl
-   * @returns defaulTtlInS
+   * @returns defaultTtlInS
    */
   setDefaultTtlInS(ttl: number): number | undefined {
-    this.defaulTtlInS = validatedTtl(ttl)
-    return this.defaulTtlInS
+    this.defaultTtlInS = validatedTtl(ttl)
+    return this.defaultTtlInS
   }
 
   /**
-   * Unsets the defaulTtlInS
+   * Unsets the defaultTtlInS
    * @param ttl
    * @returns true
    */
   unsetDefaultTtlInS(): boolean {
-    this.defaulTtlInS = undefined
+    this.defaultTtlInS = undefined
     return true
   }
 
@@ -117,7 +117,7 @@ class RedisStore extends RedisPool {
         ? JSON.stringify(value)
         : value
 
-    const ttl = validatedTtl(ttlInSeconds, this.defaulTtlInS)
+    const ttl = validatedTtl(ttlInSeconds, this.defaultTtlInS)
     if (ttl) {
       return super.sendCommand('setex', [key, ttl, str])
     }
@@ -141,7 +141,7 @@ class RedisStore extends RedisPool {
       Array.isArray(value) || isJSON(value, true)
         ? JSON.stringify(value)
         : value
-    const ttl = validatedTtl(ttlInSeconds, this.defaulTtlInS)
+    const ttl = validatedTtl(ttlInSeconds, this.defaultTtlInS)
 
     let result = await super.sendCommand('getset', [key, str])
     try {
