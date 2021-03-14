@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
-## [6.2.1](https://github.com/pasupulaphani/node-cache-redis/releases/tag/v6.2.1) - 2021-02-06
+## [6.3.1](https://github.com/pasupulaphani/node-cache-redis/releases/tag/v6.3.1) - 2021-03-14
 
 ### Fixed
 
