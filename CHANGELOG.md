@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 
+## [6.4.2](https://github.com/pasupulaphani/node-cache-redis/releases/tag/v6.4.2) - 2021-04-27
+
+### Fixed
+
+- Updated dependecies: redis and generic-pool
+
 ## [6.4.1](https://github.com/pasupulaphani/node-cache-redis/releases/tag/v6.4.1) - 2021-04-27
 
 ### Fixed
