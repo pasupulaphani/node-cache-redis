@@ -52,7 +52,7 @@ Simplistic node redis cache ready can scale with generic-pool support
 
 #### API
 
-- init([options]) [TSDOC init](https://pasupulaphani.github.io/node-cache-redis/modules/_rediscache_.html#init)
+- init([options]) [TSDOC init](https://pasupulaphani.github.io/node-cache-redis/index.html#init)
 
 #### `options` object properties
 
